@@ -1,0 +1,7 @@
+grf {
+        grfid: "\5f\5f\03\01";
+        name: string(STR_GRF_NAME);
+        desc: string(STR_GRF_DESC);
+        version: 0;
+        min_verison: 0;
+    }
