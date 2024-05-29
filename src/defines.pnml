@@ -1,0 +1,183 @@
+#define PLATFORM_HEIGHT 6
+#define PLATFORM_WIDTH 6
+#define FULL_LENGTH 16
+#define BUFFERSTOP_WIDTH 6
+#define BUFFERSTOP_HEIGHT 6
+#define BUFFERSTOP_LENGTH 4
+#define FENCE_HEIGHT 8
+// we assume that all platforms have the same bbox length, in this case, it is 16.
+
+
+#define PLATFORM_BBOX_NW \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: PLATFORM_HEIGHT;\
+
+#define PLATFORM_BBOX_SE \
+    xoffset: 0;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: PLATFORM_HEIGHT;\
+
+#define PLATFORM_BBOX_NE \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: FULL_LENGTH;\
+    zextent: PLATFORM_HEIGHT;\
+
+#define PLATFORM_BBOX_SW \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: FULL_LENGTH;\
+    zextent: PLATFORM_HEIGHT;\
+
+#define BUFFERSTOP_BBOX_NW \
+    xoffset: (FULL_LENGTH - BUFFERSTOP_LENGTH) / 2;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: BUFFERSTOP_LENGTH;\
+    yextent: BUFFERSTOP_WIDTH;\
+    zextent: BUFFERSTOP_HEIGHT;\
+
+#define BUFFERSTOP_BBOX_SE \
+    xoffset: (FULL_LENGTH - BUFFERSTOP_LENGTH) / 2;\
+    yoffset: FULL_LENGTH - BUFFERSTOP_WIDTH;\
+    zoffset: 0;\
+    xextent: BUFFERSTOP_LENGTH;\
+    yextent: BUFFERSTOP_WIDTH;\
+    zextent: BUFFERSTOP_HEIGHT;\
+
+#define BUFFERSTOP_BBOX_NE \
+    xoffset: 0;\
+    yoffset: (FULL_LENGTH - BUFFERSTOP_LENGTH) / 2;\
+    zoffset: 0;\
+    xextent: BUFFERSTOP_WIDTH;\
+    yextent: BUFFERSTOP_LENGTH;\
+    zextent: BUFFERSTOP_HEIGHT;\
+
+#define BUFFERSTOP_BBOX_SW \
+    xoffset: FULL_LENGTH - BUFFERSTOP_WIDTH;\
+    yoffset: (FULL_LENGTH - BUFFERSTOP_LENGTH) / 2;\
+    zoffset: 0;\
+    xextent: BUFFERSTOP_WIDTH;\
+    yextent: BUFFERSTOP_LENGTH;\
+    zextent: BUFFERSTOP_HEIGHT;\
+
+#define FENCE_BBOX_NW \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: 0;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_SE \
+    xoffset: 0;\
+    yoffset: FULL_LENGTH;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: 0;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_NE \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: 0;\
+    yextent: FULL_LENGTH;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_SW \
+    xoffset: FULL_LENGTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: 0;\
+    yextent: FULL_LENGTH;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_NE_N \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: 0;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_NE_E \
+    xoffset: 0;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: 0;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_SW_S \
+    xoffset: FULL_LENGTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: 0;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_SW_W \
+    xoffset: FULL_LENGTH;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: 0;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_NW_N \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: 0;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_NW_W \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: 0;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_SE_S \
+    xoffset: 0;\
+    yoffset: FULL_LENGTH;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: 0;\
+    zextent: FENCE_HEIGHT;\
+
+#define FENCE_BBOX_SE_E \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: FULL_LENGTH;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: 0;\
+    zextent: FENCE_HEIGHT;\
+
+// era years, may switch to params later
+#define ERA_1_YEAR 0
+#define ERA_2_YEAR 1952
+#define ERA_3_YEAR 1986
+
+#define NPLAT_BIT 0                         // 0 only
+#define SPLAT_BIT 1                         // 1 only
+#define SHELTER_TYPE_BIT 2                  // 2 and 3, ranging from 0 to 3, 0 stands for no shelter
+#define PLATFORM_TYPE_BIT 4                 // 4 and 5, ranging from 0 to 3, providing 4 platforms
+#define HEIGHT_BIT 6                        // 6 and 7, ranging from 0 to 3, providing 4 heights
+
+// compile time random number generator
+#define RNG(min, max) ((min) + (__LINE__ * 1145141919 + 810) % ((max) - (min) + 1))
