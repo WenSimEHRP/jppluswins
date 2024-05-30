@@ -1,28 +1,104 @@
+// tile defines
 
-#define TILE_X_NE 0
-#define TILE_X_SW 1
-#define TILE_X_NW 2
-#define TILE_X_SE 3
-#define TILE_X_N 4
-#define TILE_X_S 5
-#define TILE_X_W 6
-#define TILE_X_E 7
-#define TILE_SELF 8
+// on x directions
+#define TILE_X_NE   0
+#define TILE_X_SW   1
+#define TILE_X_NW   2
+#define TILE_X_SE   3
+#define TILE_X_N    4
+#define TILE_X_S    5
+#define TILE_X_W    6
+#define TILE_X_E    7
+#define TILE_SELF   8
 
-#define TILE_Y_NW TILE_X_NE
-#define TILE_Y_SE TILE_X_SW
-#define TILE_Y_NE TILE_X_NW
-#define TILE_Y_SW TILE_X_SE
-#define TILE_Y_N TILE_X_N
-#define TILE_Y_S TILE_X_S
-#define TILE_Y_W TILE_X_E
-#define TILE_Y_E TILE_X_W
+// on y directions
+#define TILE_Y_NW   TILE_X_NE
+#define TILE_Y_SE   TILE_X_SW
+#define TILE_Y_NE   TILE_X_NW
+#define TILE_Y_SW   TILE_X_SE
+#define TILE_Y_N    TILE_X_N
+#define TILE_Y_S    TILE_X_S
+#define TILE_Y_W    TILE_X_E
+#define TILE_Y_E    TILE_X_W
 
-#define TEMP_RAIL_CONTINUATION 9
-#define TEMP_NEARBY_TILE_STATION 10
-#define TEMP_NEARBY_TILE_PERPENDICULAR 11
-#define TEMP_NEARBY_TILE_GRF 12
+// temporary variables
+#define TEMP_RAIL_CONTINUATION          9
+#define TEMP_NEARBY_TILE_STATION        10
+#define TEMP_NEARBY_TILE_PERPENDICULAR  11
+#define TEMP_NEARBY_TILE_GRF            12
+#define TEMP_CURRENT_LANDSCAPE          13
+#define TEMP_CURRENT_DATE               14
+#define TEMP_TERRAIN_TYPE               15
+#define TEMP_RANDBIT_TILE               16
+#define TEMP_RANDBIT_STATION            17
 
+// spritesets
+#define S_PLATFORM  0
+#define S_MISC      1
+
+// functions
+#define SP_HIDE_SPRITE_BUFFERSTOP(tile) \
+    (getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), tile, 1))
+
+#define SP_RANDOM_CHOOSE_SNOW \
+    (LOAD_TEMP(TEMP_RANDBIT_TILE) % 4)
+
+#define SP_HIDE_SPRITE_CHECK_SNOW \
+    !!(LOAD_TEMP(TEMP_TERRAIN_TYPE) != TILETYPE_SNOW)
+
+#define SP_GET_NPLAT_FORMATION \
+    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1) | getbits(LOAD_TEMP(TILE_X_SW), NPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
+     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1) | getbits(LOAD_TEMP(TILE_X_NE), NPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
+
+#define SP_GET_SPLAT_FORMATION \
+    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1) | getbits(LOAD_TEMP(TILE_X_SW), SPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
+     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1) | getbits(LOAD_TEMP(TILE_X_NE), SPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
+
+#define SP_PLATFORM_ERA_RECOLOUR \
+    (GET_SPRITE(GROUP_RECOLOUR_ERA, (LOAD_TEMP(TEMP_CURRENT_DATE) < date(YEAR_ERA_2,1,1) ? 0 :\
+                                     LOAD_TEMP(TEMP_CURRENT_DATE) < date(YEAR_ERA_3,1,1) ? 1 : 2)))
+
+// start of spritelayouts
+spritelayout sp_platform_x(hide_platform_n, hide_platform_s, hide_shelter) {
+    ground {sprite: GROUNDSPRITE_RAIL_X;}
+    #define SP_BUFFERSTOP(pos, bit) \
+    building { /* bufferstop */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_BUFFERSTOP, pos));\
+                        BBOX_BUFFERSTOP_##pos\
+        hide_sprite:    SP_HIDE_SPRITE_BUFFERSTOP(bit);\
+    }
+    #define SP_PLATFORM(pos, pos2) \
+    building { /* platform NW */ \
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_SYM, pos));\
+                        BBOX_PLATFORM_##pos\
+        hide_sprite:    hide_platform_##pos2;\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, SP_PLATFORM_ERA_RECOLOUR);\
+    }\
+    childsprite { /* snow */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SNOW_0 + SP_RANDOM_CHOOSE_SNOW, pos));\
+        hide_sprite:    SP_HIDE_SPRITE_CHECK_SNOW;\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));\
+    }
+    // the specific order of the sprites is important
+    // because it affects the order of sprites in the purchase view
+    SP_PLATFORM(NW, n)
+    SP_BUFFERSTOP(NE, 0)
+    SP_BUFFERSTOP(SW, 1)
+    SP_PLATFORM(SE, s)
+}
+
+spritelayout sp_platform_y(hide_platform_n, hide_platform_s, hide_shelter) {
+    ground {sprite: GROUNDSPRITE_RAIL_Y;}
+    SP_PLATFORM(NE, n)
+    SP_BUFFERSTOP(NW, 0)
+    SP_BUFFERSTOP(SE, 1)
+    SP_PLATFORM(SW, s)
+}
+
+
+// temp storage
 switch (FEAT_STATIONS, SELF, sw_check_nearby_landscape,
         nearby_tile_slope(-1, 0) << TILE_X_NE|
         nearby_tile_slope( 1, 0) << TILE_X_SW|
@@ -67,20 +143,77 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
         nearby_tile_same_grf( 1,-1) << TILE_X_W|
         nearby_tile_same_grf(-1, 1) << TILE_X_E) {return;}
 
-switch (FEAT_STATIONS, SELF, sw_test, [
-    STORE_TEMP(sw_check_rail_continuation(), TEMP_RAIL_CONTINUATION),
-    STORE_TEMP(nearby_tile_station_id(-1, 0), TILE_X_NE),
-    STORE_TEMP(nearby_tile_station_id( 1, 0), TILE_X_SW),
-    STORE_TEMP(nearby_tile_station_id( 0,-1), TILE_X_NW),
-    STORE_TEMP(nearby_tile_station_id( 0, 1), TILE_X_SE),
-    STORE_TEMP(nearby_tile_station_id(-1,-1), TILE_X_N),
-    STORE_TEMP(nearby_tile_station_id( 1, 1), TILE_X_S),
-    STORE_TEMP(nearby_tile_station_id( 1,-1), TILE_X_W),
-    STORE_TEMP(nearby_tile_station_id(-1, 1), TILE_X_E),
-    STORE_TEMP(nearby_tile_station_id( 0, 0), TILE_SELF),
-    STORE_TEMP(sw_check_nearby_tile_station(), TEMP_NEARBY_TILE_STATION),
-    STORE_TEMP(sw_check_nearby_tile_perpendicular(), TEMP_NEARBY_TILE_PERPENDICULAR),
-    STORE_TEMP(sw_check_nearby_tile_grf(), TEMP_NEARBY_TILE_GRF),
+// we want to put all calculations and checks in spritelayouts, so here in
+// the switch we only store the results of the checks in temporary variables
+
+switch (FEAT_STATIONS, SELF, sw_platform, [
+    STORE_TEMP(sw_check_rail_continuation(),            TEMP_RAIL_CONTINUATION),
+    STORE_TEMP(nearby_tile_station_id(-1, 0),           TILE_X_NE),
+    STORE_TEMP(nearby_tile_station_id( 1, 0),           TILE_X_SW),
+    STORE_TEMP(nearby_tile_station_id( 0,-1),           TILE_X_NW),
+    STORE_TEMP(nearby_tile_station_id( 0, 1),           TILE_X_SE),
+    STORE_TEMP(nearby_tile_station_id(-1,-1),           TILE_X_N),
+    STORE_TEMP(nearby_tile_station_id( 1, 1),           TILE_X_S),
+    STORE_TEMP(nearby_tile_station_id( 1,-1),           TILE_X_W),
+    STORE_TEMP(nearby_tile_station_id(-1, 1),           TILE_X_E),
+    STORE_TEMP(nearby_tile_station_id( 0, 0),           TILE_SELF),
+    STORE_TEMP(sw_check_nearby_tile_station(),          TEMP_NEARBY_TILE_STATION),
+    STORE_TEMP(sw_check_nearby_tile_perpendicular(),    TEMP_NEARBY_TILE_PERPENDICULAR),
+    STORE_TEMP(sw_check_nearby_tile_grf(),              TEMP_NEARBY_TILE_GRF),
+    STORE_TEMP(nearby_tile_slope(0, 0),                 TEMP_CURRENT_LANDSCAPE),
+    STORE_TEMP(current_date,                            TEMP_CURRENT_DATE),
+    STORE_TEMP(terrain_type,                            TEMP_TERRAIN_TYPE),
+    STORE_TEMP(random_bits_tile,                        TEMP_RANDBIT_TILE),
+    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
 ])
 {return;}
 
+// test purpose
+
+item(FEAT_STATIONS, i_test_station) {
+    property {
+        class:                  "WINS";
+        classname:              string(STR_GRF_NAME);
+        name:                   string(STR_GRF_NAME);
+        non_traversable_tiles:  0;
+        draw_pylon_tiles:       STAT_ALL_TILES;
+        hide_wire_tiles:        0;
+    }
+    graphics {
+        sprite_layouts: [sp_platform_x(0,0,0), sp_platform_y(0,0,0)];
+        custom_spritesets: [s_platform_cement, s_misc];
+        prepare_layout: sw_platform();
+    }
+}
+
+item(FEAT_STATIONS, i_test_station2) {
+    property {
+        class:                  "WINS";
+        classname:              string(STR_GRF_NAME);
+        name:                   string(STR_GRF_NAME);
+        non_traversable_tiles:  0;
+        draw_pylon_tiles:       STAT_ALL_TILES;
+        hide_wire_tiles:        0;
+    }
+    graphics {
+        sprite_layouts: [sp_platform_x(1,0,0), sp_platform_y(1,0,0)];
+        custom_spritesets: [s_platform_cement, s_misc];
+        prepare_layout: sw_platform();
+    }
+}
+
+item(FEAT_STATIONS, i_test_station3) {
+    property {
+        class:                  "WINS";
+        classname:              string(STR_GRF_NAME);
+        name:                   string(STR_GRF_NAME);
+        non_traversable_tiles:  0;
+        draw_pylon_tiles:       STAT_ALL_TILES;
+        hide_wire_tiles:        0;
+    }
+    graphics {
+        sprite_layouts: [sp_platform_x(0,1,0), sp_platform_y(0,1,0)];
+        custom_spritesets: [s_platform_cement, s_misc];
+        prepare_layout: sw_platform();
+    }
+}

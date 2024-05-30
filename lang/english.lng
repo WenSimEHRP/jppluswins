@@ -1,0 +1,5 @@
+##grflangid 0x01
+
+STR_GRF_NAME        :{TITLE} {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
+STR_GRF_DESC        :{TITLE} is a station set.
+STR_GRF_JAPANSET    :JP+ Station contains every station tile in {PUSH_COLOUR}{WHITE}JapanSet3: Stations{POP_COLOUR}. It is recommended to remove the GRF before using this set.

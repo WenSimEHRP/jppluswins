@@ -6,6 +6,6 @@ grf {
         min_compatible_version: 0;
     }
 
-if (grf_future_status("SZ\0D\00") == 1) {
+if (grf_future_status("\45\53\05\00") == 1) {
         error(ERROR, string(STR_GRF_JAPANSET));
 }
