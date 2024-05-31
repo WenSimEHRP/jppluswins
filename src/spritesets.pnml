@@ -153,25 +153,28 @@ Recoloursprites are special and should be handled separately.
 
 spriteset(s_platform_cement) {
     /* sym platforms */
-    NW_0:           t_platform_NW("platform/platform_cement_sym")
-    NE_0:           t_platform_NE("platform/platform_cement_sym")
-    SE_0:           t_platform_SE("platform/platform_cement_sym")
-    SW_0:           t_platform_SW("platform/platform_cement_sym")
-    /* asym platforms 1 */
-    NW_1:           t_platform_NW("platform/platform_cement_asym_1")
-    NE_1:           t_platform_NE("platform/platform_cement_asym_1")
-    SE_1:           t_platform_SE("platform/platform_cement_asym_1")
-    SW_1:           t_platform_SW("platform/platform_cement_asym_1")
-    /* asym platforms 2 */
-    NW_2:           t_platform_NW("platform/platform_cement_asym_2")
-    NE_2:           t_platform_NE("platform/platform_cement_asym_2")
-    SE_2:           t_platform_SE("platform/platform_cement_asym_2")
-    SW_2:           t_platform_SW("platform/platform_cement_asym_2")
-    /* sym edge platforms */
-    NW_3:           t_platform_NW("platform/platform_cement_sym_edge")
-    NE_3:           t_platform_NE("platform/platform_cement_sym_edge")
-    SE_3:           t_platform_SE("platform/platform_cement_sym_edge")
-    SW_3:           t_platform_SW("platform/platform_cement_sym_edge")
+    #define S_PLATFORM_SETUP(name) \
+    NW_0:           t_platform_NW("platform/"+name+"_sym")\
+    NE_0:           t_platform_NE("platform/"+name+"_sym")\
+    SE_0:           t_platform_SE("platform/"+name+"_sym")\
+    SW_0:           t_platform_SW("platform/"+name+"_sym")\
+    /* asym platforms 1 */\
+    NW_1:           t_platform_NW("platform/"+name+"_asym_1")\
+    NE_1:           t_platform_NE("platform/"+name+"_asym_1")\
+    SE_1:           t_platform_SE("platform/"+name+"_asym_1")\
+    SW_1:           t_platform_SW("platform/"+name+"_asym_1")\
+    /* asym platforms 2 */\
+    NW_2:           t_platform_NW("platform/"+name+"_asym_2")\
+    NE_2:           t_platform_NE("platform/"+name+"_asym_2")\
+    SE_2:           t_platform_SE("platform/"+name+"_asym_2")\
+    SW_2:           t_platform_SW("platform/"+name+"_asym_2")\
+    /* sym edge platforms */\
+    NW_3:           t_platform_NW("platform/"+name+"_sym_edge")\
+    NE_3:           t_platform_NE("platform/"+name+"_sym_edge")\
+    SE_3:           t_platform_SE("platform/"+name+"_sym_edge")\
+    SW_3:           t_platform_SW("platform/"+name+"_sym_edge")
+
+    S_PLATFORM_SETUP("platform_cement")
     /* recolouring, recolour from RNG? */
     re_noline:      recolour_sprite{
         0x41: 0x08;
@@ -190,27 +193,30 @@ spriteset(s_platform_cement) {
     re_platform_4:  recolour_sprite{}
 }
 
+spriteset(s_platform_cement_crossing) {
+    S_PLATFORM_SETUP("platform_cement_crossing")
+    /* recolouring, recolour from RNG? */
+    re_noline:      recolour_sprite{
+        0x40: 0x07;
+        0x41: 0x08;
+        0x42: 0x08;
+    }
+    re_era_2:       recolour_sprite{
+        0x40: 0x0B;
+        0x41: 0x0C;
+        0x42: 0x0D;
+    }
+    re_era_3:       recolour_sprite{}
+    re_era_4:       recolour_sprite{} // placeholder
+    /* recolouring for platform */
+    re_platform_1:  recolour_sprite{}
+    re_platform_2:  recolour_sprite{}
+    re_platform_3:  recolour_sprite{}
+    re_platform_4:  recolour_sprite{}
+}
+
 spriteset(s_platform_brick) {
-    /* sym platforms */
-    NW_0:           t_platform_NW("platform/platform_brick_sym")
-    NE_0:           t_platform_NE("platform/platform_brick_sym")
-    SE_0:           t_platform_SE("platform/platform_brick_sym")
-    SW_0:           t_platform_SW("platform/platform_brick_sym")
-    /* asym platforms 1 */
-    NW_1:           t_platform_NW("platform/platform_brick_asym_1")
-    NE_1:           t_platform_NE("platform/platform_brick_asym_1")
-    SE_1:           t_platform_SE("platform/platform_brick_asym_1")
-    SW_1:           t_platform_SW("platform/platform_brick_asym_1")
-    /* asym platforms 2 */
-    NW_2:           t_platform_NW("platform/platform_brick_asym_2")
-    NE_2:           t_platform_NE("platform/platform_brick_asym_2")
-    SE_2:           t_platform_SE("platform/platform_brick_asym_2")
-    SW_2:           t_platform_SW("platform/platform_brick_asym_2")
-    /* sym edge platforms */
-    NW_3:           t_platform_NW("platform/platform_brick_sym_edge")
-    NE_3:           t_platform_NE("platform/platform_brick_sym_edge")
-    SE_3:           t_platform_SE("platform/platform_brick_sym_edge")
-    SW_3:           t_platform_SW("platform/platform_brick_sym_edge")
+    S_PLATFORM_SETUP("platform_brick")
     /* recolouring, recolour from RNG? */
     re_noline:      recolour_sprite{}
     re_era_2:       recolour_sprite{}
@@ -224,26 +230,7 @@ spriteset(s_platform_brick) {
 }
 
 spriteset(s_platform_wood) {
-    /* sym platforms */
-    NW_0:           t_platform_NW("platform/platform_wood_sym")
-    NE_0:           t_platform_NE("platform/platform_wood_sym")
-    SE_0:           t_platform_SE("platform/platform_wood_sym")
-    SW_0:           t_platform_SW("platform/platform_wood_sym")
-    /* asym platforms 1 */
-    NW_1:           t_platform_NW("platform/platform_wood_asym_1")
-    NE_1:           t_platform_NE("platform/platform_wood_asym_1")
-    SE_1:           t_platform_SE("platform/platform_wood_asym_1")
-    SW_1:           t_platform_SW("platform/platform_wood_asym_1")
-    /* asym platforms 2 */
-    NW_2:           t_platform_NW("platform/platform_wood_asym_2")
-    NE_2:           t_platform_NE("platform/platform_wood_asym_2")
-    SE_2:           t_platform_SE("platform/platform_wood_asym_2")
-    SW_2:           t_platform_SW("platform/platform_wood_asym_2")
-    /* sym edge platforms */
-    NW_3:           t_platform_NW("platform/platform_wood_sym_edge")
-    NE_3:           t_platform_NE("platform/platform_wood_sym_edge")
-    SE_3:           t_platform_SE("platform/platform_wood_sym_edge")
-    SW_3:           t_platform_SW("platform/platform_wood_sym_edge")
+    S_PLATFORM_SETUP("platform_wood")
     /* recolouring, recolour from RNG? */
     re_noline:      recolour_sprite{}
     re_era_2:       recolour_sprite{}

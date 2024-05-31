@@ -46,17 +46,18 @@
 #define SP_HIDE_SPRITE_CHECK_SNOW \
     !!(LOAD_TEMP(TEMP_TERRAIN_TYPE) != TILETYPE_SNOW)
 
-#define SP_GET_NPLAT_FORMATION \
-    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1) | getbits(LOAD_TEMP(TILE_X_SW), NPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
-     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1) | getbits(LOAD_TEMP(TILE_X_NE), NPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
+#define SP_GET_PLAT_FORMATION_n \
+    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1) | getbits(LOAD_TEMP(TILE_X_SW), BIT_NPLAT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 1|\
+     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1) | getbits(LOAD_TEMP(TILE_X_NE), BIT_NPLAT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 0)
 
-#define SP_GET_SPLAT_FORMATION \
-    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1) | getbits(LOAD_TEMP(TILE_X_SW), SPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
-     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1) | getbits(LOAD_TEMP(TILE_X_NE), SPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
+#define SP_GET_PLAT_FORMATION_s \
+    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1) | getbits(LOAD_TEMP(TILE_X_SW), BIT_SPLAT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 1|\
+     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1) | getbits(LOAD_TEMP(TILE_X_NE), BIT_SPLAT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 0)
 
 #define SP_PLATFORM_ERA_RECOLOUR \
-    (GET_SPRITE(GROUP_RECOLOUR_ERA, (LOAD_TEMP(TEMP_CURRENT_DATE) < date(YEAR_ERA_2,1,1) ? 0 :\
-                                     LOAD_TEMP(TEMP_CURRENT_DATE) < date(YEAR_ERA_3,1,1) ? 1 : 2)))
+    (GET_SPRITE(GROUP_RECOLOUR_ERA, \
+        (LOAD_TEMP(TEMP_CURRENT_DATE) < date(YEAR_ERA_2,1,1) ? 0 : \
+         LOAD_TEMP(TEMP_CURRENT_DATE) < date(YEAR_ERA_3,1,1) ? 1 : 2)))
 
 // start of spritelayouts
 spritelayout sp_platform_x(hide_platform_n, hide_platform_s, hide_shelter) {
@@ -69,7 +70,7 @@ spritelayout sp_platform_x(hide_platform_n, hide_platform_s, hide_shelter) {
     }
     #define SP_PLATFORM(pos, pos2) \
     building { /* platform NW */ \
-        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_SYM, pos));\
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_SYM + SP_GET_PLAT_FORMATION_##pos2, pos));\
                         BBOX_PLATFORM_##pos\
         hide_sprite:    hide_platform_##pos2;\
         recolour_mode:  RECOLOUR_REMAP;\
@@ -168,9 +169,12 @@ switch (FEAT_STATIONS, SELF, sw_platform, [
 ])
 {return;}
 
-// test purpose
+//TODO remove this later, it's only for testing
+// test purpose, should be removed later
+#define STN_CALC_ID(a,b,c,d) \
+    ((a) << BIT_NPLAT | (b) << BIT_SPLAT | (c) << BIT_SHELTER_TYPE | (d) << BIT_HEIGHT)
 
-item(FEAT_STATIONS, i_test_station) {
+item(FEAT_STATIONS, i_test_station, STN_CALC_ID(0,0,0,0)) {
     property {
         class:                  "WINS";
         classname:              string(STR_GRF_NAME);
@@ -186,7 +190,7 @@ item(FEAT_STATIONS, i_test_station) {
     }
 }
 
-item(FEAT_STATIONS, i_test_station2) {
+item(FEAT_STATIONS, i_test_station2, STN_CALC_ID(1,0,0,0)) {
     property {
         class:                  "WINS";
         classname:              string(STR_GRF_NAME);
@@ -202,7 +206,7 @@ item(FEAT_STATIONS, i_test_station2) {
     }
 }
 
-item(FEAT_STATIONS, i_test_station3) {
+item(FEAT_STATIONS, i_test_station3, STN_CALC_ID(0,1,0,0)) {
     property {
         class:                  "WINS";
         classname:              string(STR_GRF_NAME);
@@ -214,6 +218,22 @@ item(FEAT_STATIONS, i_test_station3) {
     graphics {
         sprite_layouts: [sp_platform_x(0,1,0), sp_platform_y(0,1,0)];
         custom_spritesets: [s_platform_cement, s_misc];
+        prepare_layout: sw_platform();
+    }
+}
+
+item(FEAT_STATIONS, i_test_station4, STN_CALC_ID(0,0,0,1)) {
+    property {
+        class:                  "WINS";
+        classname:              string(STR_GRF_NAME);
+        name:                   string(STR_GRF_NAME);
+        non_traversable_tiles:  0;
+        draw_pylon_tiles:       STAT_ALL_TILES;
+        hide_wire_tiles:        0;
+    }
+    graphics {
+        sprite_layouts: [sp_platform_x(0,0,0), sp_platform_y(0,0,0)];
+        custom_spritesets: [s_platform_cement_crossing, s_misc];
         prepare_layout: sw_platform();
     }
 }
