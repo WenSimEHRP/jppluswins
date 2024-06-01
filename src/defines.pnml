@@ -173,11 +173,14 @@
 #define YEAR_ERA_2 1952
 #define YEAR_ERA_3 1986
 
+// 0000 0000 0000 0000
+
 #define BIT_NPLAT 0                         // 0 only
 #define BIT_SPLAT 1                         // 1 only
-#define BIT_SHELTER_TYPE 2                  // 2 and 3, ranging from 0 to 3, 0 stands for no shelter
+// unused
 #define BIT_PLATFORM_TYPE 4                 // 4 and 5, ranging from 0 to 3, providing 4 platforms
 #define BIT_HEIGHT 6                        // 6 and 7, ranging from 0 to 3, providing 4 heights
+#define BIT_SHELTER_TYPE 2                  // 8 to 10, ranging from 0 to 7, providing 8 shelter types, 0 means no shelter
 
 // funcitons
 #define RNG(min, max) ((min) + (__LINE__ * 1145141919 + 810) % ((max) - (min) + 1))
