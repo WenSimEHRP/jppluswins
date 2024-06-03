@@ -1,6 +1,6 @@
-# JP+ Stations (WINS)
+# JP+ WINS Stations
 
-An unofficial sister set to JP+ Engines and Wagons, JP+ Shinkansen, JP+ MUs, and JP+ Private;
+An unofficial set of the JP+ family;
 designed to replace JP3 Stations
 
 ## Building
