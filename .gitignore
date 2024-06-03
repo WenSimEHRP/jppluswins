@@ -3,3 +3,5 @@
 *.nml
 custom_tags.txt
 nml/
+*.yagl
+sprites/
