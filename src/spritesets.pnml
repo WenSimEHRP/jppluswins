@@ -190,16 +190,21 @@ spriteset(s_shelter_tiles) {
 //* start of platform spritesets
 
 // groups
-#define GROUP_SYM               (0)
-#define GROUP_ASYM_1            (GROUP_SYM + 1)
-#define GROUP_ASYM_2            (GROUP_ASYM_1 + 1)
-#define GROUP_SYM_EDGE          (GROUP_ASYM_2 + 1)
-#define GROUP_RECOLOUR_ERA      (GROUP_SYM_EDGE + 1)
-#define GROUP_RECOLOUR_PLATFORM (GROUP_RECOLOUR_ERA + 1)
-#define GROUP_PLATFORM_MISC     (GROUP_RECOLOUR_PLATFORM + 1)
+#define GROUP_SYM                       (0)
+#define GROUP_ASYM_1                    (GROUP_SYM + 1)
+#define GROUP_ASYM_2                    (GROUP_ASYM_1 + 1)
+#define GROUP_SYM_EDGE                  (GROUP_ASYM_2 + 1)
+#define GROUP_RECOLOUR_ERA              (GROUP_SYM_EDGE + 1)
+#define GROUP_RECOLOUR_PLATFORM         (GROUP_RECOLOUR_ERA + 1)
+// sets
+#define SET_PLATFORM_CEMENT             (0)
+#define SET_PLATFORM_CEMENT_CROSSING    (SET_PLATFORM_CEMENT + 1)
+
 // functions
 #define SPRITE_PER_PLATFORM_GROUP 4
-#define GET_SPRITE(group, sprite) (group * SPRITE_PER_PLATFORM_GROUP + sprite)
+#define GROUP_PER_PLATFORM_SET (GROUP_RECOLOUR_PLATFORM + 1)
+#define GET_SPRITE(set, group, sprite)\
+    (set * GROUP_PER_PLATFORM_SET * SPRITE_PER_PLATFORM_GROUP + group * SPRITE_PER_PLATFORM_GROUP + sprite)
 /*
 There goes with two pointers: group pointer and sprite pointer
 the group pointer points out the platform group, say, is it sym or
@@ -213,48 +218,68 @@ Recoloursprites are special and should be handled separately.
 spriteset(s_platform_cement) {
     /* sym platforms */
     #define S_PLATFORM_SETUP(name) \
-    NW_0:           t_platform_NW("platform/"+name+"_sym")\
-    NE_0:           t_platform_NE("platform/"+name+"_sym")\
-    SE_0:           t_platform_SE("platform/"+name+"_sym")\
-    SW_0:           t_platform_SW("platform/"+name+"_sym")\
+    t_platform_NW("platform/"+name+"_sym")\
+    t_platform_NE("platform/"+name+"_sym")\
+    t_platform_SE("platform/"+name+"_sym")\
+    t_platform_SW("platform/"+name+"_sym")\
     /* asym platforms 1 */\
-    NW_1:           t_platform_NW("platform/"+name+"_asym_1")\
-    NE_1:           t_platform_NE("platform/"+name+"_asym_1")\
-    SE_1:           t_platform_SE("platform/"+name+"_asym_1")\
-    SW_1:           t_platform_SW("platform/"+name+"_asym_1")\
+    t_platform_NW("platform/"+name+"_asym_1")\
+    t_platform_NE("platform/"+name+"_asym_1")\
+    t_platform_SE("platform/"+name+"_asym_1")\
+    t_platform_SW("platform/"+name+"_asym_1")\
     /* asym platforms 2 */\
-    NW_2:           t_platform_NW("platform/"+name+"_asym_2")\
-    NE_2:           t_platform_NE("platform/"+name+"_asym_2")\
-    SE_2:           t_platform_SE("platform/"+name+"_asym_2")\
-    SW_2:           t_platform_SW("platform/"+name+"_asym_2")\
+    t_platform_NW("platform/"+name+"_asym_2")\
+    t_platform_NE("platform/"+name+"_asym_2")\
+    t_platform_SE("platform/"+name+"_asym_2")\
+    t_platform_SW("platform/"+name+"_asym_2")\
     /* sym edge platforms */\
-    NW_3:           t_platform_NW("platform/"+name+"_sym_edge")\
-    NE_3:           t_platform_NE("platform/"+name+"_sym_edge")\
-    SE_3:           t_platform_SE("platform/"+name+"_sym_edge")\
-    SW_3:           t_platform_SW("platform/"+name+"_sym_edge")
+    t_platform_NW("platform/"+name+"_sym_edge")\
+    t_platform_NE("platform/"+name+"_sym_edge")\
+    t_platform_SE("platform/"+name+"_sym_edge")\
+    t_platform_SW("platform/"+name+"_sym_edge")
 
     S_PLATFORM_SETUP("platform_cement")
     /* recolouring, recolour from RNG? */
-    re_noline:      recolour_sprite{
+    recolour_sprite{
         0x41: 0x08;
         0x42: 0x08;
     }
-    re_era_2:       recolour_sprite{
+    recolour_sprite{
         0x41: 0x0C;
         0x42: 0x0D;
     }
-    re_era_3:       recolour_sprite{}
-    re_era_4:       recolour_sprite{} // placeholder
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
     /* recolouring for platform */
-    re_platform_1:  recolour_sprite{}
-    re_platform_2:  recolour_sprite{}
-    re_platform_3:  recolour_sprite{}
-    re_platform_4:  recolour_sprite{}
-}
-
-spriteset(s_platform_cement_crossing) {
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    /* cement crossing */
     S_PLATFORM_SETUP("platform_cement_crossing")
     /* recolouring, recolour from RNG? */
+    recolour_sprite{
+        0x40: 0x07;
+        0x41: 0x08;
+        0x42: 0x08;
+    }
+    recolour_sprite{
+        0x40: 0x0B;
+        0x41: 0x0C;
+        0x42: 0x0D;
+    }
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
+    /* recolouring for platform */
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+}
+/*
+spriteset(s_platform_cement_crossing) {
+    S_PLATFORM_SETUP("platform_cement_crossing")
+    //recolouring, recolour from RNG?
     re_noline:      recolour_sprite{
         0x40: 0x07;
         0x41: 0x08;
@@ -267,17 +292,17 @@ spriteset(s_platform_cement_crossing) {
     }
     re_era_3:       recolour_sprite{}
     re_era_4:       recolour_sprite{} // placeholder
-    /* recolouring for platform */
+    // recolouring for platform
     re_platform_1:  recolour_sprite{}
     re_platform_2:  recolour_sprite{}
     re_platform_3:  recolour_sprite{}
     re_platform_4:  recolour_sprite{}
-    /* misc items */
+    // misc items
     //misc_0:         t_0(0, "platform/platform_cement_crossing_misc")
     //misc_1:         t_0(1, "platform/platform_cement_crossing_misc")
     //misc_2:         t_0(2, "platform/platform_cement_crossing_misc")
     //misc_3:         t_0(3, "platform/platform_cement_crossing_misc")
-}
+}*/
 
 spriteset(s_platform_brick) {
     S_PLATFORM_SETUP("platform_brick")
