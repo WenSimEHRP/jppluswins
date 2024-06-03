@@ -27,10 +27,10 @@
 #define TEMP_NEARBY_TILE_PERPENDICULAR  11
 #define TEMP_NEARBY_TILE_GRF            12
 #define TEMP_CURRENT_LANDSCAPE          13
-#define TEMP_CURRENT_DATE               14
-#define TEMP_TERRAIN_TYPE               15
-#define TEMP_RANDBIT_TILE               16
-#define TEMP_RANDBIT_STATION            17
+//#define TEMP_CURRENT_DATE               14
+//#define TEMP_TERRAIN_TYPE               15
+//#define TEMP_RANDBIT_TILE               16
+//#define TEMP_RANDBIT_STATION            17
 
 // spritesets
 #define S_PLATFORM  0
@@ -42,10 +42,10 @@
     (getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), tile, 1))
 
 #define SP_RANDOM_CHOOSE_SNOW \
-    (LOAD_TEMP(TEMP_RANDBIT_TILE) % 4)
+    (random_bits_tile % 4)
 
 #define SP_HIDE_SPRITE_CHECK_SNOW \
-    !!(LOAD_TEMP(TEMP_TERRAIN_TYPE) != TILETYPE_SNOW)
+    !!(terrain_type != TILETYPE_SNOW)
 
 // get platform formation
 #define SP_GET_PLAT_FORMATION_n \
@@ -84,8 +84,8 @@
 // platform recolouring
 #define SP_PLATFORM_ERA_RECOLOUR \
     (GET_SPRITE(GROUP_RECOLOUR_ERA, \
-        (LOAD_TEMP(TEMP_CURRENT_DATE) < date(YEAR_ERA_2,1,1) ? 0 : \
-         LOAD_TEMP(TEMP_CURRENT_DATE) < date(YEAR_ERA_3,1,1) ? 1 : 2)))
+        (current_date < date(YEAR_ERA_2,1,1) ? 0 : \
+         current_date < date(YEAR_ERA_3,1,1) ? 1 : 2)))
 
 
 // start of spritelayouts
@@ -200,10 +200,10 @@ switch (FEAT_STATIONS, SELF, sw_platform, [
     STORE_TEMP(sw_check_nearby_tile_perpendicular(),    TEMP_NEARBY_TILE_PERPENDICULAR),
     STORE_TEMP(sw_check_nearby_tile_grf(),              TEMP_NEARBY_TILE_GRF),
     STORE_TEMP(nearby_tile_slope(0, 0),                 TEMP_CURRENT_LANDSCAPE),
-    STORE_TEMP(current_date,                            TEMP_CURRENT_DATE),
-    STORE_TEMP(terrain_type,                            TEMP_TERRAIN_TYPE),
-    STORE_TEMP(random_bits_tile,                        TEMP_RANDBIT_TILE),
-    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
+//    STORE_TEMP(current_date,                            TEMP_CURRENT_DATE),
+//    STORE_TEMP(terrain_type,                            TEMP_TERRAIN_TYPE),
+//    STORE_TEMP(random_bits_tile,                        TEMP_RANDBIT_TILE),
+//    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
 ])
 {return;}
 
