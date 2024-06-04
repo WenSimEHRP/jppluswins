@@ -31,11 +31,12 @@ template t_platform_SW(name) {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-15,-47,"gfx/"+name+".
 // for simplicity, I'll put everything in one spriteset
 
 // groups
-#define GROUP_SNOW_0        (0)
-#define GROUP_SNOW_1        (GROUP_SNOW_0 + 1)
-#define GROUP_SNOW_2        (GROUP_SNOW_1 + 1)
-#define GROUP_SNOW_3        (GROUP_SNOW_2 + 1)
-#define GROUP_BUFFERSTOP    (GROUP_SNOW_3 + 1)
+//#define GROUP_SNOW_0        (0)
+//#define GROUP_SNOW_1        (GROUP_SNOW_0 + 1)
+//#define GROUP_SNOW_2        (GROUP_SNOW_1 + 1)
+//#define GROUP_SNOW_3        (GROUP_SNOW_2 + 1)
+//#define GROUP_BUFFERSTOP    (GROUP_SNOW_3 + 1)
+#define GROUP_BUFFERSTOP    (0)
 #define GROUP_DECO_0        (GROUP_BUFFERSTOP + 1)
 #define GROUP_DECO_1        (GROUP_DECO_0 + 1)
 #define GROUP_DECO_2        (GROUP_DECO_1 + 1)
@@ -47,26 +48,26 @@ template t_platform_SW(name) {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-15,-47,"gfx/"+name+".
 #define GET_SPRITE_MISC(group, sprite) (group * SPRITE_PER_MISC_GRUOP + sprite)
 
 spriteset(s_misc) {
-    /* snow */ //*0
-    snow_0_NW: t_0(0, "misc/snow_0")
-    snow_0_NE: t_0(1, "misc/snow_0")
-    snow_0_SE: t_0(2, "misc/snow_0")
-    snow_0_SW: t_0(3, "misc/snow_0")
-    /* snow */ //*1
-    snow_1_NW: t_0(0, "misc/snow_1")
-    snow_1_NE: t_0(1, "misc/snow_1")
-    snow_1_SE: t_0(2, "misc/snow_1")
-    snow_1_SW: t_0(3, "misc/snow_1")
-    /* snow */ //*2
-    snow_2_NW: t_0(0, "misc/snow_2")
-    snow_2_NE: t_0(1, "misc/snow_2")
-    snow_2_SE: t_0(2, "misc/snow_2")
-    snow_2_SW: t_0(3, "misc/snow_2")
-    /* snow */ //*3
-    snow_3_NW: t_0(0, "misc/snow_3")
-    snow_3_NE: t_0(1, "misc/snow_3")
-    snow_3_SE: t_0(2, "misc/snow_3")
-    snow_3_SW: t_0(3, "misc/snow_3")
+    ///* snow */ //*0
+    //snow_0_NW: t_0(0, "misc/snow_0")
+    //snow_0_NE: t_0(1, "misc/snow_0")
+    //snow_0_SE: t_0(2, "misc/snow_0")
+    //snow_0_SW: t_0(3, "misc/snow_0")
+    ///* snow */ //*1
+    //snow_1_NW: t_0(0, "misc/snow_1")
+    //snow_1_NE: t_0(1, "misc/snow_1")
+    //snow_1_SE: t_0(2, "misc/snow_1")
+    //snow_1_SW: t_0(3, "misc/snow_1")
+    ///* snow */ //*2
+    //snow_2_NW: t_0(0, "misc/snow_2")
+    //snow_2_NE: t_0(1, "misc/snow_2")
+    //snow_2_SE: t_0(2, "misc/snow_2")
+    //snow_2_SW: t_0(3, "misc/snow_2")
+    ///* snow */ //*3
+    //snow_3_NW: t_0(0, "misc/snow_3")
+    //snow_3_NE: t_0(1, "misc/snow_3")
+    //snow_3_SE: t_0(2, "misc/snow_3")
+    //snow_3_SW: t_0(3, "misc/snow_3")
     /* bufferstops */ //*4
     bufferstop_NW: t_bufferstop_NW("misc/bufferstop")
     bufferstop_NE: t_bufferstop_NE("misc/bufferstop")
@@ -196,13 +197,17 @@ spriteset(s_shelter_tiles) {
 #define GROUP_SYM_EDGE                  (GROUP_ASYM_2 + 1)
 #define GROUP_RECOLOUR_ERA              (GROUP_SYM_EDGE + 1)
 #define GROUP_RECOLOUR_PLATFORM         (GROUP_RECOLOUR_ERA + 1)
+#define GROUP_SNOW_SYM                  (GROUP_RECOLOUR_PLATFORM + 1)
+#define GROUP_SNOW_ASYM_1               (GROUP_SNOW_SYM + 1)
+#define GROUP_SNOW_ASYM_2               (GROUP_SNOW_ASYM_1 + 1)
+#define GROUP_SNOW_SYM_EDGE             (GROUP_SNOW_ASYM_2 + 1)
 // sets
 #define SET_PLATFORM_CEMENT             (0)
 #define SET_PLATFORM_CEMENT_CROSSING    (SET_PLATFORM_CEMENT + 1)
 
 // functions
 #define SPRITE_PER_PLATFORM_GROUP 4
-#define GROUP_PER_PLATFORM_SET (GROUP_RECOLOUR_PLATFORM + 1)
+#define GROUP_PER_PLATFORM_SET (GROUP_SNOW_SYM_EDGE + 1)
 #define GET_SPRITE(set, group, sprite)\
     (set * GROUP_PER_PLATFORM_SET * SPRITE_PER_PLATFORM_GROUP + group * SPRITE_PER_PLATFORM_GROUP + sprite)
 /*
@@ -215,7 +220,7 @@ Here we use multiplication to tell the group and sprite apart.
 Recoloursprites are special and should be handled separately.
 */
 
-spriteset(s_platform_cement) {
+spriteset(s_platform) {
     /* sym platforms */
     #define S_PLATFORM_SETUP(name) \
     t_platform_NW("platform/"+name+"_sym")\
@@ -255,6 +260,29 @@ spriteset(s_platform_cement) {
     recolour_sprite{}
     recolour_sprite{}
     recolour_sprite{}
+    /* snow */
+    #define S_PLATFORM_SNOW_SETUP(name) \
+    t_0(0, "platform/"+name+"_snow_sym") \
+    t_0(1, "platform/"+name+"_snow_sym") \
+    t_0(2, "platform/"+name+"_snow_sym") \
+    t_0(3, "platform/"+name+"_snow_sym") \
+    /* snow */ \
+    t_0(0, "platform/"+name+"_snow_asym_1") \
+    t_0(1, "platform/"+name+"_snow_asym_1") \
+    t_0(2, "platform/"+name+"_snow_asym_1") \
+    t_0(3, "platform/"+name+"_snow_asym_1") \
+    /* snow */ \
+    t_0(0, "platform/"+name+"_snow_asym_2") \
+    t_0(1, "platform/"+name+"_snow_asym_2") \
+    t_0(2, "platform/"+name+"_snow_asym_2") \
+    t_0(3, "platform/"+name+"_snow_asym_2") \
+    /* snow */ \
+    t_0(0, "platform/"+name+"_snow_sym_edge") \
+    t_0(1, "platform/"+name+"_snow_sym_edge") \
+    t_0(2, "platform/"+name+"_snow_sym_edge") \
+    t_0(3, "platform/"+name+"_snow_sym_edge")
+
+    S_PLATFORM_SNOW_SETUP("platform_cement")
     /* cement crossing */
     S_PLATFORM_SETUP("platform_cement_crossing")
     /* recolouring, recolour from RNG? */
@@ -275,6 +303,42 @@ spriteset(s_platform_cement) {
     recolour_sprite{}
     recolour_sprite{}
     recolour_sprite{}
+    /* snow */
+    S_PLATFORM_SNOW_SETUP("platform_cement_crossing")
+    /* overpass */
+    S_PLATFORM_SETUP("platform_overpass")
+        /* recolouring, recolour from RNG? */
+    recolour_sprite{
+        0x40: 0x07;
+        0x41: 0x08;
+        0x42: 0x08;
+        98:104;
+        99:2;
+        100:3;
+        101:3;
+        102:7;
+        103:5;
+    }
+    recolour_sprite{
+        0x40: 0x0B;
+        0x41: 0x0C;
+        0x42: 0x0D;
+        98:71;
+        99:112;
+        100:113;
+        101:113;
+        102:35;
+        103:114;
+    }
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
+    /* recolouring for platform */
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    /* snow */
+    S_PLATFORM_SNOW_SETUP("platform_overpass")
 }
 /*
 spriteset(s_platform_cement_crossing) {

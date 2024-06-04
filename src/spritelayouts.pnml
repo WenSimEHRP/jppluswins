@@ -106,10 +106,10 @@ spritelayout sp_platform_x(platform_type, shelter_type) {
         palette:        CUSTOM(S_PLATFORM, SP_PLATFORM_ERA_RECOLOUR);\
     }\
     childsprite { /* snow */ \
-        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SNOW_0 + SP_RANDOM_CHOOSE_SNOW, pos));\
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, (GROUP_SNOW_SYM + SP_GET_PLAT_FORMATION_##pos2), pos));\
         hide_sprite:    SP_HIDE_SPRITE_CHECK_SNOW;\
-        recolour_mode:  RECOLOUR_REMAP;\
-        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT,GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));\
+        /*recolour_mode:  RECOLOUR_REMAP;*/\
+        /*palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));*/\
     }\
     childsprite { /* shelter */ \
         sprite:         CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SHELTER_SYM + SP_GET_SHELTER_FORMATION_##pos2, pos));\
@@ -225,7 +225,7 @@ item(FEAT_STATIONS, i_station_##num,\
     STN_STATION_PROPERTY_##property\
     graphics {\
         sprite_layouts: [sp_platform_x(platform_type, shelter_type), sp_platform_y(platform_type, shelter_type)];\
-        custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles];\
+        custom_spritesets: [s_platform, s_misc, s_shelter_tiles];\
         prepare_layout: sw_platform();\
     }\
 }
@@ -234,4 +234,6 @@ STN_STATION_WRAPPER(0, 0, STN_CALC_PLATFORM_BIT(0,1,1), 1)
 STN_STATION_WRAPPER(1, 0, STN_CALC_PLATFORM_BIT(0,1,0), 1)
 STN_STATION_WRAPPER(2, 0, STN_CALC_PLATFORM_BIT(0,0,1), 1)
 STN_STATION_WRAPPER(3, 0, STN_CALC_PLATFORM_BIT(1,1,1), 1)
-
+STN_STATION_WRAPPER(4, 0, STN_CALC_PLATFORM_BIT(2,1,1), 1)
+//STN_STATION_WRAPPER(5, 0, STN_CALC_PLATFORM_BIT(2,0,1), 1)
+//STN_STATION_WRAPPER(6, 0, STN_CALC_PLATFORM_BIT(2,1,0), 1)
