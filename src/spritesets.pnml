@@ -22,6 +22,11 @@ template t_platform_NE(name) {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".
 template t_platform_SE(name) {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-55,-47,"gfx/"+name+".png"]}
 template t_platform_SW(name) {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-15,-47,"gfx/"+name+".png"]}
 
+template t_fence_NW(name) {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".png"]} // fence templates
+template t_fence_NE(name) {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".png"]}
+template t_fence_SE(name) {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-67,-53,"gfx/"+name+".png"]}
+template t_fence_SW(name) {[X_SPRITE*3,0,X_SIZE,Y_SIZE, -3,-53,"gfx/"+name+".png"]}
+
 #undef X_SIZE
 #undef Y_SIZE
 
@@ -43,6 +48,7 @@ template t_platform_SW(name) {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-15,-47,"gfx/"+name+".
 #define GROUP_DECO_3        (GROUP_DECO_2 + 1)
 #define GROUP_RECOLOUR_SNOW (GROUP_DECO_3 + 1)
 #define GROUP_RECOLOUR_DECO (GROUP_RECOLOUR_SNOW + 1)
+#define GROUP_FENCE         (GROUP_RECOLOUR_DECO + 1)
 // functions
 #define SPRITE_PER_MISC_GRUOP (4)
 #define GET_SPRITE_MISC(group, sprite) (group * SPRITE_PER_MISC_GRUOP + sprite)
@@ -118,6 +124,11 @@ spriteset(s_misc) {
     re_deco_2: recolour_sprite{0x00..0xFF:0x00..0xFF;}
     re_deco_3: recolour_sprite{0x00..0xFF:0x00..0xFF;}
     re_deco_4: recolour_sprite{0x00..0xFF:0x00..0xFF;}
+    /* fences */ //*11
+    fence_NW: t_fence_NW("misc/fence")
+    fence_NE: t_fence_NE("misc/fence")
+    fence_SE: t_fence_SE("misc/fence")
+    fence_SW: t_fence_SW("misc/fence")
 }
 
 //* start of shelter spritesets
@@ -204,6 +215,8 @@ spriteset(s_shelter_tiles) {
 // sets
 #define SET_PLATFORM_CEMENT             (0)
 #define SET_PLATFORM_CEMENT_CROSSING    (SET_PLATFORM_CEMENT + 1)
+#define SET_PLATFORM_OVERPASS           (SET_PLATFORM_CEMENT_CROSSING + 1)
+#define SET_PLATFORM_UNDERPASS          (SET_PLATFORM_OVERPASS + 1)
 
 // functions
 #define SPRITE_PER_PLATFORM_GROUP 4
@@ -307,7 +320,7 @@ spriteset(s_platform) {
     S_PLATFORM_SNOW_SETUP("platform_cement_crossing")
     /* overpass */
     S_PLATFORM_SETUP("platform_overpass")
-        /* recolouring, recolour from RNG? */
+    /* recolouring, recolour from RNG? */
     recolour_sprite{
         0x40: 0x07;
         0x41: 0x08;
@@ -339,6 +352,28 @@ spriteset(s_platform) {
     recolour_sprite{}
     /* snow */
     S_PLATFORM_SNOW_SETUP("platform_overpass")
+    /* underpass */
+    S_PLATFORM_SETUP("platform_underpass")
+    /* recolouring, recolour from RNG? */
+    recolour_sprite{
+        0x40: 0x07;
+        0x41: 0x08;
+        0x42: 0x08;
+    }
+    recolour_sprite{
+        0x40: 0x0B;
+        0x41: 0x0C;
+        0x42: 0x0D;
+    }
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
+    /* recolouring for platform */
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    /* snow */
+    //S_PLATFORM_SNOW_SETUP("platform_underpass")
 }
 /*
 spriteset(s_platform_cement_crossing) {
@@ -367,31 +402,3 @@ spriteset(s_platform_cement_crossing) {
     //misc_2:         t_0(2, "platform/platform_cement_crossing_misc")
     //misc_3:         t_0(3, "platform/platform_cement_crossing_misc")
 }*/
-
-spriteset(s_platform_brick) {
-    S_PLATFORM_SETUP("platform_brick")
-    /* recolouring, recolour from RNG? */
-    re_noline:      recolour_sprite{}
-    re_era_2:       recolour_sprite{}
-    re_era_3:       recolour_sprite{}
-    re_era_4:       recolour_sprite{} // placeholder
-    /* recolouring for platform */
-    re_platform_1:  recolour_sprite{}
-    re_platform_2:  recolour_sprite{}
-    re_platform_3:  recolour_sprite{}
-    re_platform_4:  recolour_sprite{}
-}
-
-spriteset(s_platform_wood) {
-    S_PLATFORM_SETUP("platform_wood")
-    /* recolouring, recolour from RNG? */
-    re_noline:      recolour_sprite{}
-    re_era_2:       recolour_sprite{}
-    re_era_3:       recolour_sprite{}
-    re_era_4:       recolour_sprite{} // placeholder
-    /* recolouring for platform */
-    re_platform_1:  recolour_sprite{}
-    re_platform_2:  recolour_sprite{}
-    re_platform_3:  recolour_sprite{}
-    re_platform_4:  recolour_sprite{}
-}
