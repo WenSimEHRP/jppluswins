@@ -111,24 +111,53 @@ spritelayout sp_platform_x(platform_type, shelter_type) {
         /*recolour_mode:  RECOLOUR_REMAP;*/\
         /*palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));*/\
     }\
-    childsprite { /* shelter */ \
-        sprite:         CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SHELTER_SYM + SP_GET_SHELTER_FORMATION_##pos2, pos));\
-        hide_sprite:    shelter_type;\
+    /*childsprite {*/ /* shelter */ \
+        /*sprite:         CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SHELTER_SYM + SP_GET_SHELTER_FORMATION_##pos2, pos));*/\
+        /*hide_sprite:    shelter_type;*/\
+    /*}*/
+    #define SP_FENCE(pos,pos2)\
+    building { /* fence */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
+        BBOX_FENCE_##pos\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1)\
+        );\
+    }
+    #define SP_FENCE_Y(pos,pos2)\
+    building { /* fence */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
+        BBOX_FENCE_##pos\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1)\
+        );\
+    }
+    #define SP_FENCE_TRACK(pos,bit)\
+    building { /* fence */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
+        BBOX_FENCE_##pos\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1) ||\
+        SP_HIDE_SPRITE_BUFFERSTOP(bit));\
     }
     // the specific order of the sprites is important
     // because it affects the order of sprites in the purchase view
-    SP_PLATFORM(NW, N)
-    SP_BUFFERSTOP(NE, 0)
-    SP_BUFFERSTOP(SW, 1)
-    SP_PLATFORM(SE, S)
+    SP_FENCE        (NW, N)
+    SP_FENCE_TRACK  (NE, 0)
+    SP_PLATFORM     (NW, N)
+    SP_BUFFERSTOP   (NE, 0)
+    SP_BUFFERSTOP   (SW, 1)
+    SP_PLATFORM     (SE, S)
+    SP_FENCE_TRACK  (SW, 1)
+    SP_FENCE        (SE, S)
 }
 
 spritelayout sp_platform_y(platform_type, shelter_type) {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
-    SP_PLATFORM(NE, N)
-    SP_BUFFERSTOP(NW, 0)
-    SP_BUFFERSTOP(SE, 1)
-    SP_PLATFORM(SW, S)
+    SP_FENCE_Y      (NE, N)
+    SP_FENCE_TRACK  (NW, 0)
+    SP_PLATFORM     (NE, N)
+    SP_BUFFERSTOP   (NW, 0)
+    SP_BUFFERSTOP   (SE, 1)
+    SP_PLATFORM     (SW, S)
+    SP_FENCE_TRACK  (SE, 1)
+    SP_FENCE_Y      (SW, S)
 }
 
 
@@ -237,3 +266,4 @@ STN_STATION_WRAPPER(3, 0, STN_CALC_PLATFORM_BIT(1,1,1), 1)
 STN_STATION_WRAPPER(4, 0, STN_CALC_PLATFORM_BIT(2,1,1), 1)
 //STN_STATION_WRAPPER(5, 0, STN_CALC_PLATFORM_BIT(2,0,1), 1)
 //STN_STATION_WRAPPER(6, 0, STN_CALC_PLATFORM_BIT(2,1,0), 1)
+STN_STATION_WRAPPER(5, 0, STN_CALC_PLATFORM_BIT(3,1,1), 1)
