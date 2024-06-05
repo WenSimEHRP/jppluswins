@@ -116,7 +116,7 @@ spritelayout sp_platform_x(platform_type, shelter_type) {
         /*palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));*/\
     }\
     childsprite { /* shelter */ \
-        sprite:         CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SHELTER_SYM + SP_GET_SHELTER_FORMATION_##pos2, pos));\
+        sprite:         CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SHELTER_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2), pos));\
         hide_sprite:    shelter_type;\
     }
     #define SP_FENCE(pos,pos2)\
@@ -254,12 +254,13 @@ switch (FEAT_STATIONS, SELF, sw_platform, [
     STORE_TEMP(nearby_tile_station_id( 1,-1),           TILE_X_W),
     STORE_TEMP(nearby_tile_station_id(-1, 1),           TILE_X_E),
     STORE_TEMP(nearby_tile_station_id( 0, 0),           TILE_SELF),
-    // functions
+    // checks
     STORE_TEMP(sw_check_rail_continuation(),            TEMP_RAIL_CONTINUATION),
     STORE_TEMP(sw_check_nearby_tile_station(),          TEMP_NEARBY_TILE_STATION),
     STORE_TEMP(sw_check_nearby_tile_perpendicular(),    TEMP_NEARBY_TILE_PERPENDICULAR),
     STORE_TEMP(sw_check_nearby_tile_grf(),              TEMP_NEARBY_TILE_GRF),
     STORE_TEMP(nearby_tile_slope(0, 0),                 TEMP_CURRENT_LANDSCAPE),
+    // functions
     STORE_TEMP(sw_station_era(),                        TEMP_STATION_ERA),
     STORE_TEMP(sw_hide_platform(),                      TEMP_HIDE_PLATFORM),
     STORE_TEMP(sw_get_platform_formation_N(),           TEMP_PLAT_FORMATION_N),
@@ -296,7 +297,7 @@ item(FEAT_STATIONS, i_station_##num,\
         sprite_layouts: [sp_platform_x(platform_type, shelter_type), sp_platform_y(platform_type, shelter_type)];\
         custom_spritesets: [s_platform, s_misc, s_shelter_tiles];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase();\
+        /*purchase_prepare_layout: sw_platform_purchase();*/\
     }\
 }
 

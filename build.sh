@@ -11,5 +11,6 @@ echo "Now preprocessing..." &&
 gcc -E -x c -o wins.nml wins.pnml &&
     echo "Finished preprocessing" &&
     echo "Now compiling..." &&
-    nml/nmlc wins.nml -o wins.grf --nml="wins_parsed.nml" &&
+    nml/nmlc wins.nml -o    wins.grf --nml="wins_parsed.nml" &&
+    nml/nmlc wins.nml -c -o wins_crop.grf &&
     echo "Finished compiling!"
