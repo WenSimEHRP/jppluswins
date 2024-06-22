@@ -123,15 +123,17 @@ spritelayout sp_platform_x(platform_type, shelter_type) {
     building { /* fence */ \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
         BBOX_FENCE_##pos\
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1)\
-        );\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        PALETTE_USE_DEFAULT;\
     }
     #define SP_FENCE_Y(pos,pos2)\
     building { /* fence */ \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
         BBOX_FENCE_##pos\
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1)\
-        );\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        PALETTE_USE_DEFAULT;\
     }
     #define SP_FENCE_TRACK(pos,bit)\
     building { /* fence */ \
@@ -139,6 +141,8 @@ spritelayout sp_platform_x(platform_type, shelter_type) {
         BBOX_FENCE_##pos\
         hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1) ||\
         SP_HIDE_SPRITE_BUFFERSTOP(bit));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        PALETTE_USE_DEFAULT;\
     }
     #define SP_FENCE_TRACK_Y(pos,bit)\
     building { /* fence */ \
@@ -146,6 +150,8 @@ spritelayout sp_platform_x(platform_type, shelter_type) {
         BBOX_FENCE_##pos\
         hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1) ||\
         SP_HIDE_SPRITE_BUFFERSTOP(bit));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        PALETTE_USE_DEFAULT;\
     }
     // the specific order of the sprites is important
     // because it affects the order of sprites in the purchase view
@@ -301,11 +307,12 @@ item(FEAT_STATIONS, i_station_##num,\
     }\
 }
 
-STN_STATION_WRAPPER(0, 0, STN_CALC_PLATFORM_BIT(0,1,1), 1)
-STN_STATION_WRAPPER(1, 0, STN_CALC_PLATFORM_BIT(0,1,0), 1)
-STN_STATION_WRAPPER(2, 0, STN_CALC_PLATFORM_BIT(0,0,1), 1)
-STN_STATION_WRAPPER(3, 0, STN_CALC_PLATFORM_BIT(1,1,1), 1)
-STN_STATION_WRAPPER(4, 0, STN_CALC_PLATFORM_BIT(2,1,1), 1)
+STN_STATION_WRAPPER(0, 0, STN_CALC_PLATFORM_BIT(SET_PLATFORM_CEMENT,1,1), 1)
+STN_STATION_WRAPPER(1, 0, STN_CALC_PLATFORM_BIT(SET_PLATFORM_CEMENT,1,0), 1)
+STN_STATION_WRAPPER(2, 0, STN_CALC_PLATFORM_BIT(SET_PLATFORM_CEMENT,0,1), 1)
+STN_STATION_WRAPPER(3, 0, STN_CALC_PLATFORM_BIT(SET_PLATFORM_CEMENT_CROSSING,1,1), 1)
+STN_STATION_WRAPPER(4, 0, STN_CALC_PLATFORM_BIT(SET_PLATFORM_OVERPASS,1,1), 1)
 //STN_STATION_WRAPPER(5, 0, STN_CALC_PLATFORM_BIT(2,0,1), 1)
 //STN_STATION_WRAPPER(6, 0, STN_CALC_PLATFORM_BIT(2,1,0), 1)
-STN_STATION_WRAPPER(5, 0, STN_CALC_PLATFORM_BIT(3,1,1), 1)
+STN_STATION_WRAPPER(5, 0, STN_CALC_PLATFORM_BIT(SET_PLATFORM_UNDERPASS,1,1), 1)
+STN_STATION_WRAPPER(6, 0, STN_CALC_PLATFORM_BIT(SET_PLATFORM_BRIDGE_STATION,1,1), 1)

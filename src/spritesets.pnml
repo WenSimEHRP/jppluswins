@@ -22,8 +22,8 @@ template t_platform_NE(name) {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".
 template t_platform_SE(name) {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-55,-47,"gfx/"+name+".png"]}
 template t_platform_SW(name) {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-15,-47,"gfx/"+name+".png"]}
 
-template t_fence_NW(name) {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".png"]} // fence templates
-template t_fence_NE(name) {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".png"]}
+template t_fence_NW(name) {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-35,-38,"gfx/"+name+".png"]} // fence templates
+template t_fence_NE(name) {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-38,"gfx/"+name+".png"]}
 template t_fence_SE(name) {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-67,-53,"gfx/"+name+".png"]}
 template t_fence_SW(name) {[X_SPRITE*3,0,X_SIZE,Y_SIZE, -3,-53,"gfx/"+name+".png"]}
 
@@ -217,6 +217,7 @@ spriteset(s_shelter_tiles) {
 #define SET_PLATFORM_CEMENT_CROSSING    (SET_PLATFORM_CEMENT + 1)
 #define SET_PLATFORM_OVERPASS           (SET_PLATFORM_CEMENT_CROSSING + 1)
 #define SET_PLATFORM_UNDERPASS          (SET_PLATFORM_OVERPASS + 1)
+#define SET_PLATFORM_BRIDGE_STATION     (SET_PLATFORM_UNDERPASS + 1)
 
 // functions
 #define SPRITE_PER_PLATFORM_GROUP 4
@@ -374,6 +375,36 @@ spriteset(s_platform) {
     recolour_sprite{}
     /* snow */
     //S_PLATFORM_SNOW_SETUP("platform_underpass")
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    /* bridge station 1 */
+    S_PLATFORM_SETUP("platform_bridge_station")
+    /* recolouring, recolour from RNG? */
+    recolour_sprite{
+        0x40: 0x07;
+        0x41: 0x08;
+        0x42: 0x08;
+    }
+    recolour_sprite{
+        0x40: 0x0B;
+        0x41: 0x0C;
+        0x42: 0x0D;
+    }
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
+    /* recolouring for platform */
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    /* snow */
+    //S_PLATFORM_SNOW_SETUP("platform_underpass")
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
 }
 /*
 spriteset(s_platform_cement_crossing) {

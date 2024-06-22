@@ -2,3 +2,5 @@
 #include "src/header.pnml"
 #include "src/spritesets.pnml"
 #include "src/spritelayouts.pnml"
+
+#include "src/stations/credits.pnml"
