@@ -34,3 +34,21 @@ if [ "$1" == "copy" ]; then
     cp wins.grf $path &&
         echo "Copied wins.grf to ${path}"
 fi
+
+# if we have an extra "release" argument, pack the files into a tarball
+# and output it to the current directory
+if [ "$1" == "release" ]; then
+    cp README.md README.txt &&
+    tar -cvf winsrel.tar wins_crop.grf LICENSE.txt README.txt &&
+        echo "packed tarball" &&
+    rm README.txt
+fi
+
+# if we have an extra "pack" argument then pack all files into a .tar.xz archive
+if [ "$1" == "pack" ]; then
+    cp README.md README.txt &&
+    tar -cvf winspak.tar wins.grf wins_crop.grf LICENSE.txt README.txt &&
+    xz -z winspak.tar &&
+        echo "packed tarball" &&
+    rm README.txt
+fi

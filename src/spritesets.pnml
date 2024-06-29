@@ -13,6 +13,9 @@
 template t_0(pos, name)         {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,0,0,"gfx/"+name+".png"]} // childsprite template
 template t_overhead(pos, name)  {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,-35,-27,"gfx/"+name+".png"]} // overhead template
 
+template t_overpass_x(name)     {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-45,-42,"gfx/"+name+".png"]}
+template t_overpass_y(name)     {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-25,-42,"gfx/"+name+".png"]}
+
 template t_corner_N(name)       {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-34,-36,"gfx/"+name+".png"]} // corner templates
 template t_corner_E(name)       {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-34,-36,"gfx/"+name+".png"]}
 template t_corner_S(name)       {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-34,-36,"gfx/"+name+".png"]}
@@ -229,6 +232,9 @@ spriteset(s_shelter_tiles) {
 #define GROUP_CORNER_HOUSE_SNOW         (GROUP_CORNER_HOUSE + 1)
 #define GROUP_CORNER_HOUSE_RECOLOUR     (GROUP_CORNER_HOUSE_SNOW + 1)
 
+#define GROUP_OVERPASS                  (GROUP_SNOW_SYM_EDGE + 1) // bruh
+#define GROUP_OVERPASS_SHADOW           (GROUP_OVERPASS + 1)
+
 // functions
 #define SPRITE_PER_PLATFORM_GROUP 4
 #define GET_SPRITE(group, sprite)\
@@ -441,10 +447,9 @@ spriteset(s_platform_cement_crossing) {
     }
     recolour_sprite{}
 }
-
+/*
 spriteset(s_platform_overpass) {
     S_PLATFORM_SETUP("platform_overpass")
-    /* recolouring, recolour from RNG? */
     recolour_sprite{
         0x40: 0x07;
         0x41: 0x08;
@@ -469,13 +474,11 @@ spriteset(s_platform_overpass) {
     }
     recolour_sprite{}
     recolour_sprite{} // placeholder
-    /* snow */
     S_PLATFORM_SNOW_SETUP("platform_overpass")
 }
 
 spriteset(s_platform_overpass_test) {
     S_PLATFORM_SETUP("platform_overpass")
-    /* recolouring, recolour from RNG? */
     recolour_sprite{
         0x40: 0x07;
         0x41: 0x08;
@@ -500,7 +503,7 @@ spriteset(s_platform_overpass_test) {
     }
     recolour_sprite{}
     recolour_sprite{} // placeholder
-    /* snow */
+
     S_PLATFORM_SNOW_SETUP("platform_overpass")
     #define S_PLATFORM_OVERHEAD_STRUCTURE_SETUP(name) \
     t_overhead(0, "platform/"+name+"_overhead") \
@@ -516,4 +519,70 @@ spriteset(s_platform_overpass_test) {
 
     S_PLATFORM_OVERHEAD_STRUCTURE_SETUP("platform_overpass")
     S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP("platform_overpass")
+}
+*/
+spriteset(s_platform_overpass_real) {
+    S_PLATFORM_SETUP("platform_overpass_real")
+    /* recolouring, recolour from RNG? */
+    recolour_sprite{
+        0x40: 0x07;
+        0x41: 0x08;
+        0x42: 0x08;
+        98:104;
+        99:2;
+        100:3;
+        101:3;
+        102:7;
+        103:5;
+    }
+    recolour_sprite{
+        0x40: 0x0B;
+        0x41: 0x0C;
+        0x42: 0x0D;
+        98:71;
+        99:112;
+        100:113;
+        101:113;
+        102:35;
+        103:114;
+    }
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
+    /* snow */
+    S_PLATFORM_SNOW_SETUP("platform_overpass")
+    #define S_OVERPASS_SETUP(name) \
+    t_overpass_x(   "platform/"+name+"_overpass") \
+    t_overpass_y(   "platform/"+name+"_overpass") \
+    t_0         (2, "platform/"+name+"_overpass") \
+    t_0         (3, "platform/"+name+"_overpass")
+    S_OVERPASS_SETUP("platform_overpass_real")
+    #define S_OVERPASS_SHADOW_SETUP(name) \
+    t_0         (0, "platform/"+name+"_overpass_shadow") \
+    t_0         (1, "platform/"+name+"_overpass_shadow") \
+    t_0         (2, "platform/"+name+"_overpass_shadow") \
+    t_0         (3, "platform/"+name+"_overpass_shadow")
+    S_OVERPASS_SHADOW_SETUP("platform_overpass_real")
+}
+
+spriteset (s_modular_low_overpass) {
+    S_PLATFORM_SETUP("modular_low_overpass")
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    S_PLATFORM_SNOW_SETUP("modular_low_overpass")
+    #define S_PLATFORM_OVERHEAD_STRUCTURE_SETUP(name) \
+    t_overhead(0, "platform/"+name+"_overhead") \
+    t_overhead(1, "platform/"+name+"_overhead") \
+    t_overhead(2, "platform/"+name+"_overhead") \
+    t_overhead(3, "platform/"+name+"_overhead")
+
+    #define S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP(name) \
+    t_0(0, "platform/"+name+"_snow_overhead") \
+    t_0(1, "platform/"+name+"_snow_overhead") \
+    t_0(2, "platform/"+name+"_snow_overhead") \
+    t_0(3, "platform/"+name+"_snow_overhead") \
+
+    S_PLATFORM_OVERHEAD_STRUCTURE_SETUP("modular_low_overpass")
+    S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP("modular_low_overpass")
 }

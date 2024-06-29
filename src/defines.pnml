@@ -7,6 +7,8 @@
 #define FENCE_HEIGHT 8
 #define CATNAERY_HEIGHT 12
 #define CORNER_HOUSE_HEIGHT 8
+#define BRIDGE_WIDTH 6
+#define BRIDGE_HEIGHT 4
 // we assume that all platforms have the same bbox length, in this case, it is 16.
 
 
@@ -81,6 +83,56 @@
     xextent: FULL_LENGTH;\
     yextent: FULL_LENGTH;\
     zextent: height;
+
+#define BBOX_OVERPASS_X \
+    /* we want the bridge to be centred */ \
+    xoffset: (FULL_LENGTH - BRIDGE_WIDTH) / 2;\
+    yoffset: PLATFORM_WIDTH;\
+    zoffset: CATNAERY_HEIGHT;\
+    xextent: BRIDGE_WIDTH;\
+    yextent: FULL_LENGTH - PLATFORM_WIDTH * 2;\
+    zextent: BRIDGE_HEIGHT;
+
+#define BBOX_OVERPASS_Y \
+    xoffset: PLATFORM_WIDTH;\
+    yoffset: (FULL_LENGTH - BRIDGE_WIDTH) / 2;\
+    zoffset: CATNAERY_HEIGHT;\
+    xextent: FULL_LENGTH - PLATFORM_WIDTH * 2;\
+    yextent: BRIDGE_WIDTH;\
+    zextent: BRIDGE_HEIGHT;
+
+#define BBOX_PLATFORM_OVERPASS_NW \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CATNAERY_HEIGHT + BRIDGE_HEIGHT;
+
+#define BBOX_PLATFORM_OVERPASS_SE \
+    xoffset: 0;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CATNAERY_HEIGHT + BRIDGE_HEIGHT;
+
+#define BBOX_PLATFORM_OVERPASS_NE \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: FULL_LENGTH;\
+    zextent: CATNAERY_HEIGHT + BRIDGE_HEIGHT;
+
+#define BBOX_PLATFORM_OVERPASS_SW \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: FULL_LENGTH;\
+    zextent: CATNAERY_HEIGHT + BRIDGE_HEIGHT;
+
 
 #define BBOX_CORNER_HOUSE_N \
     xoffset: 0;\
