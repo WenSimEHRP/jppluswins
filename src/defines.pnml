@@ -1,10 +1,12 @@
-#define PLATFORM_HEIGHT 12
+#define PLATFORM_HEIGHT 6
 #define PLATFORM_WIDTH 6
 #define FULL_LENGTH 16
 #define BUFFERSTOP_WIDTH 6
 #define BUFFERSTOP_HEIGHT 6
 #define BUFFERSTOP_LENGTH 4
 #define FENCE_HEIGHT 8
+#define CATNAERY_HEIGHT 12
+#define CORNER_HOUSE_HEIGHT 8
 // we assume that all platforms have the same bbox length, in this case, it is 16.
 
 
@@ -71,6 +73,46 @@
     xextent: BUFFERSTOP_WIDTH;\
     yextent: BUFFERSTOP_LENGTH;\
     zextent: BUFFERSTOP_HEIGHT;
+
+#define BBOX_OVERHEAD_STRUCTURE(height)\
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: CATNAERY_HEIGHT;\
+    xextent: FULL_LENGTH;\
+    yextent: FULL_LENGTH;\
+    zextent: height;
+
+#define BBOX_CORNER_HOUSE_N \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CORNER_HOUSE_HEIGHT;
+
+#define BBOX_CORNER_HOUSE_W \
+    xoffset: 0;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CORNER_HOUSE_HEIGHT;
+
+#define BBOX_CORNER_HOUSE_E \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CORNER_HOUSE_HEIGHT;
+
+#define BBOX_CORNER_HOUSE_S \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CORNER_HOUSE_HEIGHT;
 
 #define BBOX_FENCE_NW \
     xoffset: 0;\

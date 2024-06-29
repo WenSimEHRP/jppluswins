@@ -14,6 +14,18 @@ gcc -E -x c wins.pnml > wins.nml &&
     nml/nmlc wins.nml -o    wins.grf --nml="wins_parsed.nml" &&
     nml/nmlc wins.nml -c -o wins_crop.grf &&
     echo "Finished compiling!"
+    # no decompiling console output
+    yagl -d wins.grf      > /dev/null 2>&1 &&
+    yagl -d wins_crop.grf > /dev/null 2>&1 &&
+    echo "Finished decompiling!"
+    # show size of final grf, translate to KiB
+    size=$(stat --printf="%s" wins.grf)
+    size=$(($size / 1024))
+    echo "Final GRF size: ${size} KiB"
+    # size of cropped grf
+    size=$(stat --printf="%s" wins_crop.grf)
+    size=$(($size / 1024))
+    echo "Cropped GRF size: ${size} KiB"
 
 # if we have an extra copy argument, copy the files to the right place
 if [ "$1" == "copy" ]; then
