@@ -1,7 +1,6 @@
 # JP+ WINS Stations
 
-An unofficial set of the JP+ family;
-designed to replace JP3 Stations
+Designed to replace JP3 Stations; served with smart autoplatforms and fences.
 
 ## Building
 
@@ -19,3 +18,16 @@ Please note that this grf requires a specific modified version of NML. It is rec
 NML through the install script.
 
 After having all dependencies installed, you should be able to build the grf by running `build.sh`.
+
+Additionally, you can create a release package by running `bash build.sh release`, or, a compressed archive by running `bash build.sh pack`. Note that `xz` is required for the latter operation.
+
+## Credits
+
+Contributors:
+
+- Japan Set Team
+- WenSim
+
+Translations:
+
+- If you want to translate the GRF to your own language, feel free to submit a translation PR or submit translations via an issue.
