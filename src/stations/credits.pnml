@@ -1,0 +1,51 @@
+template t_credits(pos){
+    [pos*66,0,64,48,-31,-17,"gfx/misc/credits.png"]
+}
+
+
+spriteset(s_credits) {
+    t_credits(0)
+    t_credits(1)
+    t_credits(2)
+    t_credits(3)
+}
+
+
+
+spritelayout sp_credits(a) {
+    ground {
+        sprite:s_credits(a);
+    }
+}
+
+
+
+
+
+item(FEAT_STATIONS, i_station_credits_0) {
+    property {
+    class:                  "WINS";
+    classname:              string(STR_GRF_NAME);
+    name:                   string(STR_GRF_NAME);
+    non_traversable_tiles:  STAT_ALL_TILES;
+    disabled_platforms:     bitmask(0,1,2,3,4,5,6,7,8);
+    disabled_length:        bitmask(0,1,2,3,4,5,6,7,8);
+    }
+    graphics {
+        sprite_layouts: [sp_credits(0), sp_credits(1)];
+    }
+}
+
+item(FEAT_STATIONS, i_station_credits_1) {
+    property {
+    class:                  "WINS";
+    classname:              string(STR_GRF_NAME);
+    name:                   string(STR_GRF_NAME);
+    non_traversable_tiles:  STAT_ALL_TILES;
+    disabled_platforms:     bitmask(0,1,2,3,4,5,6,7,8);
+    disabled_length:        bitmask(0,1,2,3,4,5,6,7,8);
+    }
+    graphics {
+        sprite_layouts: [sp_credits(2), sp_credits(3)];
+    }
+}

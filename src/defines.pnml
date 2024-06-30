@@ -5,6 +5,10 @@
 #define BUFFERSTOP_HEIGHT 6
 #define BUFFERSTOP_LENGTH 4
 #define FENCE_HEIGHT 8
+#define CATNAERY_HEIGHT 12
+#define CORNER_HOUSE_HEIGHT 8
+#define BRIDGE_WIDTH 6
+#define BRIDGE_HEIGHT 4
 // we assume that all platforms have the same bbox length, in this case, it is 16.
 
 
@@ -71,6 +75,96 @@
     xextent: BUFFERSTOP_WIDTH;\
     yextent: BUFFERSTOP_LENGTH;\
     zextent: BUFFERSTOP_HEIGHT;
+
+#define BBOX_OVERHEAD_STRUCTURE(height)\
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: CATNAERY_HEIGHT;\
+    xextent: FULL_LENGTH;\
+    yextent: FULL_LENGTH;\
+    zextent: height;
+
+#define BBOX_OVERPASS_X \
+    /* we want the bridge to be centred */ \
+    xoffset: (FULL_LENGTH - BRIDGE_WIDTH) / 2;\
+    yoffset: PLATFORM_WIDTH;\
+    zoffset: CATNAERY_HEIGHT;\
+    xextent: BRIDGE_WIDTH;\
+    yextent: FULL_LENGTH - PLATFORM_WIDTH * 2;\
+    zextent: BRIDGE_HEIGHT;
+
+#define BBOX_OVERPASS_Y \
+    xoffset: PLATFORM_WIDTH;\
+    yoffset: (FULL_LENGTH - BRIDGE_WIDTH) / 2;\
+    zoffset: CATNAERY_HEIGHT;\
+    xextent: FULL_LENGTH - PLATFORM_WIDTH * 2;\
+    yextent: BRIDGE_WIDTH;\
+    zextent: BRIDGE_HEIGHT;
+
+#define BBOX_PLATFORM_OVERPASS_NW \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CATNAERY_HEIGHT + BRIDGE_HEIGHT;
+
+#define BBOX_PLATFORM_OVERPASS_SE \
+    xoffset: 0;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CATNAERY_HEIGHT + BRIDGE_HEIGHT;
+
+#define BBOX_PLATFORM_OVERPASS_NE \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: FULL_LENGTH;\
+    zextent: CATNAERY_HEIGHT + BRIDGE_HEIGHT;
+
+#define BBOX_PLATFORM_OVERPASS_SW \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: FULL_LENGTH;\
+    zextent: CATNAERY_HEIGHT + BRIDGE_HEIGHT;
+
+
+#define BBOX_CORNER_HOUSE_N \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CORNER_HOUSE_HEIGHT;
+
+#define BBOX_CORNER_HOUSE_W \
+    xoffset: 0;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CORNER_HOUSE_HEIGHT;
+
+#define BBOX_CORNER_HOUSE_E \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CORNER_HOUSE_HEIGHT;
+
+#define BBOX_CORNER_HOUSE_S \
+    xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: PLATFORM_WIDTH;\
+    yextent: PLATFORM_WIDTH;\
+    zextent: CORNER_HOUSE_HEIGHT;
 
 #define BBOX_FENCE_NW \
     xoffset: 0;\
@@ -178,11 +272,11 @@
 
 #define BIT_NPLAT 0                         // 0 only
 #define BIT_SPLAT 1                         // 1 only
-#define BIT_PLATFORM_TYPE 0                 // 0 to 3, ranging from 0 to 15, each group has 3 platforms
+#define BIT_PLATFORM_TYPE 0                 // 0 to 4, ranging from 0 to 31, each group has 3 platforms
+#define SIZE_BIT_PLATFORM_TYPE 5            // 5 bits, 2^5 = 32, 0 to 31
 // 15 / 3 = 5, 15 % 3 = 0, thus there goes 0..4 a total of 5 types of platforms, and 15 stands for no platform
 // unused
 //#define BIT_PLATFORM_TYPE 4                 // 4 and 5, ranging from 0 to 3, providing 4 platforms
-#define BIT_HEIGHT 6                        // 6 and 7, ranging from 0 to 3, providing 4 heights
 #define BIT_SHELTER_TYPE 4                  // 8 to 10, ranging from 0 to 7, providing 8 shelter types, 0 means no shelter
 
 // funcitons

@@ -29,13 +29,23 @@
 #define TEMP_CURRENT_LANDSCAPE          13
 //#define TEMP_CURRENT_DATE               14
 //#define TEMP_TERRAIN_TYPE               15
-//#define TEMP_RANDBIT_TILE               16
-//#define TEMP_RANDBIT_STATION            17
+#define TEMP_RANDBIT_TILE               16
+#define TEMP_RANDBIT_STATION            17
+#define TEMP_STATION_ERA                18
+#define TEMP_HIDE_PLATFORM              19
+#define TEMP_PLAT_FORMATION_N           20
+#define TEMP_PLAT_FORMATION_S           21
+#define TEMP_DETERMINE_RECOLOUR         22 // for platform recolouring
 
 // spritesets
 #define S_PLATFORM  0
 #define S_MISC      1
 #define S_SHELTER   2
+
+// private zone??
+#define S_OVERHEAD  3
+#define S_OVERPASS  3
+#define S_CROSSING  3
 
 // functions
 #define SP_HIDE_SPRITE_BUFFERSTOP(tile) \
@@ -46,23 +56,6 @@
 
 #define SP_HIDE_SPRITE_CHECK_SNOW \
     !!(terrain_type != TILETYPE_SNOW)
-
-// get platform formation
-#define SP_GET_PLAT_FORMATION_N \
-    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)                       |\
-      !getbits(getbits(LOAD_TEMP(TILE_X_SW),BIT_PLATFORM_TYPE, 4) % PLATFORM_FORMATION_COUNT + 1,BIT_NPLAT, 1) &\
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1                 |\
-     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)                       |\
-      !getbits(getbits(LOAD_TEMP(TILE_X_NE),BIT_PLATFORM_TYPE, 4) % PLATFORM_FORMATION_COUNT + 1,BIT_NPLAT, 1) &\
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0                 )
-
-#define SP_GET_PLAT_FORMATION_S \
-    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)                       |\
-      !getbits(getbits(LOAD_TEMP(TILE_X_SW),BIT_PLATFORM_TYPE, 4) % PLATFORM_FORMATION_COUNT + 1,BIT_SPLAT, 1) &\
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1                 |\
-     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)                       |\
-      !getbits(getbits(LOAD_TEMP(TILE_X_NE),BIT_PLATFORM_TYPE, 4) % PLATFORM_FORMATION_COUNT + 1,BIT_SPLAT, 1) &\
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0                 )
 
 // get shelter formation
 #define SP_GET_SHELTER_FORMATION_N \
@@ -81,15 +74,8 @@
        getbits(LOAD_TEMP(TILE_X_NE),                BIT_SPLAT, 1)      &\
        getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0)
 
-// platform recolouring
-#define SP_PLATFORM_ERA_RECOLOUR \
-    (GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_ERA, \
-        (current_date < date(YEAR_ERA_2,1,1) ? 0 : \
-         current_date < date(YEAR_ERA_3,1,1) ? 1 : 2)))
-
-
 // start of spritelayouts
-spritelayout sp_platform_x(platform_type, shelter_type) {
+spritelayout sp_platform_x() {
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     #define SP_BUFFERSTOP(pos, bit) \
     building { /* bufferstop */ \
@@ -99,38 +85,287 @@ spritelayout sp_platform_x(platform_type, shelter_type) {
     }
     #define SP_PLATFORM(pos, pos2) \
     building { /* platform */ \
-        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, (GROUP_SYM + SP_GET_PLAT_FORMATION_##pos2), pos));\
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
                         BBOX_PLATFORM_##pos\
-        hide_sprite:    !getbits(platform_type % PLATFORM_FORMATION_COUNT + 1, BIT_##pos2##PLAT, 1);\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
         recolour_mode:  RECOLOUR_REMAP;\
-        palette:        CUSTOM(S_PLATFORM, SP_PLATFORM_ERA_RECOLOUR);\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
     }\
     childsprite { /* snow */ \
-        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, (GROUP_SNOW_SYM + SP_GET_PLAT_FORMATION_##pos2), pos));\
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SNOW_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+        hide_sprite:    SP_HIDE_SPRITE_CHECK_SNOW;\
+        /*recolour_mode:  RECOLOUR_REMAP;*/\
+        /*palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));*/\
+    }
+    #define SP_FENCE(pos,pos2)\
+    building { /* fence */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
+        BBOX_FENCE_##pos\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        PALETTE_USE_DEFAULT;\
+    }
+    #define SP_FENCE_Y(pos,pos2)\
+    building { /* fence */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
+        BBOX_FENCE_##pos\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        PALETTE_USE_DEFAULT;\
+    }
+    #define SP_FENCE_TRACK(pos,bit)\
+    building { /* fence */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
+        BBOX_FENCE_##pos\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1) ||\
+        SP_HIDE_SPRITE_BUFFERSTOP(bit));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        PALETTE_USE_DEFAULT;\
+    }
+    #define SP_FENCE_TRACK_Y(pos,bit)\
+    building { /* fence */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
+        BBOX_FENCE_##pos\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1) ||\
+        SP_HIDE_SPRITE_BUFFERSTOP(bit));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        PALETTE_USE_DEFAULT;\
+    }
+    // the specific order of the sprites is important
+    // because it affects the order of sprites in the purchase view
+    SP_FENCE        (NW, N)
+    SP_FENCE_TRACK  (NE, 0)
+    SP_PLATFORM     (NW, N)
+    SP_BUFFERSTOP   (NE, 0)
+    SP_BUFFERSTOP   (SW, 1)
+    SP_PLATFORM     (SE, S)
+    SP_FENCE_TRACK  (SW, 1)
+    SP_FENCE        (SE, S)
+}
+
+spritelayout sp_platform_y() {
+    ground {sprite: GROUNDSPRITE_RAIL_Y;}
+    SP_FENCE_Y      (NE, N)
+    SP_FENCE_TRACK_Y(NW, 0)
+    SP_PLATFORM     (NE, N)
+    SP_BUFFERSTOP   (NW, 0)
+    SP_BUFFERSTOP   (SE, 1)
+    SP_PLATFORM     (SW, S)
+    SP_FENCE_TRACK_Y(SE, 1)
+    SP_FENCE_Y      (SW, S)
+}
+
+spritelayout sp_platform_platform_x(platform_recolour) {
+    ground {sprite: GROUNDSPRITE_RAIL_X;}
+    #define SP_PLATFORM_PLATFORM(pos, pos2) \
+    building { /* platform */ \
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+                        BBOX_PLATFORM_##pos\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_recolour, LOAD_TEMP(TEMP_STATION_ERA)));\
+    }\
+    childsprite { /* snow */ \
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SNOW_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+        hide_sprite:    SP_HIDE_SPRITE_CHECK_SNOW;\
+        /*recolour_mode:  RECOLOUR_REMAP;*/\
+        /*palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));*/\
+    }
+    SP_FENCE            (NW, N)
+    SP_FENCE_TRACK      (NE, 0)
+    SP_PLATFORM_PLATFORM(NW, N)
+    SP_BUFFERSTOP       (NE, 0)
+    SP_BUFFERSTOP       (SW, 1)
+    SP_PLATFORM_PLATFORM(SE, S)
+    SP_FENCE_TRACK      (SW, 1)
+    SP_FENCE            (SE, S)
+}
+
+spritelayout sp_platform_platform_y(platform_recolour) {
+    ground {sprite: GROUNDSPRITE_RAIL_Y;}
+    SP_FENCE_Y          (NE, N)
+    SP_FENCE_TRACK_Y    (NW, 0)
+    SP_PLATFORM_PLATFORM(NE, N)
+    SP_BUFFERSTOP       (NW, 0)
+    SP_BUFFERSTOP       (SE, 1)
+    SP_PLATFORM_PLATFORM(SW, S)
+    SP_FENCE_TRACK_Y    (SE, 1)
+    SP_FENCE_Y          (SW, S)
+}
+
+spritelayout sp_platform_crossing_x() {
+    #define SP_PLATFORM_CROSSING(pos, pos2) \
+    building { /* platform */ \
+        sprite:         CUSTOM(S_CROSSING, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+                        BBOX_PLATFORM_##pos\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
+    }\
+    childsprite { /* snow */ \
+        sprite:         CUSTOM(S_CROSSING, GET_SPRITE((GROUP_SNOW_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+        hide_sprite:    SP_HIDE_SPRITE_CHECK_SNOW;\
+    }
+    #define SP_CORNER_HOUSE(hide_pos_1, hide_pos_2, pos, num) \
+    building { /* corner house */ \
+        sprite:         CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE, num));\
+        BBOX_CORNER_HOUSE_##pos\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE_RECOLOUR, LOAD_TEMP(TEMP_STATION_ERA)));\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##hide_pos_1, 1)) ||\
+                        (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##hide_pos_2, 1)) ||\
+                        (getbits(LOAD_TEMP(TEMP_RANDBIT_TILE)       , RNG(0,3)           , 1));\
+    }
+    #define SP_CORNER_HOUSE_Y(hide_pos_1, hide_pos_2, pos, num) \
+    building { /* corner house */ \
+        sprite:         CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE, num));\
+        BBOX_CORNER_HOUSE_##pos\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE_RECOLOUR, LOAD_TEMP(TEMP_STATION_ERA)));\
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##hide_pos_1, 1)) ||\
+                        (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##hide_pos_2, 1)) ||\
+                        (getbits(LOAD_TEMP(TEMP_RANDBIT_TILE)       , num           , 1));\
+    }
+    ground {sprite: GROUNDSPRITE_RAIL_X;}
+    //SP_FENCE        (NW, N)
+    SP_FENCE_TRACK  (NE, 0)
+    SP_PLATFORM_CROSSING(NW, N)
+    SP_BUFFERSTOP   (NE, 0)
+    SP_BUFFERSTOP   (SW, 1)
+    SP_PLATFORM_CROSSING(SE, S)
+    //SP_FENCE        (SE, S)
+    SP_FENCE_TRACK  (SW, 1)
+    SP_CORNER_HOUSE_Y (NW,NE,N,0) // N
+    SP_CORNER_HOUSE_Y (SE,NE,E,1) // E
+    SP_CORNER_HOUSE_Y (SW,SE,S,2) // S
+    SP_CORNER_HOUSE_Y (NW,SW,W,3) // W
+}
+
+spritelayout sp_platform_crossing_y() {
+    ground {sprite: GROUNDSPRITE_RAIL_Y;}
+    //SP_FENCE_Y      (NE, N)
+    SP_FENCE_TRACK_Y(NW, 0)
+    SP_PLATFORM_CROSSING(NE, N)
+    SP_BUFFERSTOP   (NW, 0)
+    SP_BUFFERSTOP   (SE, 1)
+    SP_PLATFORM_CROSSING(SW, S)
+    SP_FENCE_TRACK_Y(SE, 1)
+    //SP_FENCE_Y      (SW, S)
+    SP_CORNER_HOUSE (NW,NE,N,0) // N
+    SP_CORNER_HOUSE (SE,NE,E,1) // E
+    SP_CORNER_HOUSE (SW,SE,S,2) // S
+    SP_CORNER_HOUSE (NW,SW,W,3) // W
+}
+
+
+spritelayout sp_platform_overhead_x() {
+    #define SP_OVERHEAD_STRUCTURE(pos, height) \
+    building { /* overhead structure */ \
+        sprite:         CUSTOM(S_OVERHEAD, GET_SPRITE_MISC(GROUP_OVERHEAD_STRUCTURE, pos));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        /*palette:        CUSTOM(S_OVERHEAD, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));*/ \
+        palette:        PALETTE_USE_DEFAULT;\
+        BBOX_OVERHEAD_STRUCTURE(height)\
+    }
+    #define SP_PLATFORM_OVERHEAD(pos, pos2) \
+    building { /* platform */ \
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+                        BBOX_PLATFORM_##pos\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
+    }\
+    childsprite { /* shadow */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SHADOW_LONG, pos));\
+        recolour_mode:  RECOLOUR_TRANSPARENT;\
+        palette:        PALETTE_TRANSPARENT;\
+    }
+
+    ground {sprite: GROUNDSPRITE_RAIL_X;}
+    SP_FENCE                (NW, N)
+    SP_FENCE_TRACK          (NE, 0)
+    SP_PLATFORM_OVERHEAD    (NW, N)
+    SP_BUFFERSTOP           (NE, 0)
+    SP_BUFFERSTOP           (SW, 1)
+    SP_PLATFORM_OVERHEAD    (SE, S)
+    SP_FENCE_TRACK          (SW, 1)
+    SP_FENCE                (SE, S)
+    SP_OVERHEAD_STRUCTURE   (NW, 12)
+}
+
+spritelayout sp_platform_overhead_y() {
+    ground {sprite: GROUNDSPRITE_RAIL_Y;}
+    SP_FENCE_Y              (NE, N)
+    SP_FENCE_TRACK_Y        (NW, 0)
+    SP_PLATFORM_OVERHEAD    (NE, N)
+    SP_BUFFERSTOP           (NW, 0)
+    SP_BUFFERSTOP           (SE, 1)
+    SP_PLATFORM_OVERHEAD    (SW, S)
+    SP_FENCE_TRACK_Y        (SE, 1)
+    SP_FENCE_Y              (SW, S)
+    SP_OVERHEAD_STRUCTURE   (NE, 12)
+}
+
+
+spritelayout sp_platform_overpass_x() {
+    ground {sprite: GROUNDSPRITE_RAIL_X;}
+    #define SP_PLATFORM_OVERPASS(pos, pos2) \
+    building { /* platform */ \
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+                        BBOX_PLATFORM_OVERPASS_##pos\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1) || LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) == 3;\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
+    }\
+    childsprite { /* snow */ \
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SNOW_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
         hide_sprite:    SP_HIDE_SPRITE_CHECK_SNOW;\
         /*recolour_mode:  RECOLOUR_REMAP;*/\
         /*palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));*/\
     }\
-    childsprite { /* shelter */ \
-        sprite:         CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SHELTER_SYM + SP_GET_SHELTER_FORMATION_##pos2, pos));\
-        hide_sprite:    shelter_type;\
+    childsprite { /* shadow */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SHADOW_SHORT, pos));\
+        recolour_mode:  RECOLOUR_TRANSPARENT;\
+        palette:        PALETTE_TRANSPARENT;\
+    }\
+    building { /* the real overpass */ \
+        sprite:         CUSTOM(S_OVERPASS, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+                        BBOX_PLATFORM_OVERPASS_##pos\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_OVERPASS, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
     }
-    // the specific order of the sprites is important
-    // because it affects the order of sprites in the purchase view
-    SP_PLATFORM(NW, N)
-    SP_BUFFERSTOP(NE, 0)
-    SP_BUFFERSTOP(SW, 1)
-    SP_PLATFORM(SE, S)
+    #define SP_OVERPASS(pos, num) \
+    building { /* overpass */ \
+        sprite:         CUSTOM(S_OVERPASS, GET_SPRITE(GROUP_OVERPASS, num));\
+        BBOX_OVERPASS_##pos\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_OVERPASS, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
+        hide_sprite:    !!(LOAD_TEMP(TEMP_HIDE_PLATFORM) % PLATFORM_FORMATION_COUNT);\
+    }
+    SP_FENCE            (NW, N)
+    SP_FENCE_TRACK      (NE, 0)
+    SP_PLATFORM_OVERPASS(NW, N)
+    SP_BUFFERSTOP       (NE, 0)
+    SP_BUFFERSTOP       (SW, 1)
+    SP_PLATFORM_OVERPASS(SE, S)
+    SP_FENCE_TRACK      (SW, 1)
+    SP_FENCE            (SE, S)
+    SP_OVERPASS         (X , 0)
 }
 
-spritelayout sp_platform_y(platform_type, shelter_type) {
+spritelayout sp_platform_overpass_y() {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
-    SP_PLATFORM(NE, N)
-    SP_BUFFERSTOP(NW, 0)
-    SP_BUFFERSTOP(SE, 1)
-    SP_PLATFORM(SW, S)
+    SP_FENCE_Y          (NE, N)
+    SP_FENCE_TRACK_Y    (NW, 0)
+    SP_PLATFORM_OVERPASS(NE, N)
+    SP_BUFFERSTOP       (NW, 0)
+    SP_BUFFERSTOP       (SE, 1)
+    SP_PLATFORM_OVERPASS(SW, S)
+    SP_FENCE_TRACK_Y    (SE, 1)
+    SP_FENCE_Y          (SW, S)
+    SP_OVERPASS         (Y , 1)
 }
-
 
 // temp storage
 switch (FEAT_STATIONS, SELF, sw_check_nearby_landscape,
@@ -177,11 +412,49 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
         nearby_tile_same_grf( 1,-1) << TILE_X_W|
         nearby_tile_same_grf(-1, 1) << TILE_X_E) {return;}
 
+// GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA))
+
+switch (FEAT_STATIONS, SELF, sw_station_era,
+        (current_date < date(YEAR_ERA_2,1,1) ? 0 :
+         current_date < date(YEAR_ERA_3,1,1) ? 1 : 2)){return;}
+
+switch (FEAT_STATIONS, SELF, sw_hide_platform,
+    (!getbits(getbits(LOAD_TEMP(TILE_SELF),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_NPLAT, 1) << BIT_NPLAT) |
+    (!getbits(getbits(LOAD_TEMP(TILE_SELF),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_SPLAT, 1) << BIT_SPLAT)){return;}
+
+switch (FEAT_STATIONS, SELF, sw_get_platform_formation_N,
+    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)                       |\
+      !getbits(getbits(LOAD_TEMP(TILE_X_SW),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1,BIT_NPLAT, 1) &\
+       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1                 |\
+     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)                       |\
+      !getbits(getbits(LOAD_TEMP(TILE_X_NE),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1,BIT_NPLAT, 1) &\
+       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0                 )){return;}
+
+switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
+    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)                       |\
+      !getbits(getbits(LOAD_TEMP(TILE_X_SW),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1,BIT_SPLAT, 1) &\
+       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1                 |\
+     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)                       |\
+      !getbits(getbits(LOAD_TEMP(TILE_X_NE),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1,BIT_SPLAT, 1) &\
+       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0                 )){return;}
 // we want to put all calculations and checks in spritelayouts, so here in
 // the switch we only store the results of the checks in temporary variables
 
+switch (FEAT_STATIONS, SELF, sw_determine_recolour,
+    // we first check for the southern platform, if there isn't one, we check for the northern platform
+    // if both isn't there, we use the default recolouring
+    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1) ? getbits(LOAD_TEMP(TILE_X_SW), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1) ? getbits(LOAD_TEMP(TILE_X_NE), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    GROUP_RECOLOUR_ERA
+)
+{
+    0: GROUP_RECOLOUR_ERA;
+    1: GROUP_PLATFORM_RECOLOUR_1;
+    2: GROUP_PLATFORM_RECOLOUR_2;
+    default: GROUP_RECOLOUR_ERA;
+}
+
 switch (FEAT_STATIONS, SELF, sw_platform, [
-    STORE_TEMP(sw_check_rail_continuation(),            TEMP_RAIL_CONTINUATION),
     STORE_TEMP(nearby_tile_station_id(-1, 0),           TILE_X_NE),
     STORE_TEMP(nearby_tile_station_id( 1, 0),           TILE_X_SW),
     STORE_TEMP(nearby_tile_station_id( 0,-1),           TILE_X_NW),
@@ -191,17 +464,55 @@ switch (FEAT_STATIONS, SELF, sw_platform, [
     STORE_TEMP(nearby_tile_station_id( 1,-1),           TILE_X_W),
     STORE_TEMP(nearby_tile_station_id(-1, 1),           TILE_X_E),
     STORE_TEMP(nearby_tile_station_id( 0, 0),           TILE_SELF),
+    // checks
+    STORE_TEMP(sw_check_rail_continuation(),            TEMP_RAIL_CONTINUATION),
     STORE_TEMP(sw_check_nearby_tile_station(),          TEMP_NEARBY_TILE_STATION),
     STORE_TEMP(sw_check_nearby_tile_perpendicular(),    TEMP_NEARBY_TILE_PERPENDICULAR),
     STORE_TEMP(sw_check_nearby_tile_grf(),              TEMP_NEARBY_TILE_GRF),
     STORE_TEMP(nearby_tile_slope(0, 0),                 TEMP_CURRENT_LANDSCAPE),
+    // functions
+    STORE_TEMP(sw_station_era(),                        TEMP_STATION_ERA),
+    STORE_TEMP(sw_hide_platform(),                      TEMP_HIDE_PLATFORM),
+    STORE_TEMP(sw_get_platform_formation_N(),           TEMP_PLAT_FORMATION_N),
+    STORE_TEMP(sw_get_platform_formation_S(),           TEMP_PLAT_FORMATION_S),
 //    STORE_TEMP(current_date,                            TEMP_CURRENT_DATE),
 //    STORE_TEMP(terrain_type,                            TEMP_TERRAIN_TYPE),
-//    STORE_TEMP(random_bits_tile,                        TEMP_RANDBIT_TILE),
+    STORE_TEMP(random_bits_tile,                        TEMP_RANDBIT_TILE),
 //    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
+    STORE_TEMP(sw_determine_recolour(),                 TEMP_DETERMINE_RECOLOUR),
 ])
 {return;}
 
+switch (FEAT_STATIONS, SELF, sw_platform_purchase, station_id, [
+    STORE_TEMP(0,           TILE_X_NE),
+    STORE_TEMP(0,           TILE_X_SW),
+    STORE_TEMP(0,           TILE_X_NW),
+    STORE_TEMP(0,           TILE_X_SE),
+    STORE_TEMP(0,           TILE_X_N),
+    STORE_TEMP(0,           TILE_X_S),
+    STORE_TEMP(0,           TILE_X_W),
+    STORE_TEMP(0,           TILE_X_E),
+    STORE_TEMP(station_id,           TILE_SELF),
+    // checks
+    STORE_TEMP(2,           TEMP_RAIL_CONTINUATION),
+    STORE_TEMP(1 << TILE_X_SW | 1 << TILE_X_SE,           TEMP_NEARBY_TILE_STATION),
+    STORE_TEMP(0,           TEMP_NEARBY_TILE_PERPENDICULAR),
+    STORE_TEMP(0,           TEMP_NEARBY_TILE_GRF),
+    STORE_TEMP(0,           TEMP_CURRENT_LANDSCAPE),
+    // functions
+    STORE_TEMP((current_date < date(YEAR_ERA_2,1,1) ? 0 :
+                current_date < date(YEAR_ERA_3,1,1) ? 1 : 2),                        TEMP_STATION_ERA),
+    STORE_TEMP((!getbits(getbits(station_id,BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_NPLAT, 1) << BIT_NPLAT) |
+               (!getbits(getbits(station_id,BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_SPLAT, 1) << BIT_SPLAT),TEMP_HIDE_PLATFORM),
+    STORE_TEMP(2,           TEMP_PLAT_FORMATION_N),
+    STORE_TEMP(3,           TEMP_PLAT_FORMATION_S),
+//    STORE_TEMP(current_date,                            TEMP_CURRENT_DATE),
+//    STORE_TEMP(terrain_type,                            TEMP_TERRAIN_TYPE),
+    STORE_TEMP(15,                        TEMP_RANDBIT_TILE),
+//    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
+    STORE_TEMP(GROUP_RECOLOUR_ERA,      TEMP_DETERMINE_RECOLOUR),
+])
+{return;}
 
 #define STN_STATION_PROPERTY_0 \
 property {\
@@ -213,27 +524,111 @@ property {\
     hide_wire_tiles:        0;\
 }
 
+#define STN_STATION_PROPERTY_1 /* station as waypoint */ \
+property {\
+    class:                  "WAYP";\
+    classname:              string(STR_GRF_NAME);\
+    name:                   string(STR_GRF_NAME);\
+    non_traversable_tiles:  0;\
+    draw_pylon_tiles:       STAT_ALL_TILES;\
+    hide_wire_tiles:        0;\
+}
+
 #define STN_CALC_ID(platform_type, shelter_type) \
-    ((platform_type) << BIT_PLATFORM_TYPE | (shelter_type) << BIT_SHELTER_TYPE)
+    /* this one originally was shelter << BIT_SHELTER_TYPE, but I decided to disable shelters */ \
+    (((platform_type) << BIT_PLATFORM_TYPE) | ((shelter_type) >> BIT_SHELTER_TYPE))
 
 #define STN_CALC_PLATFORM_BIT(group, nplat, splat) \
-    (group * PLATFORM_FORMATION_COUNT + (nplat << BIT_NPLAT) + (splat << BIT_SPLAT) - 1)
+    ((group * 3) + (nplat << BIT_NPLAT) + (splat << BIT_SPLAT) - 1)
 
-#define STN_STATION_WRAPPER(num, property, platform_type, shelter_type)\
-item(FEAT_STATIONS, i_station_##num,\
-    STN_CALC_ID(platform_type, shelter_type)) {\
+#define STN_STATION_WRAPPER(name, property, platform_type, platform_spriteset)\
+item(FEAT_STATIONS, i_station_##name,\
+    platform_type) {\
     STN_STATION_PROPERTY_##property\
     graphics {\
-        sprite_layouts: [sp_platform_x(platform_type, shelter_type), sp_platform_y(platform_type, shelter_type)];\
-        custom_spritesets: [s_platform, s_misc, s_shelter_tiles];\
+        sprite_layouts: [sp_platform_x(), sp_platform_y()];\
+        custom_spritesets: [platform_spriteset, s_misc, s_shelter_tiles];\
         prepare_layout: sw_platform();\
+        purchase_prepare_layout: sw_platform_purchase(platform_type);\
     }\
 }
 
-STN_STATION_WRAPPER(0, 0, STN_CALC_PLATFORM_BIT(0,1,1), 1)
-STN_STATION_WRAPPER(1, 0, STN_CALC_PLATFORM_BIT(0,1,0), 1)
-STN_STATION_WRAPPER(2, 0, STN_CALC_PLATFORM_BIT(0,0,1), 1)
-STN_STATION_WRAPPER(3, 0, STN_CALC_PLATFORM_BIT(1,1,1), 1)
-STN_STATION_WRAPPER(4, 0, STN_CALC_PLATFORM_BIT(2,1,1), 1)
-//STN_STATION_WRAPPER(5, 0, STN_CALC_PLATFORM_BIT(2,0,1), 1)
-//STN_STATION_WRAPPER(6, 0, STN_CALC_PLATFORM_BIT(2,1,0), 1)
+#define STN_STATION_WRAPPER_CROSSING(name, property, platform_type, platform_spriteset)\
+item(FEAT_STATIONS, i_station_##name,\
+    platform_type) {\
+    STN_STATION_PROPERTY_##property\
+    graphics {\
+        sprite_layouts: [sp_platform_crossing_x(), sp_platform_crossing_y()];\
+        custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
+        prepare_layout: sw_platform();\
+        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+    }\
+}
+
+#define STN_STATION_WRAPPER_PLATFORM(name, property, platform_type, platform_spriteset, platform_recolour)\
+item(FEAT_STATIONS, i_station_##name,\
+    platform_type) {\
+    STN_STATION_PROPERTY_##property\
+    graphics {\
+        sprite_layouts: [sp_platform_platform_x(platform_recolour), sp_platform_platform_y(platform_recolour)];\
+        custom_spritesets: [platform_spriteset, s_misc, s_shelter_tiles];\
+        prepare_layout: sw_platform();\
+        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+    }\
+}
+
+#define STN_STATION_WRAPPER_OVERHEAD(name, property, platform_type, platform_spriteset)\
+item(FEAT_STATIONS, i_station_##name,\
+    platform_type) {\
+    STN_STATION_PROPERTY_##property\
+    graphics {\
+        sprite_layouts: [sp_platform_overhead_x(), sp_platform_overhead_y()];\
+        custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
+        prepare_layout: sw_platform();\
+        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+    }\
+}
+
+#define STN_STATION_WRAPPER_OVERPASS(name, property, platform_type, platform_spriteset)\
+item(FEAT_STATIONS, i_station_##name,\
+    platform_type) {\
+    STN_STATION_PROPERTY_##property\
+    graphics {\
+        sprite_layouts: [sp_platform_overpass_x(), sp_platform_overpass_y()];\
+        custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
+        prepare_layout: sw_platform();\
+        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+    }\
+}
+
+STN_STATION_WRAPPER_PLATFORM(cement_both, 0, STN_CALC_PLATFORM_BIT(0,1,1), s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_1   , 0, STN_CALC_PLATFORM_BIT(0,1,0), s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_2   , 0, STN_CALC_PLATFORM_BIT(0,0,1), s_platform_cement, GROUP_RECOLOUR_ERA)
+
+STN_STATION_WRAPPER_PLATFORM(asphalt_both, 0, STN_CALC_PLATFORM_BIT(1,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_1   , 0, STN_CALC_PLATFORM_BIT(1,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_2   , 0, STN_CALC_PLATFORM_BIT(1,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+
+STN_STATION_WRAPPER_PLATFORM(brick_both, 0, STN_CALC_PLATFORM_BIT(2,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_1   , 0, STN_CALC_PLATFORM_BIT(2,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_2   , 0, STN_CALC_PLATFORM_BIT(2,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+
+//STN_STATION_WRAPPER         (cement_crs     , 0, STN_CALC_PLATFORM_BIT(4,1,1), 1, s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(cement_crs_both, 0, STN_CALC_PLATFORM_BIT(3,1,1), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(cement_crs_1   , 0, STN_CALC_PLATFORM_BIT(3,1,0), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(cement_crs_2   , 0, STN_CALC_PLATFORM_BIT(3,0,1), s_platform_cement_crossing)
+
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_both, 1, STN_CALC_PLATFORM_BIT(4,1,1), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_1   , 1, STN_CALC_PLATFORM_BIT(4,1,0), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_2   , 1, STN_CALC_PLATFORM_BIT(4,0,1), s_platform_cement_crossing)
+
+//STN_STATION_WRAPPER         (overpass       , 0, STN_CALC_PLATFORM_BIT(6,1,1), 1, s_platform_overpass)
+//STN_STATION_WRAPPER_OVERHEAD(overpass_test  , 0, STN_CALC_PLATFORM_BIT(7,1,1), 1, s_platform_overpass_test)
+
+STN_STATION_WRAPPER_OVERPASS(overpass_real  , 0,            STN_CALC_PLATFORM_BIT(5,1,1), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_1, 0,            STN_CALC_PLATFORM_BIT(5,1,0), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_2, 0,            STN_CALC_PLATFORM_BIT(5,0,1), s_platform_overpass_real)
+
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_both, 0, STN_CALC_PLATFORM_BIT(6,1,1), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_1, 0, STN_CALC_PLATFORM_BIT(6,1,0), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_2, 0, STN_CALC_PLATFORM_BIT(6,0,1), s_modular_low_overpass)

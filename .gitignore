@@ -5,3 +5,6 @@ custom_tags.txt
 nml/
 *.yagl
 sprites/
+*.tar
+*.xz
+*.log
