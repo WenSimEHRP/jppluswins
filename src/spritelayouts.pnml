@@ -263,7 +263,8 @@ spritelayout sp_platform_overhead_x() {
     building { /* overhead structure */ \
         sprite:         CUSTOM(S_OVERHEAD, GET_SPRITE_MISC(GROUP_OVERHEAD_STRUCTURE, pos));\
         recolour_mode:  RECOLOUR_REMAP;\
-        palette:        CUSTOM(S_OVERHEAD, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
+        /*palette:        CUSTOM(S_OVERHEAD, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));*/ \
+        palette:        PALETTE_USE_DEFAULT;\
         BBOX_OVERHEAD_STRUCTURE(height)\
     }
     #define SP_PLATFORM_OVERHEAD(pos, pos2) \
@@ -442,8 +443,6 @@ switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
 switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     // we first check for the southern platform, if there isn't one, we check for the northern platform
     // if both isn't there, we use the default recolouring
-
-    // check the southern platform's group.
     getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1) ? getbits(LOAD_TEMP(TILE_X_SW), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1) ? getbits(LOAD_TEMP(TILE_X_NE), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     GROUP_RECOLOUR_ERA
@@ -630,4 +629,6 @@ STN_STATION_WRAPPER_OVERPASS(overpass_real  , 0,            STN_CALC_PLATFORM_BI
 STN_STATION_WRAPPER_OVERPASS(overpass_real_1, 0,            STN_CALC_PLATFORM_BIT(5,1,0), s_platform_overpass_real)
 STN_STATION_WRAPPER_OVERPASS(overpass_real_2, 0,            STN_CALC_PLATFORM_BIT(5,0,1), s_platform_overpass_real)
 
-STN_STATION_WRAPPER_OVERHEAD(overhead_low, 0, STN_CALC_PLATFORM_BIT(7,1,1), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_both, 0, STN_CALC_PLATFORM_BIT(6,1,1), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_1, 0, STN_CALC_PLATFORM_BIT(6,1,0), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_2, 0, STN_CALC_PLATFORM_BIT(6,0,1), s_modular_low_overpass)
