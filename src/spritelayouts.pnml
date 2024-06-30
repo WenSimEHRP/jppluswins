@@ -260,13 +260,27 @@ spritelayout sp_platform_overhead_x(shelter_type) {
         palette:        CUSTOM(S_OVERHEAD, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
         BBOX_OVERHEAD_STRUCTURE(height)\
     }
+    #define SP_PLATFORM_OVERHEAD(pos, pos2) \
+    building { /* platform */ \
+        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+                        BBOX_PLATFORM_##pos\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
+    }\
+    childsprite { /* shadow */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SHADOW_LONG, pos));\
+        recolour_mode:  RECOLOUR_TRANSPARENT;\
+        palette:        PALETTE_TRANSPARENT;\
+    }
+
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     SP_FENCE                (NW, N)
     SP_FENCE_TRACK          (NE, 0)
-    SP_PLATFORM             (NW, N)
+    SP_PLATFORM_OVERHEAD    (NW, N)
     SP_BUFFERSTOP           (NE, 0)
     SP_BUFFERSTOP           (SW, 1)
-    SP_PLATFORM             (SE, S)
+    SP_PLATFORM_OVERHEAD    (SE, S)
     SP_FENCE_TRACK          (SW, 1)
     SP_FENCE                (SE, S)
     SP_OVERHEAD_STRUCTURE   (NW, 12)
@@ -276,10 +290,10 @@ spritelayout sp_platform_overhead_y(shelter_type) {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     SP_FENCE_Y              (NE, N)
     SP_FENCE_TRACK_Y        (NW, 0)
-    SP_PLATFORM             (NE, N)
+    SP_PLATFORM_OVERHEAD    (NE, N)
     SP_BUFFERSTOP           (NW, 0)
     SP_BUFFERSTOP           (SE, 1)
-    SP_PLATFORM             (SW, S)
+    SP_PLATFORM_OVERHEAD    (SW, S)
     SP_FENCE_TRACK_Y        (SE, 1)
     SP_FENCE_Y              (SW, S)
     SP_OVERHEAD_STRUCTURE   (NE, 12)
@@ -303,7 +317,7 @@ spritelayout sp_platform_overpass_x(shelter_type, platform_recolour) {
         /*palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));*/\
     }\
     childsprite { /* shadow */ \
-        sprite:         CUSTOM(S_OVERPASS, GET_SPRITE(GROUP_OVERPASS_SHADOW, pos));\
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SHADOW_SHORT, pos));\
         recolour_mode:  RECOLOUR_TRANSPARENT;\
         palette:        PALETTE_TRANSPARENT;\
     }\
@@ -319,7 +333,7 @@ spritelayout sp_platform_overpass_x(shelter_type, platform_recolour) {
         sprite:         CUSTOM(S_OVERPASS, GET_SPRITE(GROUP_OVERPASS, num));\
         BBOX_OVERPASS_##pos\
         recolour_mode:  RECOLOUR_REMAP;\
-        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
+        palette:        CUSTOM(S_OVERPASS, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
         hide_sprite:    !(getbits(LOAD_TEMP(TILE_SELF), BIT_SPLAT, 2));\
     }
     SP_FENCE            (NW, N)

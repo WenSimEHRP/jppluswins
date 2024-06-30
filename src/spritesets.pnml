@@ -58,6 +58,8 @@ template t_fence_SW(name)       {[X_SPRITE*3,0,X_SIZE,Y_SIZE, -3,-53,"gfx/"+name
 #define GROUP_RECOLOUR_SNOW (GROUP_DECO_3 + 1)
 #define GROUP_RECOLOUR_DECO (GROUP_RECOLOUR_SNOW + 1)
 #define GROUP_FENCE         (GROUP_RECOLOUR_DECO + 1)
+#define GROUP_SHADOW_SHORT  (GROUP_FENCE + 1)
+#define GROUP_SHADOW_LONG   (GROUP_SHADOW_SHORT + 1)
 // functions
 #define SPRITE_PER_MISC_GRUOP (4)
 #define GET_SPRITE_MISC(group, sprite) (group * SPRITE_PER_MISC_GRUOP + sprite)
@@ -138,6 +140,16 @@ spriteset(s_misc) {
     fence_NE: t_fence_NE("misc/fence")
     fence_SE: t_fence_SE("misc/fence")
     fence_SW: t_fence_SW("misc/fence")
+    /* short shadow */
+    t_0         (0, "misc/shadow_short")
+    t_0         (1, "misc/shadow_short")
+    t_0         (2, "misc/shadow_short")
+    t_0         (3, "misc/shadow_short")
+    /* long shadow */
+    t_0         (0, "misc/shadow_long")
+    t_0         (1, "misc/shadow_long")
+    t_0         (2, "misc/shadow_long")
+    t_0         (3, "misc/shadow_long")
 }
 
 //* start of shelter spritesets
@@ -222,7 +234,7 @@ spriteset(s_shelter_tiles) {
 #define GROUP_SNOW_SYM_EDGE             (GROUP_SNOW_ASYM_2 + 1)
 
 // split
-#define GROUP_OVERHEAD_STRUCTURE        (GROUP_RECOLOUR_SHELTER_ERA + 1)
+#define GROUP_OVERHEAD_STRUCTURE        (GROUP_SNOW_SYM_EDGE + 1)
 #define GROUP_OVERHEAD_STRUCTURE_SNOW   (GROUP_OVERHEAD_STRUCTURE + 1)
 
 #define GROUP_PLATFORM_RECOLOUR_1       (GROUP_SNOW_SYM_EDGE + 1)
@@ -556,12 +568,6 @@ spriteset(s_platform_overpass_real) {
     t_0         (2, "platform/"+name+"_overpass") \
     t_0         (3, "platform/"+name+"_overpass")
     S_OVERPASS_SETUP("platform_overpass_real")
-    #define S_OVERPASS_SHADOW_SETUP(name) \
-    t_0         (0, "platform/"+name+"_overpass_shadow") \
-    t_0         (1, "platform/"+name+"_overpass_shadow") \
-    t_0         (2, "platform/"+name+"_overpass_shadow") \
-    t_0         (3, "platform/"+name+"_overpass_shadow")
-    S_OVERPASS_SHADOW_SETUP("platform_overpass_real")
 }
 
 spriteset (s_modular_low_overpass) {
