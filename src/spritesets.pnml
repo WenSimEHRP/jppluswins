@@ -600,3 +600,31 @@ spriteset (s_modular_low_overpass) {
     S_PLATFORM_OVERHEAD_STRUCTURE_SETUP("modular_low_overpass")
     S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP("modular_low_overpass")
 }
+
+// platform cargo
+spriteset(s_cargo_passenger_little) {
+    t_0(0, "misc/waiting_people_little")
+    t_0(1, "misc/waiting_people_little")
+    t_0(2, "misc/waiting_people_little")
+    t_0(3, "misc/waiting_people_little")
+}
+
+spriteset(s_cargo_passenger_lots) {
+    t_0(0, "misc/waiting_people_lots")
+    t_0(1, "misc/waiting_people_lots")
+    t_0(2, "misc/waiting_people_lots")
+    t_0(3, "misc/waiting_people_lots")
+}
+
+spritegroup s_cargo_passenger {
+    little: s_cargo_passenger_little;
+    lots:   s_cargo_passenger_lots;
+}
+
+// dummy spriteset, urgh why do I have to do this
+spriteset(s_dummy) {
+    [0,0,1,1,0,0,"gfx/misc/bufferstop.png"]
+    [0,0,1,1,0,0,"gfx/misc/bufferstop.png"]
+    [0,0,1,1,0,0,"gfx/misc/bufferstop.png"]
+    [0,0,1,1,0,0,"gfx/misc/bufferstop.png"]
+}

@@ -12,7 +12,7 @@ gcc -E -x c wins.pnml > wins.nml &&
     echo "Finished preprocessing" &&
     echo "Now compiling..." &&
     nml/nmlc wins.nml -o    wins.grf --nml="wins_parsed.nml" &&
-    nml/nmlc wins.nml -c -o wins_crop.grf &&
+    nml/nmlc wins.nml -c -o wins_crop.grf > /dev/null 2>&1 &&
     echo "Finished compiling!"
     # no decompiling console output
     yagl -d wins.grf      > /dev/null 2>&1 &&

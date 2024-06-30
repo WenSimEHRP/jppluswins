@@ -1,5 +1,6 @@
 #include "src/defines.pnml"
 #include "src/header.pnml"
+#include "src/tables.pnml"
 #include "src/spritesets.pnml"
 #include "src/spritelayouts.pnml"
 

@@ -170,6 +170,9 @@ spritelayout sp_platform_platform_x(platform_recolour) {
         hide_sprite:    SP_HIDE_SPRITE_CHECK_SNOW;\
         /*recolour_mode:  RECOLOUR_REMAP;*/\
         /*palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_type / PLATFORM_FORMATION_COUNT, GROUP_RECOLOUR_SNOW + SP_RANDOM_CHOOSE_SNOW * RNG(10,20) % 4, pos));*/\
+    }\
+    childsprite { /* waiting passenger */ \
+        sprite:         DEFAULT(pos);\
     }
     SP_FENCE            (NW, N)
     SP_FENCE_TRACK      (NE, 0)
@@ -442,12 +445,21 @@ switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
 
 switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     // we first check for the southern platform, if there isn't one, we check for the northern platform
-    // if both isn't there, we use the default recolouring
-    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1) && getbits(LOAD_TEMP(TILE_X_SW), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
-    getbits(LOAD_TEMP(TILE_X_SW), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1) && getbits(LOAD_TEMP(TILE_X_NE), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
-    getbits(LOAD_TEMP(TILE_X_NE), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    GROUP_RECOLOUR_ERA
+    // if both isn't there, we then check further away
+    // if none of the platforms are there, we then use the default era recolour
+    nearby_tile_same_grf( 1, 0) && getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    nearby_tile_same_grf(-1, 0) && getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    nearby_tile_same_grf( 2, 0) && getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    nearby_tile_same_grf(-2, 0) && getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    nearby_tile_same_grf( 3, 0) && getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    nearby_tile_same_grf(-3, 0) && getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    0
 )
 {
     0: GROUP_RECOLOUR_ERA;
@@ -524,6 +536,7 @@ property {\
     non_traversable_tiles:  0;\
     draw_pylon_tiles:       STAT_ALL_TILES;\
     hide_wire_tiles:        0;\
+    cargo_threshold:        2048;\
 }
 
 #define STN_STATION_PROPERTY_1 /* station as waypoint */ \
@@ -576,6 +589,8 @@ item(FEAT_STATIONS, i_station_##name,\
         custom_spritesets: [platform_spriteset, s_misc, s_shelter_tiles];\
         prepare_layout: sw_platform();\
         purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        default: s_dummy;\
+        PASS: s_cargo_passenger;\
     }\
 }
 

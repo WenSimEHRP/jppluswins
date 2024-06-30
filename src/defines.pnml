@@ -280,7 +280,10 @@
 #define BIT_SHELTER_TYPE 4                  // 8 to 10, ranging from 0 to 7, providing 8 shelter types, 0 means no shelter
 
 // funcitons
+// compile time random number generator
 #define RNG(min, max) ((min) + (__LINE__ * 1145141919 + 810) % ((max) - (min) + 1))
+// real time random number generator with seed
+#define RNG_SEED(seed, min, max) ((min) + ((seed) * 1145141919 + 810) % ((max) - (min) + 1))
 
 // misc
 #define TRUE (1)
