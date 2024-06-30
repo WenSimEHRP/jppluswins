@@ -312,7 +312,7 @@ spritelayout sp_platform_overpass_x() {
     #define SP_PLATFORM_OVERPASS(pos, pos2) \
     building { /* platform */ \
         sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
-                        BBOX_PLATFORM_OVERPASS_##pos\
+                        BBOX_PLATFORM_##pos\
         hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1) || LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) == 3;\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
@@ -443,8 +443,10 @@ switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
 switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     // we first check for the southern platform, if there isn't one, we check for the northern platform
     // if both isn't there, we use the default recolouring
-    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1) ? getbits(LOAD_TEMP(TILE_X_SW), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1) ? getbits(LOAD_TEMP(TILE_X_NE), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1) && getbits(LOAD_TEMP(TILE_X_SW), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    getbits(LOAD_TEMP(TILE_X_SW), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1) && getbits(LOAD_TEMP(TILE_X_NE), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    getbits(LOAD_TEMP(TILE_X_NE), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     GROUP_RECOLOUR_ERA
 )
 {
