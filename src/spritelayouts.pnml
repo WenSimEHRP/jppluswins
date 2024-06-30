@@ -35,6 +35,7 @@
 #define TEMP_HIDE_PLATFORM              19
 #define TEMP_PLAT_FORMATION_N           20
 #define TEMP_PLAT_FORMATION_S           21
+#define TEMP_DETERMINE_RECOLOUR         22 // for platform recolouring
 
 // spritesets
 #define S_PLATFORM  0
@@ -44,6 +45,7 @@
 // private zone??
 #define S_OVERHEAD  3
 #define S_OVERPASS  3
+#define S_CROSSING  3
 
 // functions
 #define SP_HIDE_SPRITE_BUFFERSTOP(tile) \
@@ -192,22 +194,34 @@ spritelayout sp_platform_platform_y(platform_recolour) {
 }
 
 spritelayout sp_platform_crossing_x() {
+    #define SP_PLATFORM_CROSSING(pos, pos2) \
+    building { /* platform */ \
+        sprite:         CUSTOM(S_CROSSING, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+                        BBOX_PLATFORM_##pos\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
+    }\
+    childsprite { /* snow */ \
+        sprite:         CUSTOM(S_CROSSING, GET_SPRITE((GROUP_SNOW_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
+        hide_sprite:    SP_HIDE_SPRITE_CHECK_SNOW;\
+    }
     #define SP_CORNER_HOUSE(hide_pos_1, hide_pos_2, pos, num) \
     building { /* corner house */ \
-        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_CORNER_HOUSE, num));\
+        sprite:         CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE, num));\
         BBOX_CORNER_HOUSE_##pos\
         recolour_mode:  RECOLOUR_REMAP;\
-        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_CORNER_HOUSE_RECOLOUR, LOAD_TEMP(TEMP_STATION_ERA)));\
+        palette:        CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE_RECOLOUR, LOAD_TEMP(TEMP_STATION_ERA)));\
         hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##hide_pos_1, 1)) ||\
                         (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##hide_pos_2, 1)) ||\
                         (getbits(LOAD_TEMP(TEMP_RANDBIT_TILE)       , RNG(0,3)           , 1));\
     }
     #define SP_CORNER_HOUSE_Y(hide_pos_1, hide_pos_2, pos, num) \
     building { /* corner house */ \
-        sprite:         CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_CORNER_HOUSE, num));\
+        sprite:         CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE, num));\
         BBOX_CORNER_HOUSE_##pos\
         recolour_mode:  RECOLOUR_REMAP;\
-        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_CORNER_HOUSE_RECOLOUR, LOAD_TEMP(TEMP_STATION_ERA)));\
+        palette:        CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE_RECOLOUR, LOAD_TEMP(TEMP_STATION_ERA)));\
         hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##hide_pos_1, 1)) ||\
                         (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##hide_pos_2, 1)) ||\
                         (getbits(LOAD_TEMP(TEMP_RANDBIT_TILE)       , num           , 1));\
@@ -215,10 +229,10 @@ spritelayout sp_platform_crossing_x() {
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     //SP_FENCE        (NW, N)
     SP_FENCE_TRACK  (NE, 0)
-    SP_PLATFORM     (NW, N)
+    SP_PLATFORM_CROSSING(NW, N)
     SP_BUFFERSTOP   (NE, 0)
     SP_BUFFERSTOP   (SW, 1)
-    SP_PLATFORM     (SE, S)
+    SP_PLATFORM_CROSSING(SE, S)
     //SP_FENCE        (SE, S)
     SP_FENCE_TRACK  (SW, 1)
     SP_CORNER_HOUSE_Y (NW,NE,N,0) // N
@@ -231,10 +245,10 @@ spritelayout sp_platform_crossing_y() {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     //SP_FENCE_Y      (NE, N)
     SP_FENCE_TRACK_Y(NW, 0)
-    SP_PLATFORM     (NE, N)
+    SP_PLATFORM_CROSSING(NE, N)
     SP_BUFFERSTOP   (NW, 0)
     SP_BUFFERSTOP   (SE, 1)
-    SP_PLATFORM     (SW, S)
+    SP_PLATFORM_CROSSING(SW, S)
     SP_FENCE_TRACK_Y(SE, 1)
     //SP_FENCE_Y      (SW, S)
     SP_CORNER_HOUSE (NW,NE,N,0) // N
@@ -258,7 +272,7 @@ spritelayout sp_platform_overhead_x() {
                         BBOX_PLATFORM_##pos\
         hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
         recolour_mode:  RECOLOUR_REMAP;\
-        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
     }\
     childsprite { /* shadow */ \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SHADOW_LONG, pos));\
@@ -292,7 +306,7 @@ spritelayout sp_platform_overhead_y() {
 }
 
 
-spritelayout sp_platform_overpass_x(platform_recolour) {
+spritelayout sp_platform_overpass_x() {
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     #define SP_PLATFORM_OVERPASS(pos, pos2) \
     building { /* platform */ \
@@ -300,7 +314,7 @@ spritelayout sp_platform_overpass_x(platform_recolour) {
                         BBOX_PLATFORM_OVERPASS_##pos\
         hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1) || LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) == 3;\
         recolour_mode:  RECOLOUR_REMAP;\
-        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_recolour, LOAD_TEMP(TEMP_STATION_ERA)));\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
     }\
     childsprite { /* snow */ \
         sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SNOW_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
@@ -339,7 +353,7 @@ spritelayout sp_platform_overpass_x(platform_recolour) {
     SP_OVERPASS         (X , 0)
 }
 
-spritelayout sp_platform_overpass_y(platform_recolour) {
+spritelayout sp_platform_overpass_y() {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     SP_FENCE_Y          (NE, N)
     SP_FENCE_TRACK_Y    (NW, 0)
@@ -425,6 +439,22 @@ switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
 // we want to put all calculations and checks in spritelayouts, so here in
 // the switch we only store the results of the checks in temporary variables
 
+switch (FEAT_STATIONS, SELF, sw_determine_recolour,
+    // we first check for the southern platform, if there isn't one, we check for the northern platform
+    // if both isn't there, we use the default recolouring
+
+    // check the southern platform's group.
+    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1) ? getbits(LOAD_TEMP(TILE_X_SW), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1) ? getbits(LOAD_TEMP(TILE_X_NE), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    GROUP_RECOLOUR_ERA
+)
+{
+    0: GROUP_RECOLOUR_ERA;
+    1: GROUP_PLATFORM_RECOLOUR_1;
+    2: GROUP_PLATFORM_RECOLOUR_2;
+    default: GROUP_RECOLOUR_ERA;
+}
+
 switch (FEAT_STATIONS, SELF, sw_platform, [
     STORE_TEMP(nearby_tile_station_id(-1, 0),           TILE_X_NE),
     STORE_TEMP(nearby_tile_station_id( 1, 0),           TILE_X_SW),
@@ -450,6 +480,7 @@ switch (FEAT_STATIONS, SELF, sw_platform, [
 //    STORE_TEMP(terrain_type,                            TEMP_TERRAIN_TYPE),
     STORE_TEMP(random_bits_tile,                        TEMP_RANDBIT_TILE),
 //    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
+    STORE_TEMP(sw_determine_recolour(),                 TEMP_DETERMINE_RECOLOUR),
 ])
 {return;}
 
@@ -480,6 +511,7 @@ switch (FEAT_STATIONS, SELF, sw_platform_purchase, station_id, [
 //    STORE_TEMP(terrain_type,                            TEMP_TERRAIN_TYPE),
     STORE_TEMP(15,                        TEMP_RANDBIT_TILE),
 //    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
+    STORE_TEMP(GROUP_RECOLOUR_ERA,      TEMP_DETERMINE_RECOLOUR),
 ])
 {return;}
 
@@ -528,7 +560,7 @@ item(FEAT_STATIONS, i_station_##name,\
     STN_STATION_PROPERTY_##property\
     graphics {\
         sprite_layouts: [sp_platform_crossing_x(), sp_platform_crossing_y()];\
-        custom_spritesets: [platform_spriteset, s_misc, s_shelter_tiles];\
+        custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
         prepare_layout: sw_platform();\
         purchase_prepare_layout: sw_platform_purchase(platform_type);\
     }\
@@ -558,12 +590,12 @@ item(FEAT_STATIONS, i_station_##name,\
     }\
 }
 
-#define STN_STATION_WRAPPER_OVERPASS(name, property, platform_type, platform_spriteset, platform_recolour)\
+#define STN_STATION_WRAPPER_OVERPASS(name, property, platform_type, platform_spriteset)\
 item(FEAT_STATIONS, i_station_##name,\
     platform_type) {\
     STN_STATION_PROPERTY_##property\
     graphics {\
-        sprite_layouts: [sp_platform_overpass_x(platform_recolour), sp_platform_overpass_y(platform_recolour)];\
+        sprite_layouts: [sp_platform_overpass_x(), sp_platform_overpass_y()];\
         custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
         prepare_layout: sw_platform();\
         purchase_prepare_layout: sw_platform_purchase(platform_type);\
@@ -594,12 +626,8 @@ STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_2   , 1, STN_CALC_PLATFORM_BIT(4,0,
 //STN_STATION_WRAPPER         (overpass       , 0, STN_CALC_PLATFORM_BIT(6,1,1), 1, s_platform_overpass)
 //STN_STATION_WRAPPER_OVERHEAD(overpass_test  , 0, STN_CALC_PLATFORM_BIT(7,1,1), 1, s_platform_overpass_test)
 
-STN_STATION_WRAPPER_OVERPASS(overpass_real  , 0,            STN_CALC_PLATFORM_BIT(5,1,1), s_platform_overpass_real, GROUP_RECOLOUR_ERA)
-STN_STATION_WRAPPER_OVERPASS(overpass_real_1, 0,            STN_CALC_PLATFORM_BIT(5,1,0), s_platform_overpass_real, GROUP_RECOLOUR_ERA)
-STN_STATION_WRAPPER_OVERPASS(overpass_real_2, 0,            STN_CALC_PLATFORM_BIT(5,0,1), s_platform_overpass_real, GROUP_RECOLOUR_ERA)
-
-STN_STATION_WRAPPER_OVERPASS(overpass_asphalt_real  , 0,    STN_CALC_PLATFORM_BIT(6,1,1), s_platform_overpass_real, GROUP_PLATFORM_RECOLOUR_1)
-STN_STATION_WRAPPER_OVERPASS(overpass_asphalt_real_1, 0,    STN_CALC_PLATFORM_BIT(6,1,0), s_platform_overpass_real, GROUP_PLATFORM_RECOLOUR_1)
-STN_STATION_WRAPPER_OVERPASS(overpass_asphalt_real_2, 0,    STN_CALC_PLATFORM_BIT(6,0,1), s_platform_overpass_real, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_OVERPASS(overpass_real  , 0,            STN_CALC_PLATFORM_BIT(5,1,1), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_1, 0,            STN_CALC_PLATFORM_BIT(5,1,0), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_2, 0,            STN_CALC_PLATFORM_BIT(5,0,1), s_platform_overpass_real)
 
 STN_STATION_WRAPPER_OVERHEAD(overhead_low, 0, STN_CALC_PLATFORM_BIT(7,1,1), s_modular_low_overpass)
