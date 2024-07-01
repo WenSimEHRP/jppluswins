@@ -611,6 +611,7 @@ switch (FEAT_STATIONS, SELF, sw_platform_purchase, station_id, [
     STORE_TEMP(15,                        TEMP_RANDBIT_TILE),
 //    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
     STORE_TEMP(GROUP_RECOLOUR_ERA,      TEMP_DETERMINE_RECOLOUR),
+    STORE_TEMP(1,                    TEMP_DETERMINE_FENCE),
 ])
 {return;}
 
@@ -622,7 +623,8 @@ property {\
     non_traversable_tiles:  0;\
     draw_pylon_tiles:       STAT_ALL_TILES;\
     hide_wire_tiles:        0;\
-    cargo_threshold:        2048;\
+    cargo_threshold:        100;\
+    general_flags:          bitmask(STAT_FLAG_DISTRIBUTED_CARGO);\
 }
 
 #define STN_STATION_PROPERTY_1 /* station as waypoint */ \
