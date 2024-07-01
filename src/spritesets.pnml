@@ -60,6 +60,7 @@ template t_fence_SW(name)       {[X_SPRITE*3,0,X_SIZE,Y_SIZE, -3,-53,"gfx/"+name
 #define GROUP_FENCE         (GROUP_RECOLOUR_DECO + 1)
 #define GROUP_SHADOW_SHORT  (GROUP_FENCE + 1)
 #define GROUP_SHADOW_LONG   (GROUP_SHADOW_SHORT + 1)
+#define GROUP_FENCE_BARS    (GROUP_SHADOW_LONG + 1)
 // functions
 #define SPRITE_PER_MISC_GRUOP (4)
 #define GET_SPRITE_MISC(group, sprite) (group * SPRITE_PER_MISC_GRUOP + sprite)
@@ -150,6 +151,11 @@ spriteset(s_misc) {
     t_0         (1, "misc/shadow_long")
     t_0         (2, "misc/shadow_long")
     t_0         (3, "misc/shadow_long")
+    /* fence bars */
+    t_fence_NW("misc/fence_bars")
+    t_fence_NE("misc/fence_bars")
+    t_fence_SE("misc/fence_bars")
+    t_fence_SW("misc/fence_bars")
 }
 
 //* start of shelter spritesets

@@ -11,6 +11,17 @@
 #define TILE_X_E    7
 #define TILE_SELF   8
 
+// orientations
+#define ORI_X_NE -1, 0
+#define ORI_X_SW  1, 0
+#define ORI_X_NW  0,-1
+#define ORI_X_SE  0, 1
+#define ORI_X_N  -1,-1
+#define ORI_X_S   1, 1
+#define ORI_X_W   1,-1
+#define ORI_X_E  -1, 1
+#define ORI_SELF  0, 0
+
 // on y directions
 #define TILE_Y_NW   TILE_X_NE
 #define TILE_Y_SE   TILE_X_SW
@@ -21,6 +32,15 @@
 #define TILE_Y_W    TILE_X_E
 #define TILE_Y_E    TILE_X_W
 
+#define ORI_Y_NW ORI_X_NE
+#define ORI_Y_SE ORI_X_SW
+#define ORI_Y_NE ORI_X_NW
+#define ORI_Y_SW ORI_X_SE
+#define ORI_Y_N  ORI_X_N
+#define ORI_Y_S  ORI_X_S
+#define ORI_Y_W  ORI_X_E
+#define ORI_Y_E  ORI_X_W
+
 // temporary variables
 #define TEMP_RAIL_CONTINUATION          9
 #define TEMP_NEARBY_TILE_STATION        10
@@ -29,13 +49,14 @@
 #define TEMP_CURRENT_LANDSCAPE          13
 //#define TEMP_CURRENT_DATE               14
 //#define TEMP_TERRAIN_TYPE               15
-#define TEMP_RANDBIT_TILE               16
-#define TEMP_RANDBIT_STATION            17
-#define TEMP_STATION_ERA                18
-#define TEMP_HIDE_PLATFORM              19
-#define TEMP_PLAT_FORMATION_N           20
-#define TEMP_PLAT_FORMATION_S           21
+#define TEMP_RANDBIT_TILE               16 // tile random bit
+#define TEMP_RANDBIT_STATION            17 // station random bit
+#define TEMP_STATION_ERA                18 // for station era
+#define TEMP_HIDE_PLATFORM              19 // for platform hiding
+#define TEMP_PLAT_FORMATION_N           20 // for platform formation, north
+#define TEMP_PLAT_FORMATION_S           21 // for platform formation, south
 #define TEMP_DETERMINE_RECOLOUR         22 // for platform recolouring
+#define TEMP_DETERMINE_FENCE            23 // for fence on platform side
 
 // spritesets
 #define S_PLATFORM  0
@@ -104,6 +125,11 @@ spritelayout sp_platform_x() {
         hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1));\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        PALETTE_USE_DEFAULT;\
+    } \
+    building { \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE_BARS, pos)); \
+        BBOX_FENCE_##pos \
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_DETERMINE_FENCE), BIT_##pos2##PLAT, 1)); \
     }
     #define SP_FENCE_Y(pos,pos2)\
     building { /* fence */ \
@@ -112,6 +138,11 @@ spritelayout sp_platform_x() {
         hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1));\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        PALETTE_USE_DEFAULT;\
+    } \
+    building { \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE_BARS, pos)); \
+        BBOX_FENCE_##pos \
+        hide_sprite:    (getbits(LOAD_TEMP(TEMP_DETERMINE_FENCE), BIT_##pos2##PLAT, 1)); \
     }
     #define SP_FENCE_TRACK(pos,bit)\
     building { /* fence */ \
@@ -370,62 +401,88 @@ spritelayout sp_platform_overpass_y() {
     SP_OVERPASS         (Y , 1)
 }
 
-// temp storage
+// temp storage functions
 switch (FEAT_STATIONS, SELF, sw_check_nearby_landscape,
-        nearby_tile_slope(-1, 0) << TILE_X_NE|
-        nearby_tile_slope( 1, 0) << TILE_X_SW|
-        nearby_tile_slope( 0,-1) << TILE_X_NW|
-        nearby_tile_slope( 0, 1) << TILE_X_SE|
-        nearby_tile_slope(-1,-1) << TILE_X_N|
-        nearby_tile_slope( 1, 1) << TILE_X_S|
-        nearby_tile_slope( 1,-1) << TILE_X_W|
-        nearby_tile_slope(-1, 1) << TILE_X_E) {return;}
+    // output range: 0b0000..0b1111
+    // checks the nearby landscape
+    nearby_tile_slope(-1, 0) << TILE_X_NE|
+    nearby_tile_slope( 1, 0) << TILE_X_SW|
+    nearby_tile_slope( 0,-1) << TILE_X_NW|
+    nearby_tile_slope( 0, 1) << TILE_X_SE|
+    nearby_tile_slope(-1,-1) << TILE_X_N|
+    nearby_tile_slope( 1, 1) << TILE_X_S|
+    nearby_tile_slope( 1,-1) << TILE_X_W|
+    nearby_tile_slope(-1, 1) << TILE_X_E) {return;}
+
 
 switch (FEAT_STATIONS, SELF, sw_check_rail_continuation,
-        hasbit(rail_continuation, 1) << TILE_X_NE|
-        hasbit(rail_continuation, 0) << TILE_X_SW) {return;}
+    // output range: 0b00..0b11
+    // checks if the rail continuation is present
+    hasbit(rail_continuation, 1) << TILE_X_NE|
+    hasbit(rail_continuation, 0) << TILE_X_SW) {return;}
+
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_station,
-        nearby_tile_is_station(-1, 0) << TILE_X_NE|
-        nearby_tile_is_station( 1, 0) << TILE_X_SW|
-        nearby_tile_is_station( 0,-1) << TILE_X_NW|
-        nearby_tile_is_station( 0, 1) << TILE_X_SE|
-        nearby_tile_is_station(-1,-1) << TILE_X_N|
-        nearby_tile_is_station( 1, 1) << TILE_X_S|
-        nearby_tile_is_station( 1,-1) << TILE_X_W|
-        nearby_tile_is_station(-1, 1) << TILE_X_E) {return;}
+    // output range: 0b0000..0b1111
+    // checks if the nearby tile is a station
+    nearby_tile_is_station(-1, 0) << TILE_X_NE|
+    nearby_tile_is_station( 1, 0) << TILE_X_SW|
+    nearby_tile_is_station( 0,-1) << TILE_X_NW|
+    nearby_tile_is_station( 0, 1) << TILE_X_SE|
+    nearby_tile_is_station(-1,-1) << TILE_X_N|
+    nearby_tile_is_station( 1, 1) << TILE_X_S|
+    nearby_tile_is_station( 1,-1) << TILE_X_W|
+    nearby_tile_is_station(-1, 1) << TILE_X_E) {return;}
+
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_perpendicular,
-        nearby_tile_perpendicular(-1, 0) << TILE_X_NE|
-        nearby_tile_perpendicular( 1, 0) << TILE_X_SW|
-        nearby_tile_perpendicular( 0,-1) << TILE_X_NW|
-        nearby_tile_perpendicular( 0, 1) << TILE_X_SE|
-        nearby_tile_perpendicular(-1,-1) << TILE_X_N|
-        nearby_tile_perpendicular( 1, 1) << TILE_X_S|
-        nearby_tile_perpendicular( 1,-1) << TILE_X_W|
-        nearby_tile_perpendicular(-1, 1) << TILE_X_E) {return;}
+    // output range: 0b0000..0b1111
+    // checks if the nearby tile is perpendicular
+    nearby_tile_perpendicular(-1, 0) << TILE_X_NE|
+    nearby_tile_perpendicular( 1, 0) << TILE_X_SW|
+    nearby_tile_perpendicular( 0,-1) << TILE_X_NW|
+    nearby_tile_perpendicular( 0, 1) << TILE_X_SE|
+    nearby_tile_perpendicular(-1,-1) << TILE_X_N|
+    nearby_tile_perpendicular( 1, 1) << TILE_X_S|
+    nearby_tile_perpendicular( 1,-1) << TILE_X_W|
+    nearby_tile_perpendicular(-1, 1) << TILE_X_E) {return;}
+
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
-        nearby_tile_same_grf(-1, 0) << TILE_X_NE|
-        nearby_tile_same_grf( 1, 0) << TILE_X_SW|
-        nearby_tile_same_grf( 0,-1) << TILE_X_NW|
-        nearby_tile_same_grf( 0, 1) << TILE_X_SE|
-        nearby_tile_same_grf(-1,-1) << TILE_X_N|
-        nearby_tile_same_grf( 1, 1) << TILE_X_S|
-        nearby_tile_same_grf( 1,-1) << TILE_X_W|
-        nearby_tile_same_grf(-1, 1) << TILE_X_E) {return;}
+    // output range: 0b0000..0b1111
+    // checks if the nearby tile is the same grf
+    nearby_tile_same_grf(-1, 0) << TILE_X_NE|
+    nearby_tile_same_grf( 1, 0) << TILE_X_SW|
+    nearby_tile_same_grf( 0,-1) << TILE_X_NW|
+    nearby_tile_same_grf( 0, 1) << TILE_X_SE|
+    nearby_tile_same_grf(-1,-1) << TILE_X_N|
+    nearby_tile_same_grf( 1, 1) << TILE_X_S|
+    nearby_tile_same_grf( 1,-1) << TILE_X_W|
+    nearby_tile_same_grf(-1, 1) << TILE_X_E) {return;}
 
-// GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA))
 
 switch (FEAT_STATIONS, SELF, sw_station_era,
-        (current_date < date(YEAR_ERA_2,1,1) ? 0 :
-         current_date < date(YEAR_ERA_3,1,1) ? 1 : 2)){return;}
+    // output range: 0..2
+    // checks the station era
+    (current_date < date(YEAR_ERA_2,1,1) ? 0 :
+     current_date < date(YEAR_ERA_3,1,1) ? 1 : 2)){return;}
 
 switch (FEAT_STATIONS, SELF, sw_hide_platform,
+    // output range: 0b00..0b11
+    // checks if the platform should be hidden
     (!getbits(getbits(LOAD_TEMP(TILE_SELF),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_NPLAT, 1) << BIT_NPLAT) |
     (!getbits(getbits(LOAD_TEMP(TILE_SELF),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_SPLAT, 1) << BIT_SPLAT)){return;}
 
+switch (FEAT_STATIONS, SELF, sw_hide_platform_id, id,
+    // output range: 0b00..0b11
+    // this allows manually putting the id of the station
+    // checks if the platform should be hidden
+    (!getbits(getbits(id, BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_NPLAT, 1) << BIT_NPLAT) |
+    (!getbits(getbits(id, BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_SPLAT, 1) << BIT_SPLAT)){return;}
+
 switch (FEAT_STATIONS, SELF, sw_get_platform_formation_N,
+    // output range: 0b00..0b11
+    // gets platform formation for northern platform
     ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)                       |\
       !getbits(getbits(LOAD_TEMP(TILE_X_SW),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1,BIT_NPLAT, 1) &\
        getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1                 |\
@@ -434,6 +491,8 @@ switch (FEAT_STATIONS, SELF, sw_get_platform_formation_N,
        getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0                 )){return;}
 
 switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
+    // output range: 0b00..0b11
+    // gets platform formation for southern platform
     ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)                       |\
       !getbits(getbits(LOAD_TEMP(TILE_X_SW),BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1,BIT_SPLAT, 1) &\
        getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1                 |\
@@ -444,6 +503,7 @@ switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
 // the switch we only store the results of the checks in temporary variables
 
 switch (FEAT_STATIONS, SELF, sw_determine_recolour,
+    // output range: it's written down there
     // we first check for the southern platform, if there isn't one, we check for the northern platform
     // if both isn't there, we then check further away
     // if none of the platforms are there, we then use the default era recolour
@@ -468,16 +528,41 @@ switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     default: GROUP_RECOLOUR_ERA;
 }
 
+switch (FEAT_STATIONS, SELF, sw_determine_fence,
+    // this switch controls the fence sprites
+    // whether it should be the normal style, or bars style
+    // the normal style is used when there isn't any station nearby
+    // the bars style is used when there is tracks nearby, and/or the platforms aren't protected by fences
+    // so it detects the nearby stations, and the nearby tracks
+
+    // detects self station id. Check if is in the correct range
+    // currently we only want to limit it to the "platform" platforms
+    (
+        (
+            !(!getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_NPLAT, 1) &&
+            getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NW, 1) &&
+            (getbits(sw_hide_platform_id(LOAD_TEMP(TILE_X_NW)), BIT_SPLAT, 1) ||
+            (0))) << BIT_NPLAT
+        ) |
+        (
+            !(!getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_SPLAT, 1) &&
+            getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SE, 1) &&
+            (getbits(sw_hide_platform_id(LOAD_TEMP(TILE_X_SE)), BIT_NPLAT, 1) ||
+            (0))) << BIT_SPLAT
+        )
+    )
+){return;}
+
 switch (FEAT_STATIONS, SELF, sw_platform, [
-    STORE_TEMP(nearby_tile_station_id(-1, 0),           TILE_X_NE),
-    STORE_TEMP(nearby_tile_station_id( 1, 0),           TILE_X_SW),
-    STORE_TEMP(nearby_tile_station_id( 0,-1),           TILE_X_NW),
-    STORE_TEMP(nearby_tile_station_id( 0, 1),           TILE_X_SE),
-    STORE_TEMP(nearby_tile_station_id(-1,-1),           TILE_X_N),
-    STORE_TEMP(nearby_tile_station_id( 1, 1),           TILE_X_S),
-    STORE_TEMP(nearby_tile_station_id( 1,-1),           TILE_X_W),
-    STORE_TEMP(nearby_tile_station_id(-1, 1),           TILE_X_E),
-    STORE_TEMP(nearby_tile_station_id( 0, 0),           TILE_SELF),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_NE),           TILE_X_NE),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_SW),           TILE_X_SW),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_NW),           TILE_X_NW),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_SE),           TILE_X_SE),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_N),            TILE_X_N),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_S),            TILE_X_S),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_W),            TILE_X_W),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_E),            TILE_X_E),
+    STORE_TEMP(nearby_tile_station_id(ORI_SELF),           TILE_SELF),
     // checks
     STORE_TEMP(sw_check_rail_continuation(),            TEMP_RAIL_CONTINUATION),
     STORE_TEMP(sw_check_nearby_tile_station(),          TEMP_NEARBY_TILE_STATION),
@@ -494,6 +579,7 @@ switch (FEAT_STATIONS, SELF, sw_platform, [
     STORE_TEMP(random_bits_tile,                        TEMP_RANDBIT_TILE),
 //    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
     STORE_TEMP(sw_determine_recolour(),                 TEMP_DETERMINE_RECOLOUR),
+    STORE_TEMP(sw_determine_fence(),                    TEMP_DETERMINE_FENCE),
 ])
 {return;}
 
@@ -506,10 +592,10 @@ switch (FEAT_STATIONS, SELF, sw_platform_purchase, station_id, [
     STORE_TEMP(0,           TILE_X_S),
     STORE_TEMP(0,           TILE_X_W),
     STORE_TEMP(0,           TILE_X_E),
-    STORE_TEMP(station_id,           TILE_SELF),
+    STORE_TEMP(station_id,  TILE_SELF),
     // checks
     STORE_TEMP(2,           TEMP_RAIL_CONTINUATION),
-    STORE_TEMP(1 << TILE_X_SW | 1 << TILE_X_SE,           TEMP_NEARBY_TILE_STATION),
+    STORE_TEMP(1 << TILE_X_SW | 1 << TILE_X_SE,TEMP_NEARBY_TILE_STATION),
     STORE_TEMP(0,           TEMP_NEARBY_TILE_PERPENDICULAR),
     STORE_TEMP(0,           TEMP_NEARBY_TILE_GRF),
     STORE_TEMP(0,           TEMP_CURRENT_LANDSCAPE),
@@ -618,34 +704,37 @@ item(FEAT_STATIONS, i_station_##name,\
     }\
 }
 
-STN_STATION_WRAPPER_PLATFORM(cement_both, 0, STN_CALC_PLATFORM_BIT(0,1,1), s_platform_cement, GROUP_RECOLOUR_ERA)
-STN_STATION_WRAPPER_PLATFORM(cement_1   , 0, STN_CALC_PLATFORM_BIT(0,1,0), s_platform_cement, GROUP_RECOLOUR_ERA)
-STN_STATION_WRAPPER_PLATFORM(cement_2   , 0, STN_CALC_PLATFORM_BIT(0,0,1), s_platform_cement, GROUP_RECOLOUR_ERA)
+// cement platform
+STN_STATION_WRAPPER_PLATFORM(cement_both            , 0, STN_CALC_PLATFORM_BIT(0,1,1), s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_1               , 0, STN_CALC_PLATFORM_BIT(0,1,0), s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_2               , 0, STN_CALC_PLATFORM_BIT(0,0,1), s_platform_cement, GROUP_RECOLOUR_ERA)
 
-STN_STATION_WRAPPER_PLATFORM(asphalt_both, 0, STN_CALC_PLATFORM_BIT(1,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
-STN_STATION_WRAPPER_PLATFORM(asphalt_1   , 0, STN_CALC_PLATFORM_BIT(1,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
-STN_STATION_WRAPPER_PLATFORM(asphalt_2   , 0, STN_CALC_PLATFORM_BIT(1,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+// asphalt platform
+STN_STATION_WRAPPER_PLATFORM(asphalt_both           , 0, STN_CALC_PLATFORM_BIT(1,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_1              , 0, STN_CALC_PLATFORM_BIT(1,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_2              , 0, STN_CALC_PLATFORM_BIT(1,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
 
-STN_STATION_WRAPPER_PLATFORM(brick_both, 0, STN_CALC_PLATFORM_BIT(2,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
-STN_STATION_WRAPPER_PLATFORM(brick_1   , 0, STN_CALC_PLATFORM_BIT(2,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
-STN_STATION_WRAPPER_PLATFORM(brick_2   , 0, STN_CALC_PLATFORM_BIT(2,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+// brick platform
+STN_STATION_WRAPPER_PLATFORM(brick_both             , 0, STN_CALC_PLATFORM_BIT(2,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_1                , 0, STN_CALC_PLATFORM_BIT(2,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_2                , 0, STN_CALC_PLATFORM_BIT(2,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
 
-//STN_STATION_WRAPPER         (cement_crs     , 0, STN_CALC_PLATFORM_BIT(4,1,1), 1, s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(cement_crs_both, 0, STN_CALC_PLATFORM_BIT(3,1,1), s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(cement_crs_1   , 0, STN_CALC_PLATFORM_BIT(3,1,0), s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(cement_crs_2   , 0, STN_CALC_PLATFORM_BIT(3,0,1), s_platform_cement_crossing)
+// crossing
+STN_STATION_WRAPPER_CROSSING(cement_crs_both        , 0, STN_CALC_PLATFORM_BIT(3,1,1), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(cement_crs_1           , 0, STN_CALC_PLATFORM_BIT(3,1,0), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(cement_crs_2           , 0, STN_CALC_PLATFORM_BIT(3,0,1), s_platform_cement_crossing)
 
-STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_both, 1, STN_CALC_PLATFORM_BIT(4,1,1), s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_1   , 1, STN_CALC_PLATFORM_BIT(4,1,0), s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_2   , 1, STN_CALC_PLATFORM_BIT(4,0,1), s_platform_cement_crossing)
+// crossing as waypoint
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_both   , 1, STN_CALC_PLATFORM_BIT(4,1,1), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_1      , 1, STN_CALC_PLATFORM_BIT(4,1,0), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_2      , 1, STN_CALC_PLATFORM_BIT(4,0,1), s_platform_cement_crossing)
 
-//STN_STATION_WRAPPER         (overpass       , 0, STN_CALC_PLATFORM_BIT(6,1,1), 1, s_platform_overpass)
-//STN_STATION_WRAPPER_OVERHEAD(overpass_test  , 0, STN_CALC_PLATFORM_BIT(7,1,1), 1, s_platform_overpass_test)
+// overpass
+STN_STATION_WRAPPER_OVERPASS(overpass_real_both     , 0, STN_CALC_PLATFORM_BIT(5,1,1), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_1        , 0, STN_CALC_PLATFORM_BIT(5,1,0), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_2        , 0, STN_CALC_PLATFORM_BIT(5,0,1), s_platform_overpass_real)
 
-STN_STATION_WRAPPER_OVERPASS(overpass_real  , 0,            STN_CALC_PLATFORM_BIT(5,1,1), s_platform_overpass_real)
-STN_STATION_WRAPPER_OVERPASS(overpass_real_1, 0,            STN_CALC_PLATFORM_BIT(5,1,0), s_platform_overpass_real)
-STN_STATION_WRAPPER_OVERPASS(overpass_real_2, 0,            STN_CALC_PLATFORM_BIT(5,0,1), s_platform_overpass_real)
-
-STN_STATION_WRAPPER_OVERHEAD(overhead_low_both, 0, STN_CALC_PLATFORM_BIT(6,1,1), s_modular_low_overpass)
-STN_STATION_WRAPPER_OVERHEAD(overhead_low_1, 0, STN_CALC_PLATFORM_BIT(6,1,0), s_modular_low_overpass)
-STN_STATION_WRAPPER_OVERHEAD(overhead_low_2, 0, STN_CALC_PLATFORM_BIT(6,0,1), s_modular_low_overpass)
+// overhead
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_both      , 0, STN_CALC_PLATFORM_BIT(6,1,1), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_1         , 0, STN_CALC_PLATFORM_BIT(6,1,0), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_2         , 0, STN_CALC_PLATFORM_BIT(6,0,1), s_modular_low_overpass)
