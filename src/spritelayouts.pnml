@@ -574,8 +574,11 @@ switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     0)
 {
     0: GROUP_RECOLOUR_ERA;
+    3: GROUP_RECOLOUR_ERA;
     1: GROUP_PLATFORM_RECOLOUR_1;
+    4: GROUP_PLATFORM_RECOLOUR_1;
     2: GROUP_PLATFORM_RECOLOUR_2;
+    5: GROUP_PLATFORM_RECOLOUR_2;
     default: GROUP_RECOLOUR_ERA;
 }
 
@@ -791,27 +794,42 @@ STN_STATION_WRAPPER_PLATFORM(brick_both             , 0, STN_CALC_PLATFORM_BIT(2
 STN_STATION_WRAPPER_PLATFORM(brick_1                , 0, STN_CALC_PLATFORM_BIT(2,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
 STN_STATION_WRAPPER_PLATFORM(brick_2                , 0, STN_CALC_PLATFORM_BIT(2,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
 
+// cement platform_alternative
+STN_STATION_WRAPPER_PLATFORM(cement_alt_both        , 0, STN_CALC_PLATFORM_BIT(3,1,1), s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_alt_1           , 0, STN_CALC_PLATFORM_BIT(3,1,0), s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_alt_2           , 0, STN_CALC_PLATFORM_BIT(3,0,1), s_platform_cement, GROUP_RECOLOUR_ERA)
+
+// asphalt platform_alternative
+STN_STATION_WRAPPER_PLATFORM(asphalt_alt_both       , 0, STN_CALC_PLATFORM_BIT(4,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_alt_1          , 0, STN_CALC_PLATFORM_BIT(4,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_alt_2          , 0, STN_CALC_PLATFORM_BIT(4,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+
+// brick platform_alternative
+STN_STATION_WRAPPER_PLATFORM(brick_alt_both         , 0, STN_CALC_PLATFORM_BIT(5,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_alt_1            , 0, STN_CALC_PLATFORM_BIT(5,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_alt_2            , 0, STN_CALC_PLATFORM_BIT(5,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+
 // crossing
-STN_STATION_WRAPPER_CROSSING(cement_crs_both        , 0, STN_CALC_PLATFORM_BIT(3,1,1), s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(cement_crs_1           , 0, STN_CALC_PLATFORM_BIT(3,1,0), s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(cement_crs_2           , 0, STN_CALC_PLATFORM_BIT(3,0,1), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(cement_crs_both        , 0, STN_CALC_PLATFORM_BIT(6,1,1), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(cement_crs_1           , 0, STN_CALC_PLATFORM_BIT(6,1,0), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(cement_crs_2           , 0, STN_CALC_PLATFORM_BIT(6,0,1), s_platform_cement_crossing)
 
 // crossing as waypoint
-STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_both   , 1, STN_CALC_PLATFORM_BIT(4,1,1), s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_1      , 1, STN_CALC_PLATFORM_BIT(4,1,0), s_platform_cement_crossing)
-STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_2      , 1, STN_CALC_PLATFORM_BIT(4,0,1), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_both   , 1, STN_CALC_PLATFORM_BIT(7,1,1), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_1      , 1, STN_CALC_PLATFORM_BIT(7,1,0), s_platform_cement_crossing)
+STN_STATION_WRAPPER_CROSSING(wayp_cement_crs_2      , 1, STN_CALC_PLATFORM_BIT(7,0,1), s_platform_cement_crossing)
 
 // overpass
-STN_STATION_WRAPPER_OVERPASS(overpass_real_both     , 0, STN_CALC_PLATFORM_BIT(5,1,1), s_platform_overpass_real)
-STN_STATION_WRAPPER_OVERPASS(overpass_real_1        , 0, STN_CALC_PLATFORM_BIT(5,1,0), s_platform_overpass_real)
-STN_STATION_WRAPPER_OVERPASS(overpass_real_2        , 0, STN_CALC_PLATFORM_BIT(5,0,1), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_both     , 0, STN_CALC_PLATFORM_BIT(8,1,1), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_1        , 0, STN_CALC_PLATFORM_BIT(8,1,0), s_platform_overpass_real)
+STN_STATION_WRAPPER_OVERPASS(overpass_real_2        , 0, STN_CALC_PLATFORM_BIT(8,0,1), s_platform_overpass_real)
 
 // overhead
-STN_STATION_WRAPPER_OVERHEAD(overhead_low_both      , 0, STN_CALC_PLATFORM_BIT(6,1,1), s_modular_low_overpass)
-STN_STATION_WRAPPER_OVERHEAD(overhead_low_1         , 0, STN_CALC_PLATFORM_BIT(6,1,0), s_modular_low_overpass)
-STN_STATION_WRAPPER_OVERHEAD(overhead_low_2         , 0, STN_CALC_PLATFORM_BIT(6,0,1), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_both      , 0, STN_CALC_PLATFORM_BIT(9,1,1), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_1         , 0, STN_CALC_PLATFORM_BIT(9,1,0), s_modular_low_overpass)
+STN_STATION_WRAPPER_OVERHEAD(overhead_low_2         , 0, STN_CALC_PLATFORM_BIT(9,0,1), s_modular_low_overpass)
 
 // shelters
-STN_STATION_WRAPPER_SHELTER (shelter_both           , 0, STN_CALC_PLATFORM_BIT(7,1,1), s_shelter_tiles)
-STN_STATION_WRAPPER_SHELTER (shelter_1              , 0, STN_CALC_PLATFORM_BIT(7,1,0), s_shelter_tiles)
-STN_STATION_WRAPPER_SHELTER (shelter_2              , 0, STN_CALC_PLATFORM_BIT(7,0,1), s_shelter_tiles)
+STN_STATION_WRAPPER_SHELTER (shelter_both           , 0, STN_CALC_PLATFORM_BIT(10,1,1), s_shelter_tiles)
+STN_STATION_WRAPPER_SHELTER (shelter_1              , 0, STN_CALC_PLATFORM_BIT(10,1,0), s_shelter_tiles)
+STN_STATION_WRAPPER_SHELTER (shelter_2              , 0, STN_CALC_PLATFORM_BIT(10,0,1), s_shelter_tiles)

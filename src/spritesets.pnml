@@ -289,28 +289,28 @@ Recoloursprites are special and should be handled separately.
 */
 
 spriteset(s_platform_cement) {
-        #define S_PLATFORM_SETUP(name) \
-    t_platform_NW("platform/"+name+"_sym")\
-    t_platform_NE("platform/"+name+"_sym")\
-    t_platform_SE("platform/"+name+"_sym")\
-    t_platform_SW("platform/"+name+"_sym")\
+    #define S_PLATFORM_SETUP(name) \
+    t_platform_NW(name+"_sym")\
+    t_platform_NE(name+"_sym")\
+    t_platform_SE(name+"_sym")\
+    t_platform_SW(name+"_sym")\
     /* asym platforms 1 */\
-    t_platform_NW("platform/"+name+"_asym_1")\
-    t_platform_NE("platform/"+name+"_asym_1")\
-    t_platform_SE("platform/"+name+"_asym_1")\
-    t_platform_SW("platform/"+name+"_asym_1")\
+    t_platform_NW(name+"_asym_1")\
+    t_platform_NE(name+"_asym_1")\
+    t_platform_SE(name+"_asym_1")\
+    t_platform_SW(name+"_asym_1")\
     /* asym platforms 2 */\
-    t_platform_NW("platform/"+name+"_asym_2")\
-    t_platform_NE("platform/"+name+"_asym_2")\
-    t_platform_SE("platform/"+name+"_asym_2")\
-    t_platform_SW("platform/"+name+"_asym_2")\
+    t_platform_NW(name+"_asym_2")\
+    t_platform_NE(name+"_asym_2")\
+    t_platform_SE(name+"_asym_2")\
+    t_platform_SW(name+"_asym_2")\
     /* sym edge platforms */\
-    t_platform_NW("platform/"+name+"_sym_edge")\
-    t_platform_NE("platform/"+name+"_sym_edge")\
-    t_platform_SE("platform/"+name+"_sym_edge")\
-    t_platform_SW("platform/"+name+"_sym_edge")
+    t_platform_NW(name+"_sym_edge")\
+    t_platform_NE(name+"_sym_edge")\
+    t_platform_SE(name+"_sym_edge")\
+    t_platform_SW(name+"_sym_edge")
 
-    S_PLATFORM_SETUP("platform_cement")
+    S_PLATFORM_SETUP("platform/real")
     /* recolouring, recolour from RNG? */
     recolour_sprite{
         0x40: 0x07;
@@ -326,27 +326,27 @@ spriteset(s_platform_cement) {
     recolour_sprite{} // placeholder
     /* snow */
     #define S_PLATFORM_SNOW_SETUP(name) \
-    t_0(0, "platform/"+name+"_snow_sym") \
-    t_0(1, "platform/"+name+"_snow_sym") \
-    t_0(2, "platform/"+name+"_snow_sym") \
-    t_0(3, "platform/"+name+"_snow_sym") \
+    t_0(0, name+"_snow_sym") \
+    t_0(1, name+"_snow_sym") \
+    t_0(2, name+"_snow_sym") \
+    t_0(3, name+"_snow_sym") \
     /* snow */ \
-    t_0(0, "platform/"+name+"_snow_asym_1") \
-    t_0(1, "platform/"+name+"_snow_asym_1") \
-    t_0(2, "platform/"+name+"_snow_asym_1") \
-    t_0(3, "platform/"+name+"_snow_asym_1") \
+    t_0(0, name+"_snow_asym_1") \
+    t_0(1, name+"_snow_asym_1") \
+    t_0(2, name+"_snow_asym_1") \
+    t_0(3, name+"_snow_asym_1") \
     /* snow */ \
-    t_0(0, "platform/"+name+"_snow_asym_2") \
-    t_0(1, "platform/"+name+"_snow_asym_2") \
-    t_0(2, "platform/"+name+"_snow_asym_2") \
-    t_0(3, "platform/"+name+"_snow_asym_2") \
+    t_0(0, name+"_snow_asym_2") \
+    t_0(1, name+"_snow_asym_2") \
+    t_0(2, name+"_snow_asym_2") \
+    t_0(3, name+"_snow_asym_2") \
     /* snow */ \
-    t_0(0, "platform/"+name+"_snow_sym_edge") \
-    t_0(1, "platform/"+name+"_snow_sym_edge") \
-    t_0(2, "platform/"+name+"_snow_sym_edge") \
-    t_0(3, "platform/"+name+"_snow_sym_edge")
+    t_0(0, name+"_snow_sym_edge") \
+    t_0(1, name+"_snow_sym_edge") \
+    t_0(2, name+"_snow_sym_edge") \
+    t_0(3, name+"_snow_sym_edge")
 
-    S_PLATFORM_SNOW_SETUP("platform_cement")
+    S_PLATFORM_SNOW_SETUP("platform/real")
 
     recolour_sprite{
         0x40: 16;
@@ -409,17 +409,17 @@ spriteset(s_platform_cement) {
 
 spriteset(s_platform_cement_crossing) {
     #define S_CORNER_HOUSE_SETUP(name) \
-    t_corner_N("platform/"+name+"_corner_house") \
-    t_corner_E("platform/"+name+"_corner_house") \
-    t_corner_S("platform/"+name+"_corner_house") \
-    t_corner_W("platform/"+name+"_corner_house")
+    t_corner_N(name+"_corner_house") \
+    t_corner_E(name+"_corner_house") \
+    t_corner_S(name+"_corner_house") \
+    t_corner_W(name+"_corner_house")
     #define S_CORNER_HOUSE_SNOW_SETUP(name) \
-    t_corner_N("platform/"+name+"_corner_house_snow") \
-    t_corner_E("platform/"+name+"_corner_house_snow") \
-    t_corner_S("platform/"+name+"_corner_house_snow") \
-    t_corner_W("platform/"+name+"_corner_house_snow")
+    t_corner_N(name+"_corner_house_snow") \
+    t_corner_E(name+"_corner_house_snow") \
+    t_corner_S(name+"_corner_house_snow") \
+    t_corner_W(name+"_corner_house_snow")
 
-    S_PLATFORM_SETUP("platform_cement_crossing")
+    S_PLATFORM_SETUP("crossing/real")
     /* recolouring, recolour from RNG? */
     recolour_sprite{
         0x40: 0x07;
@@ -434,9 +434,9 @@ spriteset(s_platform_cement_crossing) {
     recolour_sprite{}
     recolour_sprite{} // placeholder
     /* snow */
-    S_PLATFORM_SNOW_SETUP       ("platform_cement_crossing")
-    S_CORNER_HOUSE_SETUP        ("platform_cement_crossing")
-    S_CORNER_HOUSE_SNOW_SETUP   ("platform_cement_crossing")
+    S_PLATFORM_SNOW_SETUP       ("crossing/real")
+    S_CORNER_HOUSE_SETUP        ("crossing/real")
+    S_CORNER_HOUSE_SNOW_SETUP   ("crossing/real")
     // recolouring for corner houses
     recolour_sprite{
         3:3;
@@ -494,82 +494,9 @@ spriteset(s_platform_cement_crossing) {
     }
     recolour_sprite{}
 }
-/*
-spriteset(s_platform_overpass) {
-    S_PLATFORM_SETUP("platform_overpass")
-    recolour_sprite{
-        0x40: 0x07;
-        0x41: 0x08;
-        0x42: 0x08;
-        98:104;
-        99:2;
-        100:3;
-        101:3;
-        102:7;
-        103:5;
-    }
-    recolour_sprite{
-        0x40: 0x0B;
-        0x41: 0x0C;
-        0x42: 0x0D;
-        98:71;
-        99:112;
-        100:113;
-        101:113;
-        102:35;
-        103:114;
-    }
-    recolour_sprite{}
-    recolour_sprite{} // placeholder
-    S_PLATFORM_SNOW_SETUP("platform_overpass")
-}
 
-spriteset(s_platform_overpass_test) {
-    S_PLATFORM_SETUP("platform_overpass")
-    recolour_sprite{
-        0x40: 0x07;
-        0x41: 0x08;
-        0x42: 0x08;
-        98:104;
-        99:2;
-        100:3;
-        101:3;
-        102:7;
-        103:5;
-    }
-    recolour_sprite{
-        0x40: 0x0B;
-        0x41: 0x0C;
-        0x42: 0x0D;
-        98:71;
-        99:112;
-        100:113;
-        101:113;
-        102:35;
-        103:114;
-    }
-    recolour_sprite{}
-    recolour_sprite{} // placeholder
-
-    S_PLATFORM_SNOW_SETUP("platform_overpass")
-    #define S_PLATFORM_OVERHEAD_STRUCTURE_SETUP(name) \
-    t_overhead(0, "platform/"+name+"_overhead") \
-    t_overhead(1, "platform/"+name+"_overhead") \
-    t_overhead(2, "platform/"+name+"_overhead") \
-    t_overhead(3, "platform/"+name+"_overhead")
-
-    #define S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP(name) \
-    t_overhead(4, "platform/"+name+"_overhead") \
-    t_overhead(5, "platform/"+name+"_overhead") \
-    t_overhead(6, "platform/"+name+"_overhead") \
-    t_overhead(7, "platform/"+name+"_overhead") \
-
-    S_PLATFORM_OVERHEAD_STRUCTURE_SETUP("platform_overpass")
-    S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP("platform_overpass")
-}
-*/
 spriteset(s_platform_overpass_real) {
-    S_PLATFORM_SETUP("platform_overpass_real")
+    S_PLATFORM_SETUP("overpass/real")
     /* recolouring, recolour from RNG? */
     recolour_sprite{
         0x40: 0x07;
@@ -596,36 +523,36 @@ spriteset(s_platform_overpass_real) {
     recolour_sprite{}
     recolour_sprite{} // placeholder
     /* snow */
-    S_PLATFORM_SNOW_SETUP("platform_overpass")
+    S_PLATFORM_SNOW_SETUP("overpass/real")
     #define S_OVERPASS_SETUP(name) \
-    t_overpass_x(   "platform/"+name+"_overpass") \
-    t_overpass_y(   "platform/"+name+"_overpass") \
-    t_0         (2, "platform/"+name+"_overpass") \
-    t_0         (3, "platform/"+name+"_overpass")
-    S_OVERPASS_SETUP("platform_overpass_real")
+    t_overpass_x(   name+"_overpass") \
+    t_overpass_y(   name+"_overpass") \
+    t_0         (2, name+"_overpass") \
+    t_0         (3, name+"_overpass")
+    S_OVERPASS_SETUP("overpass/real")
 }
 
 spriteset (s_modular_low_overpass) {
-    S_PLATFORM_SETUP("modular_low_overpass")
+    S_PLATFORM_SETUP("modular/low_overpass")
     recolour_sprite{}
     recolour_sprite{}
     recolour_sprite{}
     recolour_sprite{}
-    S_PLATFORM_SNOW_SETUP("modular_low_overpass")
+    S_PLATFORM_SNOW_SETUP("modular/low_overpass")
     #define S_PLATFORM_OVERHEAD_STRUCTURE_SETUP(name) \
-    t_overhead(0, "platform/"+name+"_overhead") \
-    t_overhead(1, "platform/"+name+"_overhead") \
-    t_overhead(2, "platform/"+name+"_overhead") \
-    t_overhead(3, "platform/"+name+"_overhead")
+    t_overhead(0, name+"_overhead") \
+    t_overhead(1, name+"_overhead") \
+    t_overhead(2, name+"_overhead") \
+    t_overhead(3, name+"_overhead")
 
     #define S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP(name) \
-    t_0(0, "platform/"+name+"_snow_overhead") \
-    t_0(1, "platform/"+name+"_snow_overhead") \
-    t_0(2, "platform/"+name+"_snow_overhead") \
-    t_0(3, "platform/"+name+"_snow_overhead") \
+    t_0(0, name+"_snow_overhead") \
+    t_0(1, name+"_snow_overhead") \
+    t_0(2, name+"_snow_overhead") \
+    t_0(3, name+"_snow_overhead") \
 
-    S_PLATFORM_OVERHEAD_STRUCTURE_SETUP("modular_low_overpass")
-    S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP("modular_low_overpass")
+    S_PLATFORM_OVERHEAD_STRUCTURE_SETUP("modular/low_overpass")
+    S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP("modular/low_overpass")
 }
 // dummy spriteset, urgh why do I have to do this
 spriteset(s_dummy) {
