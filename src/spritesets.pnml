@@ -220,10 +220,31 @@ spriteset(s_shelter_tiles) {
     S_SHELTER_SETUP("shelter_tiles")
     S_SHELTER_SNOW_SETUP("shelter_tiles")
     /* recolouring, recolour from RNG? */
-    re_era_1:       recolour_sprite{}
-    re_era_2:       recolour_sprite{}
-    re_era_3:       recolour_sprite{}
-    re_era_4:       recolour_sprite{} // placeholder
+    recolour_sprite{
+        179: 35;
+        123: 36;
+        112: 35;
+        113: 36;
+        106: 36;
+        105: 34;
+        104: 5;
+        14:  5;
+        13:  4;
+        12:  3;
+        10:  2;
+        3:   6;
+    }
+    recolour_sprite{
+        179: 113;
+        123: 108;
+        113: 112;
+        112: 105;
+        106: 112;
+        105: 105;
+        104: 104;
+    }
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
 }
 
 //* start of platform spritesets
@@ -635,9 +656,106 @@ spriteset(s_cargo_passenger_lots) {
     t_0(3, "misc/waiting_people_lots")
 }
 
-spritegroup s_cargo_passenger {
-    little:   [s_dummy, s_dummy, s_cargo_passenger_few, s_cargo_passenger_little, s_cargo_passenger_lots];
+/* we deploy the ISR trick here, basically we have a bunch of spritegroups and we just let the station randomly choose them
+ * the random trigger is when there is new cargo waiting at the staiton
+ * and the cargothreshold will also be copied from ISR, 0x0384 :-)
+ */
+
+spritegroup sg_cargo_passenger_0 {
+    little: [s_dummy, s_dummy, s_dummy, s_dummy,
+             s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few,
+             s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little,];
     lots:   [s_cargo_passenger_lots];
 }
 
+spritegroup sg_cargo_passenger_1 {
+    little: [s_dummy, s_dummy, s_dummy,
+             s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few,
+             s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little,
+             s_cargo_passenger_lots];
+    lots:   [s_cargo_passenger_lots];
+}
 
+spritegroup sg_cargo_passenger_2 {
+    little: [s_dummy, s_dummy,
+             s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few,
+             s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little,
+             s_cargo_passenger_lots, s_cargo_passenger_lots];
+    lots:   [s_cargo_passenger_lots];
+}
+
+spritegroup sg_cargo_passenger_3 {
+    little: [s_dummy,
+             s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few,
+             s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little,
+             s_cargo_passenger_lots, s_cargo_passenger_lots, s_cargo_passenger_lots];
+    lots:   [s_cargo_passenger_lots];
+}
+
+//! The second argument here must be TILE, else it would not work
+
+random_switch (FEAT_STATIONS, TILE, rsw_cargo_passenger, bitmask(TRIGGER_STATION_NEW_CARGO, TRIGGER_STATION_NO_MORE_CARGO)){
+    1: sg_cargo_passenger_0;
+    1: sg_cargo_passenger_1;
+    1: sg_cargo_passenger_2;
+    1: sg_cargo_passenger_3;
+}
+
+spriteset(s_cargo_boxes_few) {
+    t_0(0, "misc/waiting_boxes_few")
+    t_0(1, "misc/waiting_boxes_few")
+    t_0(2, "misc/waiting_boxes_few")
+    t_0(3, "misc/waiting_boxes_few")
+}
+
+spriteset(s_cargo_boxes_little) {
+    t_0(0, "misc/waiting_boxes_little")
+    t_0(1, "misc/waiting_boxes_little")
+    t_0(2, "misc/waiting_boxes_little")
+    t_0(3, "misc/waiting_boxes_little")
+}
+
+spriteset(s_cargo_boxes_lots) {
+    t_0(0, "misc/waiting_boxes_lots")
+    t_0(1, "misc/waiting_boxes_lots")
+    t_0(2, "misc/waiting_boxes_lots")
+    t_0(3, "misc/waiting_boxes_lots")
+}
+
+spritegroup sg_cargo_boxes_0 {
+    little: [s_dummy, s_dummy, s_dummy, s_dummy,
+             s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few,
+             s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little,];
+    lots:   [s_cargo_boxes_lots];
+}
+
+spritegroup sg_cargo_boxes_1 {
+    little: [s_dummy, s_dummy, s_dummy,
+             s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few,
+             s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little,
+             s_cargo_boxes_lots];
+    lots:   [s_cargo_boxes_lots];
+}
+
+spritegroup sg_cargo_boxes_2 {
+    little: [s_dummy, s_dummy,
+             s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few,
+             s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little,
+             s_cargo_boxes_lots, s_cargo_boxes_lots];
+    lots:   [s_cargo_boxes_lots];
+}
+
+spritegroup sg_cargo_boxes_3 {
+    little: [s_dummy,
+             s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few, s_cargo_boxes_few,
+             s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little, s_cargo_boxes_little,
+             s_cargo_boxes_lots, s_cargo_boxes_lots, s_cargo_boxes_lots];
+    lots:   [s_cargo_boxes_lots];
+}
+
+random_switch (FEAT_STATIONS, TILE, rsw_cargo_boxes, bitmask(TRIGGER_STATION_NEW_CARGO, TRIGGER_STATION_NO_MORE_CARGO)){
+    1: sg_cargo_boxes_0;
+    1: sg_cargo_boxes_1;
+    1: sg_cargo_boxes_2;
+    1: sg_cargo_boxes_3;
+}
