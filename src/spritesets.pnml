@@ -407,6 +407,83 @@ spriteset(s_platform_cement) {
     recolour_sprite{} // placeholder
 }
 
+spriteset(s_platform_alt) {
+    S_PLATFORM_SETUP("platform/alt")
+    /* recolouring, recolour from RNG? */
+    recolour_sprite{
+        0x40: 0x07;
+        0x41: 0x08;
+        0x42: 0x08;
+    }
+    recolour_sprite{
+        0x40: 0x0B;
+        0x41: 0x0C;
+        0x42: 0x0D;
+    }
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
+    /* snow */
+    S_PLATFORM_SNOW_SETUP("platform/real")
+
+    recolour_sprite{
+        0x40: 16;
+        0x41: 17;
+        0x42: 17;
+        7:  16;
+        8:  17;
+        9:  18;
+        10: 19;
+    }
+    recolour_sprite{
+        0x40: 21;
+        0x41: 22;
+        0x42: 23;
+        7:  16;
+        8:  17;
+        9:  18;
+        10: 19;
+    }
+    recolour_sprite{
+        0x40: 0x40;
+        0x41: 0x41;
+        0x42: 0x42;
+        7:  16;
+        8:  17;
+        9:  18;
+        10: 19;
+    }
+    recolour_sprite{} // placeholder
+    /* group 2 */
+    recolour_sprite{
+        0x40: 57;
+        0x41: 58;
+        0x42: 58;
+        7:  56;
+        8:  57;
+        9:  58;
+        10: 38;
+    }
+    recolour_sprite{
+        0x40: 57;
+        0x41: 58;
+        0x42: 0x0D;
+        7:  56;
+        8:  57;
+        9:  58;
+        10: 38;
+    }
+    recolour_sprite{
+        0x40: 37;
+        0x41: 38;
+        0x42: 39;
+        7:  56;
+        8:  57;
+        9:  58;
+        10: 38;
+    }
+    recolour_sprite{} // placeholder
+}
+
 spriteset(s_platform_cement_crossing) {
     #define S_CORNER_HOUSE_SETUP(name) \
     t_corner_N(name+"_corner_house") \

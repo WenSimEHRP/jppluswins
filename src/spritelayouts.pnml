@@ -547,29 +547,29 @@ switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     // if both isn't there, we then check further away
     // if none of the platforms are there, we then use the default era recolour
     // tile 1
-    nearby_tile_same_station( 1, 0) & getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station( 1, 0) & getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-1, 0) & getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station(-1, 0) & getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 2
-    nearby_tile_same_station( 2, 0) & getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station( 2, 0) & getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-2, 0) & getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station(-2, 0) & getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 3
-    nearby_tile_same_station( 3, 0) & getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station( 3, 0) & getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-3, 0) & getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station(-3, 0) & getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 4
-    nearby_tile_same_station( 4, 0) & getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station( 4, 0) & getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-4, 0) & getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station(-4, 0) & getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 5
-    nearby_tile_same_station( 5, 0) & getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station( 5, 0) & getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-5, 0) & getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 2 ?
+    nearby_tile_same_station(-5, 0) & getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5 ?
     getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     0)
 {
@@ -795,19 +795,19 @@ STN_STATION_WRAPPER_PLATFORM(brick_1                , 0, STN_CALC_PLATFORM_BIT(2
 STN_STATION_WRAPPER_PLATFORM(brick_2                , 0, STN_CALC_PLATFORM_BIT(2,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
 
 // cement platform_alternative
-STN_STATION_WRAPPER_PLATFORM(cement_alt_both        , 0, STN_CALC_PLATFORM_BIT(3,1,1), s_platform_cement, GROUP_RECOLOUR_ERA)
-STN_STATION_WRAPPER_PLATFORM(cement_alt_1           , 0, STN_CALC_PLATFORM_BIT(3,1,0), s_platform_cement, GROUP_RECOLOUR_ERA)
-STN_STATION_WRAPPER_PLATFORM(cement_alt_2           , 0, STN_CALC_PLATFORM_BIT(3,0,1), s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_alt_both        , 0, STN_CALC_PLATFORM_BIT(3,1,1), s_platform_alt, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_alt_1           , 0, STN_CALC_PLATFORM_BIT(3,1,0), s_platform_alt, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(cement_alt_2           , 0, STN_CALC_PLATFORM_BIT(3,0,1), s_platform_alt, GROUP_RECOLOUR_ERA)
 
 // asphalt platform_alternative
-STN_STATION_WRAPPER_PLATFORM(asphalt_alt_both       , 0, STN_CALC_PLATFORM_BIT(4,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
-STN_STATION_WRAPPER_PLATFORM(asphalt_alt_1          , 0, STN_CALC_PLATFORM_BIT(4,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
-STN_STATION_WRAPPER_PLATFORM(asphalt_alt_2          , 0, STN_CALC_PLATFORM_BIT(4,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_alt_both       , 0, STN_CALC_PLATFORM_BIT(4,1,1), s_platform_alt, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_alt_1          , 0, STN_CALC_PLATFORM_BIT(4,1,0), s_platform_alt, GROUP_PLATFORM_RECOLOUR_1)
+STN_STATION_WRAPPER_PLATFORM(asphalt_alt_2          , 0, STN_CALC_PLATFORM_BIT(4,0,1), s_platform_alt, GROUP_PLATFORM_RECOLOUR_1)
 
 // brick platform_alternative
-STN_STATION_WRAPPER_PLATFORM(brick_alt_both         , 0, STN_CALC_PLATFORM_BIT(5,1,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
-STN_STATION_WRAPPER_PLATFORM(brick_alt_1            , 0, STN_CALC_PLATFORM_BIT(5,1,0), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
-STN_STATION_WRAPPER_PLATFORM(brick_alt_2            , 0, STN_CALC_PLATFORM_BIT(5,0,1), s_platform_cement, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_alt_both         , 0, STN_CALC_PLATFORM_BIT(5,1,1), s_platform_alt, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_alt_1            , 0, STN_CALC_PLATFORM_BIT(5,1,0), s_platform_alt, GROUP_PLATFORM_RECOLOUR_2)
+STN_STATION_WRAPPER_PLATFORM(brick_alt_2            , 0, STN_CALC_PLATFORM_BIT(5,0,1), s_platform_alt, GROUP_PLATFORM_RECOLOUR_2)
 
 // crossing
 STN_STATION_WRAPPER_CROSSING(cement_crs_both        , 0, STN_CALC_PLATFORM_BIT(6,1,1), s_platform_cement_crossing)
