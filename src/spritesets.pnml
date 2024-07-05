@@ -161,14 +161,16 @@ spriteset(s_misc) {
 //* start of shelter spritesets
 // gruops
 #define GROUP_SHELTER_SYM               (0)
-#define GROUP_SHELTER_ASYM_1            (GROUP_SHELTER_SYM + 1)
-#define GROUP_SHELTER_ASYM_2            (GROUP_SHELTER_ASYM_1 + 1)
-#define GROUP_SHELTER_SYM_EDGE          (GROUP_SHELTER_ASYM_2 + 1)
-#define GROUP_SHELTER_SYM_SNOW          (GROUP_SHELTER_SYM_EDGE + 1)
-#define GROUP_SHELTER_ASYM_1_SNOW       (GROUP_SHELTER_SYM_SNOW + 1)
-#define GROUP_SHELTER_ASYM_2_SNOW       (GROUP_SHELTER_ASYM_1_SNOW + 1)
-#define GROUP_SHELTER_SYM_EDGE_SNOW     (GROUP_SHELTER_ASYM_2_SNOW + 1)
-#define GROUP_RECOLOUR_SHELTER_ERA      (GROUP_SHELTER_SYM_EDGE_SNOW + 1)
+//#define GROUP_SHELTER_ASYM_1            (GROUP_SHELTER_SYM + 1)
+//#define GROUP_SHELTER_ASYM_2            (GROUP_SHELTER_ASYM_1 + 1)
+//#define GROUP_SHELTER_SYM_EDGE          (GROUP_SHELTER_ASYM_2 + 1)
+//#define GROUP_SHELTER_SYM_SNOW          (GROUP_SHELTER_SYM_EDGE + 1)
+//#define GROUP_SHELTER_ASYM_1_SNOW       (GROUP_SHELTER_SYM_SNOW + 1)
+//#define GROUP_SHELTER_ASYM_2_SNOW       (GROUP_SHELTER_ASYM_1_SNOW + 1)
+//#define GROUP_SHELTER_SYM_EDGE_SNOW     (GROUP_SHELTER_ASYM_2_SNOW + 1)
+//#define GROUP_RECOLOUR_SHELTER_ERA      (GROUP_SHELTER_SYM_EDGE_SNOW + 1)
+#define GROUP_SHELTER_SYM_SNOW          (GROUP_SHELTER_SYM + 1)
+#define GROUP_RECOLOUR_SHELTER_ERA      (GROUP_SHELTER_SYM_SNOW + 1)
 // functions
 #define SPRITE_PER_SHELTER_GROUP 4
 #define GET_SPRITE_SHELTER(group, sprite) (group * SPRITE_PER_SHELTER_GROUP + sprite)
@@ -180,21 +182,21 @@ spriteset(s_shelter_tiles) {
     NE_0:           t_0(1, "shelter/"+name+"_sym")\
     SE_0:           t_0(2, "shelter/"+name+"_sym")\
     SW_0:           t_0(3, "shelter/"+name+"_sym")\
-    /* asym shelters 1 */\
-    NW_1:           t_0(0, "shelter/"+name+"_asym_1")\
-    NE_1:           t_0(1, "shelter/"+name+"_asym_1")\
-    SE_1:           t_0(2, "shelter/"+name+"_asym_1")\
-    SW_1:           t_0(3, "shelter/"+name+"_asym_1")\
-    /* asym shelters 2 */\
-    NW_2:           t_0(0, "shelter/"+name+"_asym_2")\
-    NE_2:           t_0(1, "shelter/"+name+"_asym_2")\
-    SE_2:           t_0(2, "shelter/"+name+"_asym_2")\
-    SW_2:           t_0(3, "shelter/"+name+"_asym_2")\
-    /* sym edge shelters */\
-    NW_3:           t_0(0, "shelter/"+name+"_sym_edge")\
-    NE_3:           t_0(1, "shelter/"+name+"_sym_edge")\
-    SE_3:           t_0(2, "shelter/"+name+"_sym_edge")\
-    SW_3:           t_0(3, "shelter/"+name+"_sym_edge")
+//    /* asym shelters 1 */\
+//    NW_1:           t_0(0, "shelter/"+name+"_asym_1")\
+//    NE_1:           t_0(1, "shelter/"+name+"_asym_1")\
+//    SE_1:           t_0(2, "shelter/"+name+"_asym_1")\
+//    SW_1:           t_0(3, "shelter/"+name+"_asym_1")\
+//    /* asym shelters 2 */\
+//    NW_2:           t_0(0, "shelter/"+name+"_asym_2")\
+//    NE_2:           t_0(1, "shelter/"+name+"_asym_2")\
+//    SE_2:           t_0(2, "shelter/"+name+"_asym_2")\
+//    SW_2:           t_0(3, "shelter/"+name+"_asym_2")\
+//    /* sym edge shelters */\
+//    NW_3:           t_0(0, "shelter/"+name+"_sym_edge")\
+//    NE_3:           t_0(1, "shelter/"+name+"_sym_edge")\
+//    SE_3:           t_0(2, "shelter/"+name+"_sym_edge")\
+//    SW_3:           t_0(3, "shelter/"+name+"_sym_edge")
     /* shelter snow */
     #define S_SHELTER_SNOW_SETUP(name) \
     NW_0_snow:      t_0(4, "shelter/"+name+"_sym")\
@@ -202,20 +204,20 @@ spriteset(s_shelter_tiles) {
     SE_0_snow:      t_0(6, "shelter/"+name+"_sym")\
     SW_0_snow:      t_0(7, "shelter/"+name+"_sym")\
     /* asym shelters 1 */\
-    NW_1_snow:      t_0(4, "shelter/"+name+"_asym_1")\
-    NE_1_snow:      t_0(5, "shelter/"+name+"_asym_1")\
-    SE_1_snow:      t_0(6, "shelter/"+name+"_asym_1")\
-    SW_1_snow:      t_0(7, "shelter/"+name+"_asym_1")\
-    /* asym shelters 2 */\
-    NW_2_snow:      t_0(4, "shelter/"+name+"_asym_2")\
-    NE_2_snow:      t_0(5, "shelter/"+name+"_asym_2")\
-    SE_2_snow:      t_0(6, "shelter/"+name+"_asym_2")\
-    SW_2_snow:      t_0(7, "shelter/"+name+"_asym_2")\
-    /* sym edge shelters */\
-    NW_3_snow:      t_0(4, "shelter/"+name+"_sym_edge")\
-    NE_3_snow:      t_0(5, "shelter/"+name+"_sym_edge")\
-    SE_3_snow:      t_0(6, "shelter/"+name+"_sym_edge")\
-    SW_3_snow:      t_0(7, "shelter/"+name+"_sym_edge")
+//    NW_1_snow:      t_0(4, "shelter/"+name+"_asym_1")\
+//    NE_1_snow:      t_0(5, "shelter/"+name+"_asym_1")\
+//    SE_1_snow:      t_0(6, "shelter/"+name+"_asym_1")\
+//    SW_1_snow:      t_0(7, "shelter/"+name+"_asym_1")\
+//    /* asym shelters 2 */\
+//    NW_2_snow:      t_0(4, "shelter/"+name+"_asym_2")\
+//    NE_2_snow:      t_0(5, "shelter/"+name+"_asym_2")\
+//    SE_2_snow:      t_0(6, "shelter/"+name+"_asym_2")\
+//    SW_2_snow:      t_0(7, "shelter/"+name+"_asym_2")\
+//    /* sym edge shelters */\
+//    NW_3_snow:      t_0(4, "shelter/"+name+"_sym_edge")\
+//    NE_3_snow:      t_0(5, "shelter/"+name+"_sym_edge")\
+//    SE_3_snow:      t_0(6, "shelter/"+name+"_sym_edge")\
+//    SW_3_snow:      t_0(7, "shelter/"+name+"_sym_edge")
 
     S_SHELTER_SETUP("shelter_tiles")
     S_SHELTER_SNOW_SETUP("shelter_tiles")
@@ -242,6 +244,20 @@ spriteset(s_shelter_tiles) {
         106: 112;
         105: 105;
         104: 104;
+    }
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
+}
+
+spriteset(s_shelter_metal) {
+    S_SHELTER_SETUP("shelter_metal")
+    S_SHELTER_SNOW_SETUP("shelter_metal")
+    /* recolouring, recolour from RNG? */
+    recolour_sprite{
+        16..23: 104..111;
+    }
+    recolour_sprite{
+        16..23: 32..39;
     }
     recolour_sprite{}
     recolour_sprite{} // placeholder
@@ -609,6 +625,18 @@ spriteset(s_platform_overpass_real) {
     S_OVERPASS_SETUP("overpass/real")
 }
 
+spriteset(s_overpass_station) {
+    S_PLATFORM_SETUP("overpass/station")
+    /* recolouring, recolour from RNG? */
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{}
+    recolour_sprite{} // placeholder
+    /* snow */
+    S_PLATFORM_SNOW_SETUP("overpass/real") //TODO change to overpass/station
+    S_OVERPASS_SETUP("overpass/station")
+}
+
 spriteset (s_modular_low_overpass) {
     S_PLATFORM_SETUP("modular/low_overpass")
     recolour_sprite{}
@@ -631,6 +659,7 @@ spriteset (s_modular_low_overpass) {
     S_PLATFORM_OVERHEAD_STRUCTURE_SETUP("modular/low_overpass")
     S_PLATFORM_OVERHEAD_STRUCTURE_SNOW_SETUP("modular/low_overpass")
 }
+// start of waiting cargo sprites
 // dummy spriteset, urgh why do I have to do this
 spriteset(s_dummy) {
     [0,0,1,1,0,0,"gfx/misc/bufferstop.png"]
@@ -669,7 +698,7 @@ spritegroup sg_cargo_passenger_0 {
     little: [s_dummy, s_dummy, s_dummy, s_dummy,
              s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few, s_cargo_passenger_few,
              s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little, s_cargo_passenger_little,];
-    lots:   [s_cargo_passenger_lots];
+    lots:   [s_cargo_passenger_little];
 }
 
 spritegroup sg_cargo_passenger_1 {

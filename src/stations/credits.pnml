@@ -25,7 +25,7 @@ spritelayout sp_credits(a) {
 item(FEAT_STATIONS, i_station_credits_0) {
     property {
     class:                  "WINS";
-    classname:              string(STR_GRF_NAME);
+    classname:              string(STR_CLASS_STATIONS);
     name:                   string(STR_GRF_NAME);
     non_traversable_tiles:  STAT_ALL_TILES;
     disabled_platforms:     bitmask(0,1,2,3,4,5,6,7,8);
@@ -39,7 +39,7 @@ item(FEAT_STATIONS, i_station_credits_0) {
 item(FEAT_STATIONS, i_station_credits_1) {
     property {
     class:                  "WINS";
-    classname:              string(STR_GRF_NAME);
+    classname:              string(STR_CLASS_STATIONS);
     name:                   string(STR_GRF_NAME);
     non_traversable_tiles:  STAT_ALL_TILES;
     disabled_platforms:     bitmask(0,1,2,3,4,5,6,7,8);

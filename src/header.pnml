@@ -6,6 +6,10 @@ grf {
         min_compatible_version: 0;
 }
 
-if (grf_future_status("\45\53\05\00") == 1) {
-        error(ERROR, string(STR_GRF_JAPANSET));
+if (ttd_platform != PLATFORM_OPENTTD) {
+    error(FATAL, USED_WITH, "OpenTTD");
+}
+
+if (openttd_version < version_openttd(14,0)) {
+    error(FATAL, REQUIRES_OPENTTD, "14");
 }
