@@ -79,23 +79,6 @@
 #define SP_HIDE_SPRITE_CHECK_SNOW \
     !!(terrain_type != TILETYPE_SNOW)
 
-// get shelter formation
-#define SP_GET_SHELTER_FORMATION_N \
-    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)      |\
-       getbits(LOAD_TEMP(TILE_X_SW),                BIT_NPLAT, 1)      &\
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1|\
-     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)      |\
-       getbits(LOAD_TEMP(TILE_X_NE),                BIT_NPLAT, 1)      &\
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0)
-
-#define SP_GET_SHELTER_FORMATION_S \
-    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)      |\
-       getbits(LOAD_TEMP(TILE_X_SW),                BIT_SPLAT, 1)      &\
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1|\
-     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)      |\
-       getbits(LOAD_TEMP(TILE_X_NE),                BIT_SPLAT, 1)      &\
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0)
-
 // start of spritelayouts
 spritelayout sp_platform_x() {
     ground {sprite: GROUNDSPRITE_RAIL_X;}
@@ -440,6 +423,13 @@ spritelayout sp_platform_shelter_y(){
     SP_FENCE_Y              (SW, S)
 }
 
+spritelayout sp_buffer_x() {
+    ground {sprite: GROUNDSPRITE_RAIL_X;}
+    building {
+        sprite: CUSTOM(S_OVERPASS, LOAD_TEMP(TEMP_PLAT_FORMATION_S) << 2 | LOAD_TEMP(TEMP_PLAT_FORMATION_N));
+    }
+}
+
 // temp storage functions
 switch (FEAT_STATIONS, SELF, sw_check_nearby_landscape,
     // output range: 0b0000..0b1111
@@ -553,31 +543,30 @@ switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     // if both isn't there, we then check further away
     // if none of the platforms are there, we then use the default era recolour
     // tile 1
-    nearby_tile_same_station( 1, 0) & (getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station( 1, 0) * (getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-1, 0) & (getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station(-1, 0) * (getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 2
-    nearby_tile_same_station( 2, 0) & (getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station( 2, 0) * (getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-2, 0) & (getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station(-2, 0) * (getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 3
-    nearby_tile_same_station( 3, 0) & (getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station( 3, 0) * (getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-3, 0) & (getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station(-3, 0) * (getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 4
-    nearby_tile_same_station( 4, 0) & (getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station( 4, 0) * (getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-4, 0) & (getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station(-4, 0) * (getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 5
-    nearby_tile_same_station( 5, 0) & (getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    nearby_tile_same_station( 5, 0) * (getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
     getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-5, 0) & (getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
-    getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    0)
+    nearby_tile_same_station(-5, 0) * (getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= 5) ?
+    getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 : 0)
 {
     0: GROUP_RECOLOUR_ERA;
     3: GROUP_RECOLOUR_ERA;
