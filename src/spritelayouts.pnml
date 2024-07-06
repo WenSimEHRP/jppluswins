@@ -68,6 +68,7 @@
 #define S_OVERHEAD  3
 #define S_OVERPASS  3
 #define S_CROSSING  3
+#define S_BUFFER    3
 
 // functions
 #define SP_HIDE_SPRITE_BUFFERSTOP(tile) \
@@ -426,8 +427,27 @@ spritelayout sp_platform_shelter_y(){
 spritelayout sp_buffer_x() {
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     building {
-        sprite: CUSTOM(S_OVERPASS, LOAD_TEMP(TEMP_PLAT_FORMATION_S) << 2 | LOAD_TEMP(TEMP_PLAT_FORMATION_N));
+        sprite: CUSTOM(S_BUFFER, LOAD_TEMP(TEMP_PLAT_FORMATION_S) << 2 | LOAD_TEMP(TEMP_PLAT_FORMATION_N));
+        recolour_mode: RECOLOUR_REMAP;
+        palette: CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));
     }
+    SP_FENCE(NW, N)
+    SP_FENCE(NE, N)
+    SP_FENCE(SW, S)
+    SP_FENCE(SE, S)
+}
+
+spritelayout sp_buffer_y() {
+    ground {sprite: GROUNDSPRITE_RAIL_Y;}
+    building {
+        sprite: CUSTOM(S_BUFFER, 16 + (LOAD_TEMP(TEMP_PLAT_FORMATION_S) << 2 | LOAD_TEMP(TEMP_PLAT_FORMATION_N)));
+        recolour_mode: RECOLOUR_REMAP;
+        palette: CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));
+    }
+    SP_FENCE_Y(NW, N)
+    SP_FENCE_Y(NE, N)
+    SP_FENCE_Y(SW, S)
+    SP_FENCE_Y(SE, S)
 }
 
 // temp storage functions
@@ -519,20 +539,24 @@ switch (FEAT_STATIONS, SELF, sw_get_platform_formation_N,
     // output range: 0b00..0b11
     // gets platform formation for northern platform
     ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)       |
-      sw_detect_platform(LOAD_TEMP(TILE_X_SW), BIT_NPLAT)               &
+     (sw_detect_platform(LOAD_TEMP(TILE_X_SW), BIT_NPLAT)               |
+      nearby_tile_perpendicular(ORI_X_SW))                              &
        getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1 |
      (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)       |
-      sw_detect_platform(LOAD_TEMP(TILE_X_NE), BIT_NPLAT)               &
+     (sw_detect_platform(LOAD_TEMP(TILE_X_NE), BIT_NPLAT)               |
+      nearby_tile_perpendicular(ORI_X_NE))                              &
        getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0 )){return;}
 
 switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
     // output range: 0b00..0b11
     // gets platform formation for southern platform
     ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)       |
-      sw_detect_platform(LOAD_TEMP(TILE_X_SW), BIT_SPLAT)               &
+     (sw_detect_platform(LOAD_TEMP(TILE_X_SW), BIT_SPLAT)               |
+      nearby_tile_perpendicular(ORI_X_SW))                              &
        getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1 |
      (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)       |
-      sw_detect_platform(LOAD_TEMP(TILE_X_NE), BIT_SPLAT)               &
+     (sw_detect_platform(LOAD_TEMP(TILE_X_NE), BIT_SPLAT)               |
+      nearby_tile_perpendicular(ORI_X_NE))                              &
        getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0 )){return;}
 // we want to put all calculations and checks in spritelayouts, so here in
 // the switch we only store the results of the checks in temporary variables
@@ -788,6 +812,18 @@ item(FEAT_STATIONS, i_station_##name,\
     }\
 }
 
+#define STN_STATION_WRAPPER_BUFFER(name, property, platform_type, platform_spriteset)\
+item(FEAT_STATIONS, i_station_##name,\
+    platform_type) {\
+    STN_STATION_PROPERTY_##property\
+    graphics {\
+        sprite_layouts: [sp_buffer_x(), sp_buffer_y()];\
+        custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
+        prepare_layout: sw_platform();\
+        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+    }\
+}
+
 // platform enum
 #define ID_PLATFORM_CEMENT      (0)
 #define ID_PLATFORM_ASPHALT     (1)
@@ -801,8 +837,8 @@ item(FEAT_STATIONS, i_station_##name,\
 #define ID_MODULAR_LOW          (ID_OVERPASS_STATION + 1)
 #define ID_SHELTER_TILES        (ID_MODULAR_LOW + 1)
 #define ID_SHELTER_METAL        (ID_SHELTER_TILES + 1)
-//!TEMP, MUST BE REMOVED!!!
 #define ID_CROSSING_REAL_WAYP   (ID_SHELTER_METAL + 1)
+#define ID_BUFFER               (ID_CROSSING_REAL_WAYP + 1)
 
 // cement platform
 STN_STATION_WRAPPER_PLATFORM(cement_both            , 0, STN_CALC_PLATFORM_BIT(ID_PLATFORM_CEMENT,1,1), s_platform_cement, GROUP_RECOLOUR_ERA)
@@ -869,3 +905,6 @@ STN_STATION_WRAPPER_SHELTER (shelter_metal_2        , 0, STN_CALC_PLATFORM_BIT(I
 
 STN_STATION_WRAPPER_PLATFORM(blank                  , 0, 10000, s_platform_cement, GROUP_RECOLOUR_ERA)
 STN_STATION_WRAPPER_PLATFORM(wayp_blank             , 1, 10001, s_platform_cement, GROUP_RECOLOUR_ERA)
+
+// buffer stops
+STN_STATION_WRAPPER_BUFFER(buffer_x                 , 2, STN_CALC_PLATFORM_BIT(ID_BUFFER,1,1), s_buffer)

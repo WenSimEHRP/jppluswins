@@ -12,6 +12,7 @@
 
 template t_0(pos, name)         {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,0,0,"gfx/"+name+".png"]} // childsprite template
 template t_overhead(pos, name)  {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,-35,-27,"gfx/"+name+".png"]} // overhead template
+template t_full(pos, name)      {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".png"]} // full template, also used for bufferstops
 
 template t_overpass_x(name)     {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-45,-42,"gfx/"+name+".png"]}
 template t_overpass_y(name)     {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-25,-42,"gfx/"+name+".png"]}
@@ -791,4 +792,42 @@ random_switch (FEAT_STATIONS, TILE, rsw_cargo_boxes, bitmask(TRIGGER_STATION_NEW
     1: sg_cargo_boxes_1;
     1: sg_cargo_boxes_2;
     1: sg_cargo_boxes_3;
+}
+
+
+// buffers
+spriteset (s_buffer) {
+    t_full(0, "buffer/buffer")
+    t_full(1, "buffer/buffer")
+    t_full(2, "buffer/buffer")
+    t_full(3, "buffer/buffer")
+    t_full(4, "buffer/buffer")
+    t_full(5, "buffer/buffer")
+    t_full(6, "buffer/buffer")
+    t_full(7, "buffer/buffer")
+    t_full(8, "buffer/buffer")
+    t_full(9, "buffer/buffer")
+    t_full(10, "buffer/buffer")
+    t_full(11, "buffer/buffer")
+    t_full(12, "buffer/buffer")
+    t_full(13, "buffer/buffer")
+    t_full(14, "buffer/buffer")
+    t_full(15, "buffer/buffer")
+    // y direction
+    t_full(0, "buffer/buffer_y")
+    t_full(1, "buffer/buffer_y")
+    t_full(2, "buffer/buffer_y")
+    t_full(3, "buffer/buffer_y")
+    t_full(4, "buffer/buffer_y")
+    t_full(5, "buffer/buffer_y")
+    t_full(6, "buffer/buffer_y")
+    t_full(7, "buffer/buffer_y")
+    t_full(8, "buffer/buffer_y")
+    t_full(9, "buffer/buffer_y")
+    t_full(10, "buffer/buffer_y")
+    t_full(11, "buffer/buffer_y")
+    t_full(12, "buffer/buffer_y")
+    t_full(13, "buffer/buffer_y")
+    t_full(14, "buffer/buffer_y")
+    t_full(15, "buffer/buffer_y")
 }
