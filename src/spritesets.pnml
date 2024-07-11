@@ -27,10 +27,10 @@ template t_bufferstop_NE(name)  {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-47,-43,"gfx/"+name
 template t_bufferstop_SE(name)  {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-43,-53,"gfx/"+name+".png"]}
 template t_bufferstop_SW(name)  {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-27,-53,"gfx/"+name+".png"]}
 
-template t_platform_NW(name)    {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".png"]} // platform templates
-template t_platform_NE(name)    {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".png"]}
-template t_platform_SE(name)    {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-55,-47,"gfx/"+name+".png"]}
-template t_platform_SW(name)    {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-15,-47,"gfx/"+name+".png"]}
+template t_platform_NW(name)    {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-35,-37, NOCROP, "gfx/"+name+".png"]} // platform templates
+template t_platform_NE(name)    {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-37, NOCROP, "gfx/"+name+".png"]}
+template t_platform_SE(name)    {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-55,-47, NOCROP, "gfx/"+name+".png"]}
+template t_platform_SW(name)    {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-15,-47, NOCROP, "gfx/"+name+".png"]}
 
 template t_fence_NW(name)       {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-35,-38,"gfx/"+name+".png"]} // fence templates
 template t_fence_NE(name)       {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-38,"gfx/"+name+".png"]}
@@ -45,103 +45,33 @@ template t_fence_SW(name)       {[X_SPRITE*3,0,X_SIZE,Y_SIZE, -3,-53,"gfx/"+name
 // for snow I'm going to use random recolouring and random sprites
 // for simplicity, I'll put everything in one spriteset
 
-// groups
-//#define GROUP_SNOW_0        (0)
-//#define GROUP_SNOW_1        (GROUP_SNOW_0 + 1)
-//#define GROUP_SNOW_2        (GROUP_SNOW_1 + 1)
-//#define GROUP_SNOW_3        (GROUP_SNOW_2 + 1)
-//#define GROUP_BUFFERSTOP    (GROUP_SNOW_3 + 1)
 #define GROUP_BUFFERSTOP    (0)
-#define GROUP_DECO_0        (GROUP_BUFFERSTOP + 1)
-#define GROUP_DECO_1        (GROUP_DECO_0 + 1)
-#define GROUP_DECO_2        (GROUP_DECO_1 + 1)
-#define GROUP_DECO_3        (GROUP_DECO_2 + 1)
-#define GROUP_RECOLOUR_SNOW (GROUP_DECO_3 + 1)
-#define GROUP_RECOLOUR_DECO (GROUP_RECOLOUR_SNOW + 1)
-#define GROUP_FENCE         (GROUP_RECOLOUR_DECO + 1)
+//#define GROUP_DECO_0        (GROUP_BUFFERSTOP + 1)
+//#define GROUP_DECO_1        (GROUP_DECO_0 + 1)
+//#define GROUP_DECO_2        (GROUP_DECO_1 + 1)
+//#define GROUP_DECO_3        (GROUP_DECO_2 + 1)
+//#define GROUP_RECOLOUR_SNOW (GROUP_DECO_3 + 1)
+//#define GROUP_RECOLOUR_DECO (GROUP_RECOLOUR_SNOW + 1)
+#define GROUP_FENCE         (GROUP_BUFFERSTOP + 1)
 #define GROUP_SHADOW_SHORT  (GROUP_FENCE + 1)
 #define GROUP_SHADOW_LONG   (GROUP_SHADOW_SHORT + 1)
 #define GROUP_FENCE_BARS    (GROUP_SHADOW_LONG + 1)
+#define GROUP_MISC_RECOLOUR (GROUP_FENCE_BARS + 1)
 // functions
 #define SPRITE_PER_MISC_GRUOP (4)
 #define GET_SPRITE_MISC(group, sprite) (group * SPRITE_PER_MISC_GRUOP + sprite)
 
 spriteset(s_misc) {
-    ///* snow */ //*0
-    //snow_0_NW: t_0(0, "misc/snow_0")
-    //snow_0_NE: t_0(1, "misc/snow_0")
-    //snow_0_SE: t_0(2, "misc/snow_0")
-    //snow_0_SW: t_0(3, "misc/snow_0")
-    ///* snow */ //*1
-    //snow_1_NW: t_0(0, "misc/snow_1")
-    //snow_1_NE: t_0(1, "misc/snow_1")
-    //snow_1_SE: t_0(2, "misc/snow_1")
-    //snow_1_SW: t_0(3, "misc/snow_1")
-    ///* snow */ //*2
-    //snow_2_NW: t_0(0, "misc/snow_2")
-    //snow_2_NE: t_0(1, "misc/snow_2")
-    //snow_2_SE: t_0(2, "misc/snow_2")
-    //snow_2_SW: t_0(3, "misc/snow_2")
-    ///* snow */ //*3
-    //snow_3_NW: t_0(0, "misc/snow_3")
-    //snow_3_NE: t_0(1, "misc/snow_3")
-    //snow_3_SE: t_0(2, "misc/snow_3")
-    //snow_3_SW: t_0(3, "misc/snow_3")
-    /* bufferstops */ //*4
-    bufferstop_NW: t_bufferstop_NW("misc/bufferstop")
-    bufferstop_NE: t_bufferstop_NE("misc/bufferstop")
-    bufferstop_SE: t_bufferstop_SE("misc/bufferstop")
-    bufferstop_SW: t_bufferstop_SW("misc/bufferstop")
-    /* random deco */ //*5
-    deco_0_NW: t_0(0, "misc/deco_0")
-    deco_0_NE: t_0(1, "misc/deco_0")
-    deco_0_SE: t_0(2, "misc/deco_0")
-    deco_0_SW: t_0(3, "misc/deco_0")
-    /* random deco */ //*6
-    deco_1_NW: t_0(0, "misc/deco_1")
-    deco_1_NE: t_0(1, "misc/deco_1")
-    deco_1_SE: t_0(2, "misc/deco_1")
-    deco_1_SW: t_0(3, "misc/deco_1")
-    /* random deco */ //*7
-    deco_2_NW: t_0(0, "misc/deco_2")
-    deco_2_NE: t_0(1, "misc/deco_2")
-    deco_2_SE: t_0(2, "misc/deco_2")
-    deco_2_SW: t_0(3, "misc/deco_2")
-    /* random deco */ //*8
-    deco_3_NW: t_0(0, "misc/deco_3")
-    deco_3_NE: t_0(1, "misc/deco_3")
-    deco_3_SE: t_0(2, "misc/deco_3")
-    deco_3_SW: t_0(3, "misc/deco_3")
-    /* recolouring for snow */ //*9
-    re_snow_1: recolour_sprite{}
-    re_snow_2: recolour_sprite{
-        15: RNG(11,15);
-        210:RNG(152,161);
-        212:RNG(210,214);
-        135:RNG(128,135);
-    }
-    re_snow_3: recolour_sprite{
-        15: RNG(11,15);
-        210:RNG(152,161);
-        212:RNG(210,214);
-        135:RNG(128,135);
-    }
-    re_snow_4: recolour_sprite{
-        15: RNG(11,15);
-        210:RNG(152,161);
-        212:RNG(210,214);
-        135:RNG(128,135);
-    }
-    /* recolouring for deco */ //*10
-    re_deco_1: recolour_sprite{0x00..0xFF:0x00..0xFF;}
-    re_deco_2: recolour_sprite{0x00..0xFF:0x00..0xFF;}
-    re_deco_3: recolour_sprite{0x00..0xFF:0x00..0xFF;}
-    re_deco_4: recolour_sprite{0x00..0xFF:0x00..0xFF;}
-    /* fences */ //*11
-    fence_NW: t_fence_NW("misc/fence")
-    fence_NE: t_fence_NE("misc/fence")
-    fence_SE: t_fence_SE("misc/fence")
-    fence_SW: t_fence_SW("misc/fence")
+    /* bufferstops */
+    t_bufferstop_NW("misc/bufferstop")
+    t_bufferstop_NE("misc/bufferstop")
+    t_bufferstop_SE("misc/bufferstop")
+    t_bufferstop_SW("misc/bufferstop")
+    /* fences */
+    t_fence_NW("misc/fence")
+    t_fence_NE("misc/fence")
+    t_fence_SE("misc/fence")
+    t_fence_SW("misc/fence")
     /* short shadow */
     t_0         (0, "misc/shadow_short")
     t_0         (1, "misc/shadow_short")
@@ -157,19 +87,15 @@ spriteset(s_misc) {
     t_fence_NE("misc/fence_bars")
     t_fence_SE("misc/fence_bars")
     t_fence_SW("misc/fence_bars")
+    // misc recolour
+    recolour_sprite{
+        0x00..0xFF:0x00;
+    }
 }
 
 //* start of shelter spritesets
 // gruops
 #define GROUP_SHELTER_SYM               (0)
-//#define GROUP_SHELTER_ASYM_1            (GROUP_SHELTER_SYM + 1)
-//#define GROUP_SHELTER_ASYM_2            (GROUP_SHELTER_ASYM_1 + 1)
-//#define GROUP_SHELTER_SYM_EDGE          (GROUP_SHELTER_ASYM_2 + 1)
-//#define GROUP_SHELTER_SYM_SNOW          (GROUP_SHELTER_SYM_EDGE + 1)
-//#define GROUP_SHELTER_ASYM_1_SNOW       (GROUP_SHELTER_SYM_SNOW + 1)
-//#define GROUP_SHELTER_ASYM_2_SNOW       (GROUP_SHELTER_ASYM_1_SNOW + 1)
-//#define GROUP_SHELTER_SYM_EDGE_SNOW     (GROUP_SHELTER_ASYM_2_SNOW + 1)
-//#define GROUP_RECOLOUR_SHELTER_ERA      (GROUP_SHELTER_SYM_EDGE_SNOW + 1)
 #define GROUP_SHELTER_SYM_SNOW          (GROUP_SHELTER_SYM + 1)
 #define GROUP_RECOLOUR_SHELTER_ERA      (GROUP_SHELTER_SYM_SNOW + 1)
 // functions
@@ -183,42 +109,12 @@ spriteset(s_shelter_tiles) {
     NE_0:           t_0(1, "shelter/"+name+"_sym")\
     SE_0:           t_0(2, "shelter/"+name+"_sym")\
     SW_0:           t_0(3, "shelter/"+name+"_sym")\
-//    /* asym shelters 1 */\
-//    NW_1:           t_0(0, "shelter/"+name+"_asym_1")\
-//    NE_1:           t_0(1, "shelter/"+name+"_asym_1")\
-//    SE_1:           t_0(2, "shelter/"+name+"_asym_1")\
-//    SW_1:           t_0(3, "shelter/"+name+"_asym_1")\
-//    /* asym shelters 2 */\
-//    NW_2:           t_0(0, "shelter/"+name+"_asym_2")\
-//    NE_2:           t_0(1, "shelter/"+name+"_asym_2")\
-//    SE_2:           t_0(2, "shelter/"+name+"_asym_2")\
-//    SW_2:           t_0(3, "shelter/"+name+"_asym_2")\
-//    /* sym edge shelters */\
-//    NW_3:           t_0(0, "shelter/"+name+"_sym_edge")\
-//    NE_3:           t_0(1, "shelter/"+name+"_sym_edge")\
-//    SE_3:           t_0(2, "shelter/"+name+"_sym_edge")\
-//    SW_3:           t_0(3, "shelter/"+name+"_sym_edge")
     /* shelter snow */
     #define S_SHELTER_SNOW_SETUP(name) \
     NW_0_snow:      t_0(4, "shelter/"+name+"_sym")\
     NE_0_snow:      t_0(5, "shelter/"+name+"_sym")\
     SE_0_snow:      t_0(6, "shelter/"+name+"_sym")\
     SW_0_snow:      t_0(7, "shelter/"+name+"_sym")\
-    /* asym shelters 1 */\
-//    NW_1_snow:      t_0(4, "shelter/"+name+"_asym_1")\
-//    NE_1_snow:      t_0(5, "shelter/"+name+"_asym_1")\
-//    SE_1_snow:      t_0(6, "shelter/"+name+"_asym_1")\
-//    SW_1_snow:      t_0(7, "shelter/"+name+"_asym_1")\
-//    /* asym shelters 2 */\
-//    NW_2_snow:      t_0(4, "shelter/"+name+"_asym_2")\
-//    NE_2_snow:      t_0(5, "shelter/"+name+"_asym_2")\
-//    SE_2_snow:      t_0(6, "shelter/"+name+"_asym_2")\
-//    SW_2_snow:      t_0(7, "shelter/"+name+"_asym_2")\
-//    /* sym edge shelters */\
-//    NW_3_snow:      t_0(4, "shelter/"+name+"_sym_edge")\
-//    NE_3_snow:      t_0(5, "shelter/"+name+"_sym_edge")\
-//    SE_3_snow:      t_0(6, "shelter/"+name+"_sym_edge")\
-//    SW_3_snow:      t_0(7, "shelter/"+name+"_sym_edge")
 
     S_SHELTER_SETUP("shelter_tiles")
     S_SHELTER_SNOW_SETUP("shelter_tiles")
@@ -277,12 +173,13 @@ spriteset(s_shelter_metal) {
 #define GROUP_SNOW_ASYM_2               (GROUP_SNOW_ASYM_1 + 1)
 #define GROUP_SNOW_SYM_EDGE             (GROUP_SNOW_ASYM_2 + 1)
 
-// split
+// private zone?
 #define GROUP_OVERHEAD_STRUCTURE        (GROUP_SNOW_SYM_EDGE + 1)
 #define GROUP_OVERHEAD_STRUCTURE_SNOW   (GROUP_OVERHEAD_STRUCTURE + 1)
 
-#define GROUP_PLATFORM_RECOLOUR_1       (GROUP_SNOW_SYM_EDGE + 1)
-#define GROUP_PLATFORM_RECOLOUR_2       (GROUP_PLATFORM_RECOLOUR_1 + 1)
+#define GROUP_PLATFORM_RECOLOUR_ASPHALT (GROUP_SNOW_SYM_EDGE + 1)
+#define GROUP_PLATFORM_RECOLOUR_BRICK   (GROUP_PLATFORM_RECOLOUR_ASPHALT + 1)
+#define GROUP_PLATFORM_RECOLOUR_WOOD    (GROUP_PLATFORM_RECOLOUR_BRICK + 1)
 
 #define GROUP_CORNER_HOUSE              (GROUP_SNOW_SYM_EDGE + 1)
 #define GROUP_CORNER_HOUSE_SNOW         (GROUP_CORNER_HOUSE + 1)
@@ -422,6 +319,35 @@ spriteset(s_platform_cement) {
         10: 38;
     }
     recolour_sprite{} // placeholder
+    /* wood */
+    recolour_sprite{
+        5:0;
+        3:0;
+        4:55;
+        7:109;
+        8:110;
+        9:111;
+        70:70;
+    }
+    recolour_sprite{
+        5:0;
+        3:0;
+        4:55;
+        7:109;
+        8:110;
+        9:111;
+        70:70;
+    }
+    recolour_sprite{
+        5:0;
+        3:6;
+        4:55;
+        7:109;
+        8:110;
+        9:111;
+        70:70;
+    }
+    recolour_sprite{}
 }
 
 spriteset(s_platform_alt) {
@@ -623,6 +549,7 @@ spriteset(s_platform_overpass_real) {
     t_overpass_y(   name+"_overpass") \
     t_0         (2, name+"_overpass") \
     t_0         (3, name+"_overpass")
+
     S_OVERPASS_SETUP("overpass/real")
 }
 
@@ -831,3 +758,5 @@ spriteset (s_buffer) {
     t_full(14, "buffer/buffer_y")
     t_full(15, "buffer/buffer_y")
 }
+
+// buildings, they have different rules!

@@ -166,6 +166,14 @@
     yextent: PLATFORM_WIDTH;\
     zextent: CORNER_HOUSE_HEIGHT;
 
+#define BBOX_BUFFER \
+    xoffset: 0;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: FULL_LENGTH;\
+    zextent: PLATFORM_HEIGHT;
+
 #define BBOX_FENCE_NW \
     xoffset: 0;\
     yoffset: 0;\
