@@ -1,14 +1,14 @@
-#define PLATFORM_HEIGHT 6
-#define PLATFORM_WIDTH 6
-#define FULL_LENGTH 16
-#define BUFFERSTOP_WIDTH 6
-#define BUFFERSTOP_HEIGHT 6
-#define BUFFERSTOP_LENGTH 4
-#define FENCE_HEIGHT 8
-#define CATNAERY_HEIGHT 12
-#define CORNER_HOUSE_HEIGHT 8
-#define BRIDGE_WIDTH 6
-#define BRIDGE_HEIGHT 4
+const PLATFORM_HEIGHT = 6;
+const PLATFORM_WIDTH = 6;
+const FULL_LENGTH = 16;
+const BUFFERSTOP_WIDTH = 6;
+const BUFFERSTOP_HEIGHT = 6;
+const BUFFERSTOP_LENGTH = 4;
+const FENCE_HEIGHT = 8;
+const CATNAERY_HEIGHT = 12;
+const CORNER_HOUSE_HEIGHT = 8;
+const BRIDGE_WIDTH = 6;
+const BRIDGE_HEIGHT = 4;
 // we assume that all platforms have the same bbox length, in this case, it is 16.
 
 
@@ -174,6 +174,22 @@
     yextent: FULL_LENGTH;\
     zextent: PLATFORM_HEIGHT;
 
+#define BBOX_BUFFER_MIDDLE_X \
+    xoffset: 0;\
+    yoffset: PLATFORM_WIDTH;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH;\
+    yextent: FULL_LENGTH - PLATFORM_WIDTH * 2;\
+    zextent: PLATFORM_HEIGHT;
+
+#define BBOX_BUFFER_MIDDLE_Y \
+    xoffset: PLATFORM_WIDTH;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: FULL_LENGTH - PLATFORM_WIDTH * 2;\
+    yextent: FULL_LENGTH;\
+    zextent: PLATFORM_HEIGHT;
+
 #define BBOX_FENCE_NW \
     xoffset: 0;\
     yoffset: 0;\
@@ -271,17 +287,17 @@
     zextent: FENCE_HEIGHT;
 
 // era years, may switch to params later
-#define YEAR_ERA_1 0
-#define YEAR_ERA_2 1952
-#define YEAR_ERA_3 1986
+const YEAR_ERA_1 = 0;
+const YEAR_ERA_2 = 1952;
+const YEAR_ERA_3 = 1986;
 // platform formation count
-#define PLATFORM_FORMATION_COUNT 3
+const PLATFORM_FORMATION_COUNT = 3;
 // 0000 0000 0000 0000
 
-#define BIT_NPLAT 0                         // 0 only
-#define BIT_SPLAT 1                         // 1 only
-#define BIT_PLATFORM_TYPE 0                 // 0 to 5, ranging from 0 to 63, each group has 3 platforms, which means 21 groups in total
-#define SIZE_BIT_PLATFORM_TYPE 6            // 6 bits for platform type, 2^6 = 64, 0 to 63
+const BIT_NPLAT = 0;                         // 0 only
+const BIT_SPLAT = 1;                         // 1 only
+const BIT_PLATFORM_TYPE = 0;                 // 0 to 5, ranging from 0 to 63, each group has 3 platforms, which means 21 groups in total
+const SIZE_BIT_PLATFORM_TYPE = 6;            // 6 bits for platform type, 2^6 = 64, 0 to 63
 // 15 / 3 = 5, 15 % 3 = 0, thus there goes 0..4 a total of 5 types of platforms, and 15 stands for no platform
 // unused
 //#define BIT_PLATFORM_TYPE 4                 // 4 and 5, ranging from 0 to 3, providing 4 platforms

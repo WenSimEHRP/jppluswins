@@ -1,10 +1,10 @@
 // this file contains the spritesets used in the station grf
 // including realsprites and recolour sprites
 // defines
-#define NW (0)
-#define NE (1)
-#define SE (2)
-#define SW (3)
+const NW = (0);
+const NE = (1);
+const SE = (2);
+const SW = (3);
 //* start of templates
 #define X_SPRITE    (74)
 #define X_SIZE      (72)
@@ -13,6 +13,8 @@
 template t_0(pos, name)         {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,0,0,"gfx/"+name+".png"]} // childsprite template
 template t_overhead(pos, name)  {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,-35,-27,"gfx/"+name+".png"]} // overhead template
 template t_full(pos, name)      {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,-35,-37,"gfx/"+name+".png"]} // full template, also used for bufferstops
+template t_platform_middle_x(name, pos) {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,-47,-43, "gfx/"+name+".png"]} // middle platform template, used for bufferstops
+template t_platform_middle_y(name, pos) {[X_SPRITE*pos,0,X_SIZE,Y_SIZE,-23,-43, "gfx/"+name+".png"]} // middle platform template, used for bufferstops
 
 template t_overpass_x(name)     {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-45,-42,"gfx/"+name+".png"]}
 template t_overpass_y(name)     {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-25,-42,"gfx/"+name+".png"]}
@@ -45,18 +47,12 @@ template t_fence_SW(name)       {[X_SPRITE*3,0,X_SIZE,Y_SIZE, -3,-53,"gfx/"+name
 // for snow I'm going to use random recolouring and random sprites
 // for simplicity, I'll put everything in one spriteset
 
-#define GROUP_BUFFERSTOP    (0)
-//#define GROUP_DECO_0        (GROUP_BUFFERSTOP + 1)
-//#define GROUP_DECO_1        (GROUP_DECO_0 + 1)
-//#define GROUP_DECO_2        (GROUP_DECO_1 + 1)
-//#define GROUP_DECO_3        (GROUP_DECO_2 + 1)
-//#define GROUP_RECOLOUR_SNOW (GROUP_DECO_3 + 1)
-//#define GROUP_RECOLOUR_DECO (GROUP_RECOLOUR_SNOW + 1)
-#define GROUP_FENCE         (GROUP_BUFFERSTOP + 1)
-#define GROUP_SHADOW_SHORT  (GROUP_FENCE + 1)
-#define GROUP_SHADOW_LONG   (GROUP_SHADOW_SHORT + 1)
-#define GROUP_FENCE_BARS    (GROUP_SHADOW_LONG + 1)
-#define GROUP_MISC_RECOLOUR (GROUP_FENCE_BARS + 1)
+const GROUP_BUFFERSTOP      = (0);
+const GROUP_FENCE           = (GROUP_BUFFERSTOP + 1);
+const GROUP_SHADOW_SHORT    = (GROUP_FENCE + 1);
+const GROUP_SHADOW_LONG     = (GROUP_SHADOW_SHORT + 1);
+const GROUP_FENCE_BARS      = (GROUP_SHADOW_LONG + 1);
+const GROUP_MISC_RECOLOUR   = (GROUP_FENCE_BARS + 1);
 // functions
 #define SPRITE_PER_MISC_GRUOP (4)
 #define GET_SPRITE_MISC(group, sprite) (group * SPRITE_PER_MISC_GRUOP + sprite)
@@ -95,9 +91,9 @@ spriteset(s_misc) {
 
 //* start of shelter spritesets
 // gruops
-#define GROUP_SHELTER_SYM               (0)
-#define GROUP_SHELTER_SYM_SNOW          (GROUP_SHELTER_SYM + 1)
-#define GROUP_RECOLOUR_SHELTER_ERA      (GROUP_SHELTER_SYM_SNOW + 1)
+const GROUP_SHELTER_SYM = (0);
+const GROUP_SHELTER_SYM_SNOW = (GROUP_SHELTER_SYM + 1);
+const GROUP_RECOLOUR_SHELTER_ERA = (GROUP_SHELTER_SYM_SNOW + 1);
 // functions
 #define SPRITE_PER_SHELTER_GROUP 4
 #define GET_SPRITE_SHELTER(group, sprite) (group * SPRITE_PER_SHELTER_GROUP + sprite)
@@ -163,30 +159,38 @@ spriteset(s_shelter_metal) {
 //* start of platform spritesets
 
 // groups
-#define GROUP_SYM                       (0)
-#define GROUP_ASYM_1                    (GROUP_SYM + 1)
-#define GROUP_ASYM_2                    (GROUP_ASYM_1 + 1)
-#define GROUP_SYM_EDGE                  (GROUP_ASYM_2 + 1)
-#define GROUP_RECOLOUR_ERA              (GROUP_SYM_EDGE + 1)
-#define GROUP_SNOW_SYM                  (GROUP_RECOLOUR_ERA + 1)
-#define GROUP_SNOW_ASYM_1               (GROUP_SNOW_SYM + 1)
-#define GROUP_SNOW_ASYM_2               (GROUP_SNOW_ASYM_1 + 1)
-#define GROUP_SNOW_SYM_EDGE             (GROUP_SNOW_ASYM_2 + 1)
+const GROUP_SYM                       = (0);
+const GROUP_ASYM_1                    = (GROUP_SYM + 1);
+const GROUP_ASYM_2                    = (GROUP_ASYM_1 + 1);
+const GROUP_SYM_EDGE                  = (GROUP_ASYM_2 + 1);
+const GROUP_RECOLOUR_ERA              = (GROUP_SYM_EDGE + 1);
+const GROUP_SNOW_SYM                  = (GROUP_RECOLOUR_ERA + 1);
+const GROUP_SNOW_ASYM_1               = (GROUP_SNOW_SYM + 1);
+const GROUP_SNOW_ASYM_2               = (GROUP_SNOW_ASYM_1 + 1);
+const GROUP_SNOW_SYM_EDGE             = (GROUP_SNOW_ASYM_2 + 1);
 
 // private zone?
-#define GROUP_OVERHEAD_STRUCTURE        (GROUP_SNOW_SYM_EDGE + 1)
-#define GROUP_OVERHEAD_STRUCTURE_SNOW   (GROUP_OVERHEAD_STRUCTURE + 1)
+const GROUP_OVERHEAD_STRUCTURE        = (GROUP_SNOW_SYM_EDGE + 1);
+const GROUP_OVERHEAD_STRUCTURE_SNOW   = (GROUP_OVERHEAD_STRUCTURE + 1);
 
-#define GROUP_PLATFORM_RECOLOUR_ASPHALT (GROUP_SNOW_SYM_EDGE + 1)
-#define GROUP_PLATFORM_RECOLOUR_BRICK   (GROUP_PLATFORM_RECOLOUR_ASPHALT + 1)
-#define GROUP_PLATFORM_RECOLOUR_WOOD    (GROUP_PLATFORM_RECOLOUR_BRICK + 1)
+const GROUP_PLATFORM_RECOLOUR_ASPHALT = (GROUP_SNOW_SYM_EDGE + 1);
+const GROUP_PLATFORM_RECOLOUR_BRICK   = (GROUP_PLATFORM_RECOLOUR_ASPHALT + 1);
+const GROUP_PLATFORM_RECOLOUR_WOOD    = (GROUP_PLATFORM_RECOLOUR_BRICK + 1);
 
-#define GROUP_CORNER_HOUSE              (GROUP_SNOW_SYM_EDGE + 1)
-#define GROUP_CORNER_HOUSE_SNOW         (GROUP_CORNER_HOUSE + 1)
-#define GROUP_CORNER_HOUSE_RECOLOUR     (GROUP_CORNER_HOUSE_SNOW + 1)
+const GROUP_CORNER_HOUSE              = (GROUP_SNOW_SYM_EDGE + 1);
+const GROUP_CORNER_HOUSE_SNOW         = (GROUP_CORNER_HOUSE + 1);
+const GROUP_CORNER_HOUSE_RECOLOUR     = (GROUP_CORNER_HOUSE_SNOW + 1);
 
-#define GROUP_OVERPASS                  (GROUP_SNOW_SYM_EDGE + 1) // bruh
-#define GROUP_OVERPASS_SHADOW           (GROUP_OVERPASS + 1)
+const GROUP_OVERPASS                  = (GROUP_SNOW_SYM_EDGE + 1); // bruh
+const GROUP_OVERPASS_SHADOW           = (GROUP_OVERPASS + 1);
+
+const GROUP_BUFFER_FILLED_ASYM_1      = (GROUP_SYM_EDGE + 1);
+const GROUP_BUFFER_FILLED_ASYM_2      = (GROUP_BUFFER_FILLED_ASYM_1 + 1);
+const GROUP_BUFFER_FILLED_SYM_1       = (GROUP_BUFFER_FILLED_ASYM_2 + 1);
+const GROUP_BUFFER_FILLED_SYM_2       = (GROUP_BUFFER_FILLED_SYM_1 + 1);
+const GROUP_BUFFER_MIDDLE_SYM         = (GROUP_BUFFER_FILLED_SYM_2 + 1);
+const GROUP_BUFFER_MIDDLE_ASYM_1      = (GROUP_BUFFER_MIDDLE_SYM + 1);
+const GROUP_BUFFER_MIDDLE_ASYM_2      = (GROUP_BUFFER_MIDDLE_ASYM_1 + 1);
 
 // functions
 #define SPRITE_PER_PLATFORM_GROUP 4
@@ -722,41 +726,49 @@ random_switch (FEAT_STATIONS, TILE, rsw_cargo_boxes, bitmask(TRIGGER_STATION_NEW
 }
 
 
-// buffers
-spriteset (s_buffer) {
-    t_full(0, "buffer/buffer")
-    t_full(1, "buffer/buffer")
-    t_full(2, "buffer/buffer")
-    t_full(3, "buffer/buffer")
-    t_full(4, "buffer/buffer")
-    t_full(5, "buffer/buffer")
-    t_full(6, "buffer/buffer")
-    t_full(7, "buffer/buffer")
-    t_full(8, "buffer/buffer")
-    t_full(9, "buffer/buffer")
-    t_full(10, "buffer/buffer")
-    t_full(11, "buffer/buffer")
-    t_full(12, "buffer/buffer")
-    t_full(13, "buffer/buffer")
-    t_full(14, "buffer/buffer")
-    t_full(15, "buffer/buffer")
-    // y direction
-    t_full(0, "buffer/buffer_y")
-    t_full(1, "buffer/buffer_y")
-    t_full(2, "buffer/buffer_y")
-    t_full(3, "buffer/buffer_y")
-    t_full(4, "buffer/buffer_y")
-    t_full(5, "buffer/buffer_y")
-    t_full(6, "buffer/buffer_y")
-    t_full(7, "buffer/buffer_y")
-    t_full(8, "buffer/buffer_y")
-    t_full(9, "buffer/buffer_y")
-    t_full(10, "buffer/buffer_y")
-    t_full(11, "buffer/buffer_y")
-    t_full(12, "buffer/buffer_y")
-    t_full(13, "buffer/buffer_y")
-    t_full(14, "buffer/buffer_y")
-    t_full(15, "buffer/buffer_y")
+
+
+spriteset (s_buffer_real) {
+    #define S_PLATFORM_BUFFER_SETUP(name) \
+    /* asym platforms 1 */\
+    t_platform_NW(name+"_filled_asym_1")\
+    t_platform_NE(name+"_filled_asym_1")\
+    t_platform_SE(name+"_filled_asym_1")\
+    t_platform_SW(name+"_filled_asym_1")\
+    /* asym platforms 2 */\
+    t_platform_NW(name+"_filled_asym_2")\
+    t_platform_NE(name+"_filled_asym_2")\
+    t_platform_SE(name+"_filled_asym_2")\
+    t_platform_SW(name+"_filled_asym_2")\
+    /* sym edge platforms */\
+    t_platform_NW(name+"_filled_sym_1")\
+    t_platform_NE(name+"_filled_sym_1")\
+    t_platform_SE(name+"_filled_sym_1")\
+    t_platform_SW(name+"_filled_sym_1")\
+    /* sym edge platforms */\
+    t_platform_NW(name+"_filled_sym_2")\
+    t_platform_NE(name+"_filled_sym_2")\
+    t_platform_SE(name+"_filled_sym_2")\
+    t_platform_SW(name+"_filled_sym_2")\
+    /* middle pieces */\
+    t_platform_middle_x(name+"_middle_sym", 0)\
+    t_platform_middle_y(name+"_middle_sym", 1)\
+    t_platform_middle_x(name+"_middle_sym", 2)\
+    t_platform_middle_y(name+"_middle_sym", 3)\
+\
+    t_platform_middle_x(name+"_middle_asym_1", 0)\
+    t_platform_middle_y(name+"_middle_asym_1", 1)\
+    t_platform_middle_x(name+"_middle_asym_1", 2)\
+    t_platform_middle_y(name+"_middle_asym_1", 3)\
+\
+    t_platform_middle_x(name+"_middle_asym_2", 0)\
+    t_platform_middle_y(name+"_middle_asym_2", 1)\
+    t_platform_middle_x(name+"_middle_asym_2", 2)\
+    t_platform_middle_y(name+"_middle_asym_2", 3)\
+
+
+    S_PLATFORM_SETUP("buffer/real")
+    S_PLATFORM_BUFFER_SETUP("buffer/real")
 }
 
 // buildings, they have different rules!

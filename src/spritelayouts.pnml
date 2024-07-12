@@ -1,23 +1,34 @@
 // tile defines
 
-/* On x direction
+/*
+On x direction
 
+         N
        2 4 0
-       6 8 7
+     W 6 8 7 E
        1 5 3
+         S
+
+On y direction
+
+         N
+       0 4 2
+     W 7 8 6 E
+       3 5 1
+         S
 
 */
 
+const TILE_SELF  = 8;
 // on x directions, these shouldn't be modified
-#define TILE_X_NE   0
-#define TILE_X_SW   1
-#define TILE_X_NW   2
-#define TILE_X_SE   3
-#define TILE_X_N    4
-#define TILE_X_S    5
-#define TILE_X_W    6
-#define TILE_X_E    7
-#define TILE_SELF   8
+const TILE_X_NE  = 0;
+const TILE_X_SW  = 1;
+const TILE_X_NW  = 2;
+const TILE_X_SE  = 3;
+const TILE_X_N   = 4;
+const TILE_X_S   = 5;
+const TILE_X_W   = 6;
+const TILE_X_E   = 7;
 
 // orientations
 #define ORI_X_NE -1, 0
@@ -31,14 +42,14 @@
 #define ORI_SELF  0, 0
 
 // on y direction
-#define TILE_Y_NW   TILE_X_NE
-#define TILE_Y_SE   TILE_X_SW
-#define TILE_Y_NE   TILE_X_NW
-#define TILE_Y_SW   TILE_X_SE
-#define TILE_Y_N    TILE_X_N
-#define TILE_Y_S    TILE_X_S
-#define TILE_Y_W    TILE_X_E
-#define TILE_Y_E    TILE_X_W
+const TILE_Y_NW  = TILE_X_NE;
+const TILE_Y_SE  = TILE_X_SW;
+const TILE_Y_NE  = TILE_X_NW;
+const TILE_Y_SW  = TILE_X_SE;
+const TILE_Y_N   = TILE_X_N;
+const TILE_Y_S   = TILE_X_S;
+const TILE_Y_E   = TILE_X_W;
+const TILE_Y_W   = TILE_X_E;
 
 #define ORI_Y_NW ORI_X_NE
 #define ORI_Y_SE ORI_X_SW
@@ -50,59 +61,58 @@
 #define ORI_Y_E  ORI_X_W
 
 // temporary variables, these can be modified
-#define TEMP_RAIL_CONTINUATION          9  // for buffers and fences
-#define TEMP_NEARBY_TILE_STATION        10 // for station detection
-#define TEMP_NEARBY_TILE_PERPENDICULAR  11 // for platform perpendicular
-#define TEMP_NEARBY_TILE_GRF            12 // for grf detection
-#define TEMP_CURRENT_LANDSCAPE          13 // for landscape detection
-#define TEMP_RANDBIT_TILE               16 // tile random bit
-#define TEMP_RANDBIT_STATION            17 // station random bit
-#define TEMP_STATION_ERA                18 // for station era
-#define TEMP_HIDE_PLATFORM              19 // for platform hiding
-#define TEMP_PLAT_FORMATION_N           20 // for platform formation, north
-#define TEMP_PLAT_FORMATION_S           21 // for platform formation, south
-#define TEMP_DETERMINE_RECOLOUR         22 // for platform recolouring
-#define TEMP_DETERMINE_FENCE            23 // for fence on platform side
-#define TEMP_MISC                       24 // for misc purpose, several uses, bit inside will be packed
+const TEMP_RAIL_CONTINUATION         = 9 ; // for buffers and fences
+const TEMP_NEARBY_TILE_STATION       = 10; // for station detection
+const TEMP_NEARBY_TILE_PERPENDICULAR = 11; // for platform perpendicular
+const TEMP_NEARBY_TILE_GRF           = 12; // for grf detection
+const TEMP_CURRENT_LANDSCAPE         = 13; // for landscape detection
+const TEMP_RANDBIT_TILE              = 16; // tile random bit
+const TEMP_RANDBIT_STATION           = 17; // station random bit
+const TEMP_STATION_ERA               = 18; // for station era
+const TEMP_HIDE_PLATFORM             = 19; // for platform hiding
+const TEMP_PLAT_FORMATION_N          = 20; // for platform formation, north
+const TEMP_PLAT_FORMATION_S          = 21; // for platform formation, south
+const TEMP_DETERMINE_RECOLOUR        = 22; // for platform recolouring
+const TEMP_DETERMINE_FENCE           = 23; // for fence on platform side
+const TEMP_MISC                      = 24; // for misc purpose, several uses, bit inside will be packed
+const TEMP_BUFFER_FORMATION_N        = 25; // for buffer formation, north
+const TEMP_BUFFER_FORMATION_S        = 26; // for buffer formation, south
 
 // spritesets
-#define S_PLATFORM  0
-#define S_MISC      1
-#define S_SHELTER   2
+const S_PLATFORM = 0;
+const S_MISC     = 1;
+const S_SHELTER  = 2;
 
 // private zone??
-#define S_OVERHEAD  3
-#define S_OVERPASS  3
-#define S_CROSSING  3
-#define S_BUFFER    3
+const S_OVERHEAD = 3;
+const S_OVERPASS = 3;
+const S_CROSSING = 3;
+const S_BUFFER   = 3;
 
 // platform enum
-#define ID_PLATFORM_CEMENT      (0)
-#define ID_PLATFORM_ASPHALT     (1)
-#define ID_PLATFORM_BRICK       (2)
-#define ID_PLATFORM_CEMENT_ALT  (3)
-#define ID_PLATFORM_ASPHALT_ALT (4)
-#define ID_PLATFORM_BRICK_ALT   (5)
-#define ID_PLATFORM_WOOD        (6)
-#define ID_PLATFORM_WOOD_ALT    (7)
-#define COUNT_INFLUENCER        (ID_PLATFORM_WOOD_ALT)
+const ID_PLATFORM_CEMENT      = (0);
+const ID_PLATFORM_ASPHALT     = (1);
+const ID_PLATFORM_BRICK       = (2);
+const ID_PLATFORM_CEMENT_ALT  = (3);
+const ID_PLATFORM_ASPHALT_ALT = (4);
+const ID_PLATFORM_BRICK_ALT   = (5);
+const ID_PLATFORM_WOOD        = (6);
+const ID_PLATFORM_WOOD_ALT    = (7);
+const COUNT_INFLUENCER        = (ID_PLATFORM_WOOD_ALT);
 
-#define ID_CROSSING_REAL        (COUNT_INFLUENCER + 1)
-#define ID_OVERPASS_REAL        (ID_CROSSING_REAL + 1)
-#define ID_OVERPASS_STATION     (ID_OVERPASS_REAL + 1)
-#define ID_MODULAR_LOW          (ID_OVERPASS_STATION + 1)
-#define ID_SHELTER_TILES        (ID_MODULAR_LOW + 1)
-#define ID_SHELTER_METAL        (ID_SHELTER_TILES + 1)
-#define ID_CROSSING_REAL_WAYP   (ID_SHELTER_METAL + 1)
-#define ID_BUFFER               (ID_CROSSING_REAL_WAYP + 1)
-#define ID_BUFFER_SHELTER_METAL (ID_BUFFER + 1)
+const ID_CROSSING_REAL        = (COUNT_INFLUENCER + 1);
+const ID_OVERPASS_REAL        = (ID_CROSSING_REAL + 1);
+const ID_OVERPASS_STATION     = (ID_OVERPASS_REAL + 1);
+const ID_MODULAR_LOW          = (ID_OVERPASS_STATION + 1);
+const ID_SHELTER_TILES        = (ID_MODULAR_LOW + 1);
+const ID_SHELTER_METAL        = (ID_SHELTER_TILES + 1);
+const ID_CROSSING_REAL_WAYP   = (ID_SHELTER_METAL + 1);
+const ID_BUFFER               = (ID_CROSSING_REAL_WAYP + 1);
+const ID_BUFFER_SHELTER_TILES = (ID_BUFFER + 1);
 
 // functions
 #define SP_HIDE_SPRITE_BUFFERSTOP(tile) \
     (getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), tile, 1))
-
-#define SP_RANDOM_CHOOSE_SNOW \
-    (random_bits_tile % 4)
 
 #define SP_HIDE_SPRITE_CHECK_SNOW \
     !!(terrain_type != TILETYPE_SNOW)
@@ -448,102 +458,80 @@ spritelayout sp_platform_shelter_y(){
 }
 
 spritelayout sp_buffer_x() {
-    ground {sprite: GROUNDSPRITE_RAIL_X;}
-    building {
-        sprite: CUSTOM(S_BUFFER, LOAD_TEMP(TEMP_PLAT_FORMATION_S) << 2 | LOAD_TEMP(TEMP_PLAT_FORMATION_N));
-        BBOX_BUFFER
-        recolour_mode: RECOLOUR_REMAP;
-        palette: CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));
+    #define SP_PLATFORM_BUFFER(pos, pos2) \
+    building { /* platform */ \
+        sprite:         CUSTOM(S_BUFFER, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) + LOAD_TEMP(TEMP_BUFFER_FORMATION_##pos2)), pos));\
+                        BBOX_PLATFORM_##pos\
+        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
     }
+    #define SP_PLATFORM_BUFFER_MIDDLE(pos, rel) \
+    building{ /* platform middle section */ \
+        sprite:         CUSTOM(S_BUFFER, GET_SPRITE((GROUP_BUFFER_MIDDLE_SYM + (((LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N)) % 3))), pos));\
+                        BBOX_BUFFER_MIDDLE_##rel\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
+    }
+    ground {sprite: GROUNDSPRITE_RAIL_X;}
     SP_FENCE(NW, N)
     SP_FENCE(NE, N)
+    SP_PLATFORM_BUFFER(NW, N)
+    SP_PLATFORM_BUFFER_MIDDLE(NW,X)
+    SP_PLATFORM_BUFFER(SE, S)
     SP_FENCE(SW, S)
     SP_FENCE(SE, S)
 }
 
 spritelayout sp_buffer_y() {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
-    building {
-        sprite: CUSTOM(S_BUFFER, 16 + (LOAD_TEMP(TEMP_PLAT_FORMATION_S) << 2 | LOAD_TEMP(TEMP_PLAT_FORMATION_N)));
-        BBOX_BUFFER
-        recolour_mode: RECOLOUR_REMAP;
-        palette: CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));
-    }
-    SP_FENCE_Y(NW, N)
     SP_FENCE_Y(NE, N)
-    SP_FENCE_Y(SW, S)
+    SP_FENCE_Y(NW, N)
+    SP_PLATFORM_BUFFER(NE, N)
+    SP_PLATFORM_BUFFER_MIDDLE(NE,Y)
+    SP_PLATFORM_BUFFER(SW, S)
     SP_FENCE_Y(SE, S)
+    SP_FENCE_Y(SW, S)
 }
 
-spritelayout sp_buffer_shelter_x() {
+spritelayout sp_buffer_shelter_x(){
+    #define SP_BUFFER_SHELTER_CHILDSPRITE(pos, pos2) \
+    childsprite { /* shadow */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SHADOW_LONG, pos));\
+        recolour_mode:  RECOLOUR_TRANSPARENT;\
+        palette:        PALETTE_TRANSPARENT;\
+        hide_sprite:    ((LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N)) ^ LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) || LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) == 3);\
+    }\
+    childsprite { /* shelter */ \
+        sprite:         CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SYM, pos));\
+        recolour_mode:  RECOLOUR_REMAP;\
+        palette:        CUSTOM(S_SHELTER, GET_SPRITE(GROUP_RECOLOUR_SHELTER_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
+        hide_sprite:    ((LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N)) ^ LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) || LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) == 3);\
+    }
+
     ground {sprite: GROUNDSPRITE_RAIL_X;}
-    building {
-        sprite: CUSTOM(S_BUFFER, LOAD_TEMP(TEMP_PLAT_FORMATION_S) << 2 | LOAD_TEMP(TEMP_PLAT_FORMATION_N));
-        BBOX_BUFFER
-        recolour_mode: RECOLOUR_REMAP;
-        palette: CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));
-    }
-    // building for shelter
-    building {
-        sprite: CUSTOM(S_PLATFORM, GET_SPRITE_SHELTER(GROUP_SYM, NW));
-        BBOX_PLATFORM_NW
-        recolour_mode: RECOLOUR_REMAP;
-        palette: CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_MISC_RECOLOUR, 0));
-        hide_sprite: LOAD_TEMP(TEMP_PLAT_FORMATION_S) != 3 ? LOAD_TEMP(TEMP_PLAT_FORMATION_N) :
-        LOAD_TEMP(TEMP_PLAT_FORMATION_N) >= 3;
-    }
-    childsprite{
-        sprite: CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SHADOW_LONG, NW));
-        recolour_mode: RECOLOUR_TRANSPARENT;
-        palette: PALETTE_TRANSPARENT;
-    }
-    childsprite{
-        sprite: CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SYM, NW));
-    }
-    building {
-        sprite: CUSTOM(S_PLATFORM, GET_SPRITE_SHELTER(GROUP_SYM, SE));
-        BBOX_PLATFORM_SE
-        recolour_mode: RECOLOUR_REMAP;
-        palette: CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_MISC_RECOLOUR, 0));
-        hide_sprite: !!LOAD_TEMP(TEMP_PLAT_FORMATION_S);
-    }
-    childsprite {
-        sprite: CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_SHADOW_LONG, SE));
-        recolour_mode: RECOLOUR_TRANSPARENT;
-        palette: PALETTE_TRANSPARENT;
-    }
-    childsprite {
-        sprite: CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SYM, SE));
-    }
     SP_FENCE(NW, N)
     SP_FENCE(NE, N)
+    SP_PLATFORM_BUFFER(NW, N)
+    SP_BUFFER_SHELTER_CHILDSPRITE(NW, N)
+    SP_PLATFORM_BUFFER_MIDDLE(NW,X)
+    SP_PLATFORM_BUFFER(SE, S)
+    SP_BUFFER_SHELTER_CHILDSPRITE(SE, S)
     SP_FENCE(SW, S)
     SP_FENCE(SE, S)
 }
 
-spritelayout sp_buffer_shelter_y() {
+spritelayout sp_buffer_shelter_y(){
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
-    building {
-        sprite: CUSTOM(S_BUFFER, 16 + LOAD_TEMP(TEMP_PLAT_FORMATION_S) << 2 | LOAD_TEMP(TEMP_PLAT_FORMATION_N));
-        BBOX_BUFFER
-        recolour_mode: RECOLOUR_REMAP;
-        palette: CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));
-    }
-    // building for shelter
-    building {
-        sprite: CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SYM, NE));
-        BBOX_PLATFORM_NE
-        hide_sprite: LOAD_TEMP(TEMP_PLAT_FORMATION_N) % 3;
-    }
-    building {
-        sprite: CUSTOM(S_SHELTER, GET_SPRITE_SHELTER(GROUP_SYM, SW));
-        BBOX_PLATFORM_SW
-        hide_sprite: LOAD_TEMP(TEMP_PLAT_FORMATION_S) % 3;
-    }
-    SP_FENCE_Y(NW, N)
     SP_FENCE_Y(NE, N)
-    SP_FENCE_Y(SW, S)
+    SP_FENCE_Y(NW, N)
+    SP_PLATFORM_BUFFER(NE, N)
+    SP_BUFFER_SHELTER_CHILDSPRITE(NE, N)
+    SP_PLATFORM_BUFFER_MIDDLE(NE,Y)
+    SP_PLATFORM_BUFFER(SW, S)
+    SP_BUFFER_SHELTER_CHILDSPRITE(SW, S)
     SP_FENCE_Y(SE, S)
+    SP_FENCE_Y(SW, S)
 }
 
 // temp storage functions
@@ -699,7 +687,61 @@ switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     default: GROUP_RECOLOUR_ERA;
 }
 
+// the bufferstop is a special case. Unlike other sprites it reads both northern and southern bits
+// so we have four bits. and therefore here is a way to match the sprites.
+/*
+* rconnection
+
+0101: 5
+0111: 7
+1110: 14
+
+* lconnection
+
+1010: 10
+1011: 11
+1101: 13
+
+LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N)?
+
+0b00 for middle connection,
+0b01 for right connection,
+0b10 for left connection,
+0b11 for both connection, but this one will be treated as middle connection - using a simple % 3
+
+*/
+
+switch (FEAT_STATIONS, SELF, sw_buffer_formation_preswitch,
+    LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N))
+{
+    0: 0;
+    1: 3;
+    2: 4;
+    3: 0;
+}
+
+switch (FEAT_STATIONS, SELF, sw_buffer_formation_N,
+    LOAD_TEMP(TEMP_PLAT_FORMATION_N) == 3 ?
+    0xFF : LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N))
+{
+    0: 0;
+    1: 3;
+    2: 3;
+    0xFF: sw_buffer_formation_preswitch();
+}
+
+switch (FEAT_STATIONS, SELF, sw_buffer_formation_S,
+    LOAD_TEMP(TEMP_PLAT_FORMATION_S) == 3 ?
+    0xFF : LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N))
+{
+    0: 0;
+    1: 3;
+    2: 3;
+    0xFF: sw_buffer_formation_preswitch();
+}
+
 switch (FEAT_STATIONS, SELF, sw_determine_fence,
+    // output range: 0b00..0b11
     // this switch controls the fence sprites
     // whether it should be the normal style, or bars style
     // the normal style is used when there isn't any station nearby
@@ -724,38 +766,60 @@ switch (FEAT_STATIONS, SELF, sw_determine_fence,
     )
 ){return;}
 
+// double rail, idea stolen from xussr stations.
+// instead of making it waypoints I will make it stations - at least in my opintion it is better
+switch (FEAT_STATIONS, SELF, sw_double_rail_formation_preswitch, my_id, client_id, my_id + client_id)
+{return 1;} // TODO write this function
+
+switch (FEAT_STATIONS, SELF, sw_double_rail_formation, is_north,
+    // output range: GROUP_SYM, GROUP_ASYM_1, GROUP_ASYM_2, 0xFF
+    // formations: sym, asym 1, asym 2, and sym edge, which is none.
+    is_north ?
+    sw_double_rail_formation_preswitch(LOAD_TEMP(TILE_SELF), LOAD_TEMP(TILE_X_NW)) ?
+        sw_double_rail_formation_preswitch(LOAD_TEMP(TILE_X_NE), LOAD_TEMP(TILE_X_N)) << BIT_NPLAT |
+        sw_double_rail_formation_preswitch(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_W)) << BIT_SPLAT : 0xFF
+    :
+    sw_double_rail_formation_preswitch(LOAD_TEMP(TILE_SELF), LOAD_TEMP(TILE_X_SE)) ?
+        sw_double_rail_formation_preswitch(LOAD_TEMP(TILE_X_NE), LOAD_TEMP(TILE_X_E)) << BIT_NPLAT |
+        sw_double_rail_formation_preswitch(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_S)) << BIT_SPLAT : 0xFF)
+{
+    0: return GROUP_SYM;
+    1: return GROUP_ASYM_1;
+    2: return GROUP_ASYM_2;
+    0xFF: return 0xFF; // means that there aren't any tracks to connect
+}
+
 switch (FEAT_STATIONS, SELF, sw_platform, [
-    STORE_TEMP(nearby_tile_station_id(ORI_X_NE),           TILE_X_NE),
-    STORE_TEMP(nearby_tile_station_id(ORI_X_SW),           TILE_X_SW),
-    STORE_TEMP(nearby_tile_station_id(ORI_X_NW),           TILE_X_NW),
-    STORE_TEMP(nearby_tile_station_id(ORI_X_SE),           TILE_X_SE),
-    STORE_TEMP(nearby_tile_station_id(ORI_X_N),            TILE_X_N),
-    STORE_TEMP(nearby_tile_station_id(ORI_X_S),            TILE_X_S),
-    STORE_TEMP(nearby_tile_station_id(ORI_X_W),            TILE_X_W),
-    STORE_TEMP(nearby_tile_station_id(ORI_X_E),            TILE_X_E),
-    STORE_TEMP(nearby_tile_station_id(ORI_SELF),           TILE_SELF),
-    // checks
+    // tile id storage
+    STORE_TEMP(nearby_tile_station_id(ORI_X_NE),        TILE_X_NE),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_SW),        TILE_X_SW),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_NW),        TILE_X_NW),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_SE),        TILE_X_SE),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_N),         TILE_X_N),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_S),         TILE_X_S),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_W),         TILE_X_W),
+    STORE_TEMP(nearby_tile_station_id(ORI_X_E),         TILE_X_E),
+    STORE_TEMP(nearby_tile_station_id(ORI_SELF),        TILE_SELF),
+    // functions
     STORE_TEMP(sw_check_rail_continuation(),            TEMP_RAIL_CONTINUATION),
     STORE_TEMP(sw_check_nearby_tile_station(),          TEMP_NEARBY_TILE_STATION),
     STORE_TEMP(sw_check_nearby_tile_perpendicular(),    TEMP_NEARBY_TILE_PERPENDICULAR),
     STORE_TEMP(sw_check_nearby_tile_grf(),              TEMP_NEARBY_TILE_GRF),
     STORE_TEMP(nearby_tile_slope(0, 0),                 TEMP_CURRENT_LANDSCAPE),
-    // functions
     STORE_TEMP(sw_station_era(),                        TEMP_STATION_ERA),
     STORE_TEMP(sw_hide_platform(),                      TEMP_HIDE_PLATFORM),
     STORE_TEMP(sw_get_platform_formation_N(),           TEMP_PLAT_FORMATION_N),
     STORE_TEMP(sw_get_platform_formation_S(),           TEMP_PLAT_FORMATION_S),
-//    STORE_TEMP(current_date,                            TEMP_CURRENT_DATE),
-//    STORE_TEMP(terrain_type,                            TEMP_TERRAIN_TYPE),
-    STORE_TEMP(random_bits_tile,                        TEMP_RANDBIT_TILE),
-//    STORE_TEMP(random_bits_station,                     TEMP_RANDBIT_STATION),
     STORE_TEMP(sw_determine_recolour(),                 TEMP_DETERMINE_RECOLOUR),
     STORE_TEMP(sw_determine_fence(),                    TEMP_DETERMINE_FENCE),
+    STORE_TEMP(sw_buffer_formation_N(),                 TEMP_BUFFER_FORMATION_N),
+    STORE_TEMP(sw_buffer_formation_S(),                 TEMP_BUFFER_FORMATION_S),
     STORE_TEMP(0,                                       TEMP_MISC),
 ])
 {return;}
 
 switch (FEAT_STATIONS, SELF, sw_platform_purchase, station_id, [
+    // tile id storage
     STORE_TEMP(0,           TILE_X_NE),
     STORE_TEMP(0,           TILE_X_SW),
     STORE_TEMP(0,           TILE_X_NW),
@@ -765,7 +829,7 @@ switch (FEAT_STATIONS, SELF, sw_platform_purchase, station_id, [
     STORE_TEMP(0,           TILE_X_W),
     STORE_TEMP(0,           TILE_X_E),
     STORE_TEMP(station_id,  TILE_SELF),
-    // checks
+    // checks and functions
     STORE_TEMP(2,           TEMP_RAIL_CONTINUATION),
     STORE_TEMP(1 << TILE_X_SW | 1 << TILE_X_SE,TEMP_NEARBY_TILE_STATION),
     STORE_TEMP(0,           TEMP_NEARBY_TILE_PERPENDICULAR),
@@ -920,7 +984,8 @@ item(FEAT_STATIONS, i_station_##name,\
 }
 
 #define STN_STATION_WRAPPER_BUFFER_SHELTER(name, property, platform_type, platform_spriteset, shelter_spriteset)\
-item(FEAT_STATIONS, i_station_##name, platform_type) {\
+item(FEAT_STATIONS, i_station_##name,\
+    platform_type) {\
     STN_STATION_PROPERTY_##property\
     graphics {\
         sprite_layouts: [sp_buffer_shelter_x(), sp_buffer_shelter_y()];\
@@ -1003,8 +1068,9 @@ STN_STATION_WRAPPER_PLATFORM(blank                  , 0, 10000, s_platform_cemen
 STN_STATION_WRAPPER_PLATFORM(wayp_blank             , 1, 10001, s_platform_cement, GROUP_RECOLOUR_ERA)
 
 // buffer stops
-STN_STATION_WRAPPER_BUFFER(buffer_x                 , 2, STN_CALC_PLATFORM_BIT(ID_BUFFER,1,1), s_buffer)
-//STN_STATION_WRAPPER_BUFFER_SHELTER(buffer_metal_x   , 2, STN_CALC_PLATFORM_BIT(ID_BUFFER_SHELTER_METAL,1,1), s_buffer, s_shelter_metal)
+STN_STATION_WRAPPER_BUFFER(buffer                   , 2, STN_CALC_PLATFORM_BIT(ID_BUFFER,1,1), s_buffer_real)
+STN_STATION_WRAPPER_BUFFER_SHELTER(buffer_shelter   , 2, STN_CALC_PLATFORM_BIT(ID_BUFFER_SHELTER_TILES,1,1), s_buffer_real, s_shelter_tiles)
+
 
 #define STN_CLASSNAME_SETTER(class_label, class_name) \
 item(FEAT_STATIONS, i_station_class_name) {\
