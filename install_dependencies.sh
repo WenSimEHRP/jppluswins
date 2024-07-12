@@ -4,5 +4,5 @@ pip3 install -r requirements.txt &&
 echo "Now cloning nml..."
 git clone https://github.com/openttd/nml &&
     cd nml &&
-    git checkout dcbfdc7a771e6b3033a9e09c656ac3c441f466db &&
+    git checkout 3739dd40029a3a61303f1d43529b4504b56348c5 &&
     echo "Finished cloning NML"
