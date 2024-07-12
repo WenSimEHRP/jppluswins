@@ -673,30 +673,40 @@ switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     // if both isn't there, we then check further away
     // if none of the platforms are there, we then use the default era recolour
     // tile 1
-    nearby_tile_same_station( 1, 0) * (getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station( 1, 0) && !hasbit(nearby_tile_station_id( 1, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id( 1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-1, 0) * (getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station(-1, 0) && !hasbit(nearby_tile_station_id(-1, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id(-1, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 2
-    nearby_tile_same_station( 2, 0) * (getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station( 2, 0) && !hasbit(nearby_tile_station_id( 2, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id( 2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-2, 0) * (getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station(-2, 0) && !hasbit(nearby_tile_station_id(-2, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id(-2, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 3
-    nearby_tile_same_station( 3, 0) * (getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station( 3, 0) && !hasbit(nearby_tile_station_id( 3, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id( 3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-3, 0) * (getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station(-3, 0) && !hasbit(nearby_tile_station_id(-3, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id(-3, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 4
-    nearby_tile_same_station( 4, 0) * (getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station( 4, 0) && !hasbit(nearby_tile_station_id( 4, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id( 4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-4, 0) * (getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station(-4, 0) && !hasbit(nearby_tile_station_id(-4, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id(-4, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
     // tile 5
-    nearby_tile_same_station( 5, 0) * (getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    nearby_tile_same_station( 5, 0) && !hasbit(nearby_tile_station_id( 5, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
     getbits(nearby_tile_station_id( 5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
-    nearby_tile_same_station(-5, 0) * (getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
-    getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 : 0)
+    nearby_tile_same_station(-5, 0) && !hasbit(nearby_tile_station_id(-5, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    getbits(nearby_tile_station_id(-5, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    // tile 6
+    nearby_tile_same_station( 6, 0) && !hasbit(nearby_tile_station_id( 6, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id( 6, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    getbits(nearby_tile_station_id( 6, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    nearby_tile_same_station(-6, 0) && !hasbit(nearby_tile_station_id(-6, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id(-6, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    getbits(nearby_tile_station_id(-6, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    // tile 7
+    nearby_tile_same_station( 7, 0) && !hasbit(nearby_tile_station_id( 7, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id( 7, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    getbits(nearby_tile_station_id( 7, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 :
+    nearby_tile_same_station(-7, 0) && !hasbit(nearby_tile_station_id(-7, 0), BIT_NO_PLATFORM) && (getbits(nearby_tile_station_id(-7, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 <= COUNT_INFLUENCER) ?
+    getbits(nearby_tile_station_id(-7, 0), BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) / 3 : 0)
 {
     ID_PLATFORM_CEMENT:         GROUP_RECOLOUR_ERA;
     ID_PLATFORM_CEMENT_ALT:     GROUP_RECOLOUR_ERA;
