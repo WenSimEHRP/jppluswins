@@ -34,6 +34,11 @@ template t_platform_NE(name)    {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-37, NOCROP, "g
 template t_platform_SE(name)    {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-55,-47, NOCROP, "gfx/"+name+".png"]}
 template t_platform_SW(name)    {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-15,-47, NOCROP, "gfx/"+name+".png"]}
 
+template t_railyard_NW(name)    {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-37,-38, "gfx/"+name+".png"]} // railyard templates
+template t_railyard_NE(name)    {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-33,-38, "gfx/"+name+".png"]}
+template t_railyard_SE(name)    {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-33,-36, "gfx/"+name+".png"]}
+template t_railyard_SW(name)    {[X_SPRITE*3,0,X_SIZE,Y_SIZE,-37,-36, "gfx/"+name+".png"]}
+
 template t_fence_NW(name)       {[X_SPRITE*0,0,X_SIZE,Y_SIZE,-35,-38,"gfx/"+name+".png"]} // fence templates
 template t_fence_NE(name)       {[X_SPRITE*1,0,X_SIZE,Y_SIZE,-35,-38,"gfx/"+name+".png"]}
 template t_fence_SE(name)       {[X_SPRITE*2,0,X_SIZE,Y_SIZE,-67,-53,"gfx/"+name+".png"]}
@@ -726,7 +731,30 @@ random_switch (FEAT_STATIONS, TILE, rsw_cargo_boxes, bitmask(TRIGGER_STATION_NEW
 }
 
 
+spriteset (s_railyard_tracks) {
+    #define S_RAILYARD_SETUP(name) \
+    t_railyard_NW(name+"_sym")\
+    t_railyard_NE(name+"_sym")\
+    t_railyard_SE(name+"_sym")\
+    t_railyard_SW(name+"_sym")\
+    /* asym railyards 1 */\
+    t_railyard_NW(name+"_asym_1")\
+    t_railyard_NE(name+"_asym_1")\
+    t_railyard_SE(name+"_asym_1")\
+    t_railyard_SW(name+"_asym_1")\
+    /* asym railyards 2 */\
+    t_railyard_NW(name+"_asym_2")\
+    t_railyard_NE(name+"_asym_2")\
+    t_railyard_SE(name+"_asym_2")\
+    t_railyard_SW(name+"_asym_2")\
+    /* sym edge railyards */\
+    t_railyard_NW(name+"_sym_edge")\
+    t_railyard_NE(name+"_sym_edge")\
+    t_railyard_SE(name+"_sym_edge")\
+    t_railyard_SW(name+"_sym_edge")
 
+    S_RAILYARD_SETUP("railyard/track")
+}
 
 spriteset (s_buffer_real) {
     #define S_PLATFORM_BUFFER_SETUP(name) \

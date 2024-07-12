@@ -296,12 +296,18 @@ const PLATFORM_FORMATION_COUNT = 3;
 
 const BIT_NPLAT = 0;                         // 0 only
 const BIT_SPLAT = 1;                         // 1 only
+
+// station id
 const BIT_PLATFORM_TYPE = 0;                 // 0 to 5, ranging from 0 to 63, each group has 3 platforms, which means 21 groups in total
+// 1
+// 2
+// 3
+// 4
+// 5
 const SIZE_BIT_PLATFORM_TYPE = 6;            // 6 bits for platform type, 2^6 = 64, 0 to 63
+const BIT_NO_PLATFORM = 6;                   // 6 only, no platform flag
+const BIT_RAILYARD = 7;                      // 7 only, railyard flag
 // 15 / 3 = 5, 15 % 3 = 0, thus there goes 0..4 a total of 5 types of platforms, and 15 stands for no platform
-// unused
-//#define BIT_PLATFORM_TYPE 4                 // 4 and 5, ranging from 0 to 3, providing 4 platforms
-#define BIT_SHELTER_TYPE 4                  // 8 to 10, ranging from 0 to 7, providing 8 shelter types, 0 means no shelter
 
 // funcitons
 // compile time random number generator
