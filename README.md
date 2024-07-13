@@ -9,7 +9,8 @@ Made by WenSim. Licensed under GPL 2.
 - Automatic buffers
 - Automatic fences
 - Cargo sprite randomization (hoho thanks ISR)
-- (Currently) much smaller than JP3 stations - ~204KB vs ~5.97MB, at a size around 3% of JP3 stations (wow, does that also count?)
+- (Currently) much smaller than JP3 stations - ~300KB (~210KB after optimization) vs ~5.97MB, at a size around 5% of JP3 stations (wow, does that also count?)
+- Rail yards
 - can't remember the rest
 
 ## Building
