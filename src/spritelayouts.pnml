@@ -116,7 +116,7 @@ const ID_RAILYARD_BARE_RAILS  = (ID_BUFFER_SHELTER_TILES + 1);
 
 // functions
 #define SP_HIDE_SPRITE_BUFFERSTOP(tile) \
-    (getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), tile, 1))
+    (hasbit(LOAD_TEMP(TEMP_RAIL_CONTINUATION), tile))
 
 #define SP_HIDE_SPRITE_CHECK_SNOW \
     !!(terrain_type != TILETYPE_SNOW)
@@ -128,7 +128,7 @@ spritelayout sp_platform_x() {
     building { /* bufferstop */ \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_BUFFERSTOP, pos));\
                         BBOX_BUFFERSTOP_##pos\
-        hide_sprite:    SP_HIDE_SPRITE_BUFFERSTOP(bit);\
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_RAIL_CONTINUATION), bit));\
     }
     #define SP_PLATFORM(pos, pos2) \
     building { /* platform */ \
@@ -191,8 +191,8 @@ spritelayout sp_platform_x() {
     SP_FENCE        (NW, N)
     SP_FENCE_TRACK  (NE, 0)
     SP_PLATFORM     (NW, N)
-    SP_BUFFERSTOP   (NE, 0)
-    SP_BUFFERSTOP   (SW, 1)
+    SP_BUFFERSTOP   (NE, 1)
+    SP_BUFFERSTOP   (SW, 0)
     SP_PLATFORM     (SE, S)
     SP_FENCE_TRACK  (SW, 1)
     SP_FENCE        (SE, S)
@@ -203,8 +203,8 @@ spritelayout sp_platform_y() {
     SP_FENCE_Y      (NE, N)
     SP_FENCE_TRACK_Y(NW, 0)
     SP_PLATFORM     (NE, N)
-    SP_BUFFERSTOP   (NW, 0)
-    SP_BUFFERSTOP   (SE, 1)
+    SP_BUFFERSTOP   (NW, 1)
+    SP_BUFFERSTOP   (SE, 0)
     SP_PLATFORM     (SW, S)
     SP_FENCE_TRACK_Y(SE, 1)
     SP_FENCE_Y      (SW, S)
@@ -232,8 +232,8 @@ spritelayout sp_platform_platform_x(platform_recolour) {
     SP_FENCE            (NW, N)
     SP_FENCE_TRACK      (NE, 0)
     SP_PLATFORM_PLATFORM(NW, N)
-    SP_BUFFERSTOP       (NE, 0)
-    SP_BUFFERSTOP       (SW, 1)
+    SP_BUFFERSTOP       (NE, 1)
+    SP_BUFFERSTOP       (SW, 0)
     SP_PLATFORM_PLATFORM(SE, S)
     SP_FENCE_TRACK      (SW, 1)
     SP_FENCE            (SE, S)
@@ -244,8 +244,8 @@ spritelayout sp_platform_platform_y(platform_recolour) {
     SP_FENCE_Y          (NE, N)
     SP_FENCE_TRACK_Y    (NW, 0)
     SP_PLATFORM_PLATFORM(NE, N)
-    SP_BUFFERSTOP       (NW, 0)
-    SP_BUFFERSTOP       (SE, 1)
+    SP_BUFFERSTOP       (NW, 1)
+    SP_BUFFERSTOP       (SE, 0)
     SP_PLATFORM_PLATFORM(SW, S)
     SP_FENCE_TRACK_Y    (SE, 1)
     SP_FENCE_Y          (SW, S)
@@ -288,8 +288,8 @@ spritelayout sp_platform_crossing_x() {
     //SP_FENCE        (NW, N)
     SP_FENCE_TRACK  (NE, 0)
     SP_PLATFORM_CROSSING(NW, N)
-    SP_BUFFERSTOP   (NE, 0)
-    SP_BUFFERSTOP   (SW, 1)
+    SP_BUFFERSTOP   (NE, 1)
+    SP_BUFFERSTOP   (SW, 0)
     SP_PLATFORM_CROSSING(SE, S)
     //SP_FENCE        (SE, S)
     SP_FENCE_TRACK  (SW, 1)
@@ -304,8 +304,8 @@ spritelayout sp_platform_crossing_y() {
     //SP_FENCE_Y      (NE, N)
     SP_FENCE_TRACK_Y(NW, 0)
     SP_PLATFORM_CROSSING(NE, N)
-    SP_BUFFERSTOP   (NW, 0)
-    SP_BUFFERSTOP   (SE, 1)
+    SP_BUFFERSTOP   (NW, 1)
+    SP_BUFFERSTOP   (SE, 0)
     SP_PLATFORM_CROSSING(SW, S)
     SP_FENCE_TRACK_Y(SE, 1)
     //SP_FENCE_Y      (SW, S)
@@ -347,8 +347,8 @@ spritelayout sp_platform_overhead_x() {
     SP_FENCE                (NW, N)
     SP_FENCE_TRACK          (NE, 0)
     SP_PLATFORM_OVERHEAD    (NW, N)
-    SP_BUFFERSTOP           (NE, 0)
-    SP_BUFFERSTOP           (SW, 1)
+    SP_BUFFERSTOP           (NE, 1)
+    SP_BUFFERSTOP           (SW, 0)
     SP_PLATFORM_OVERHEAD    (SE, S)
     SP_FENCE_TRACK          (SW, 1)
     SP_FENCE                (SE, S)
@@ -360,8 +360,8 @@ spritelayout sp_platform_overhead_y() {
     SP_FENCE_Y              (NE, N)
     SP_FENCE_TRACK_Y        (NW, 0)
     SP_PLATFORM_OVERHEAD    (NE, N)
-    SP_BUFFERSTOP           (NW, 0)
-    SP_BUFFERSTOP           (SE, 1)
+    SP_BUFFERSTOP           (NW, 1)
+    SP_BUFFERSTOP           (SE, 0)
     SP_PLATFORM_OVERHEAD    (SW, S)
     SP_FENCE_TRACK_Y        (SE, 1)
     SP_FENCE_Y              (SW, S)
@@ -406,8 +406,8 @@ spritelayout sp_platform_overpass_x() {
     SP_FENCE            (NW, N)
     SP_FENCE_TRACK      (NE, 0)
     SP_PLATFORM_OVERPASS(NW, N)
-    SP_BUFFERSTOP       (NE, 0)
-    SP_BUFFERSTOP       (SW, 1)
+    SP_BUFFERSTOP       (NE, 1)
+    SP_BUFFERSTOP       (SW, 0)
     SP_PLATFORM_OVERPASS(SE, S)
     SP_FENCE_TRACK      (SW, 1)
     SP_FENCE            (SE, S)
@@ -419,8 +419,8 @@ spritelayout sp_platform_overpass_y() {
     SP_FENCE_Y          (NE, N)
     SP_FENCE_TRACK_Y    (NW, 0)
     SP_PLATFORM_OVERPASS(NE, N)
-    SP_BUFFERSTOP       (NW, 0)
-    SP_BUFFERSTOP       (SE, 1)
+    SP_BUFFERSTOP       (NW, 1)
+    SP_BUFFERSTOP       (SE, 0)
     SP_PLATFORM_OVERPASS(SW, S)
     SP_FENCE_TRACK_Y    (SE, 1)
     SP_FENCE_Y          (SW, S)
@@ -439,8 +439,8 @@ spritelayout sp_platform_shelter_x() {
     SP_FENCE_TRACK          (NE, 0)
     SP_PLATFORM_OVERHEAD    (NW, N)
     SP_SHELTER_CHILDSPRITE  (NW, N)
-    SP_BUFFERSTOP           (NE, 0)
-    SP_BUFFERSTOP           (SW, 1)
+    SP_BUFFERSTOP           (NE, 1)
+    SP_BUFFERSTOP           (SW, 0)
     SP_PLATFORM_OVERHEAD    (SE, S)
     SP_SHELTER_CHILDSPRITE  (SE, S)
     SP_FENCE_TRACK          (SW, 1)
@@ -453,8 +453,8 @@ spritelayout sp_platform_shelter_y(){
     SP_FENCE_TRACK_Y        (NW, 0)
     SP_PLATFORM_OVERHEAD    (NE, N)
     SP_SHELTER_CHILDSPRITE  (NE, N)
-    SP_BUFFERSTOP           (NW, 0)
-    SP_BUFFERSTOP           (SE, 1)
+    SP_BUFFERSTOP           (NW, 1)
+    SP_BUFFERSTOP           (SE, 0)
     SP_PLATFORM_OVERHEAD    (SW, S)
     SP_SHELTER_CHILDSPRITE  (SW, S)
     SP_FENCE_TRACK_Y        (SE, 1)
@@ -539,6 +539,12 @@ spritelayout sp_buffer_shelter_y(){
 }
 
 spritelayout sp_railyard_tracks_x(){
+    #define SP_BUFFERSTOP_RAILTYARD(pos, bit) \
+    building { /* bufferstop */ \
+        sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_BUFFERSTOP, pos));\
+                        BBOX_BUFFERSTOP_RAILYARD_##pos\
+        hide_sprite:    hasbit(rail_continuation, bit) || LOAD_TEMP(TEMP_RAILYARD_FORMATION_N) == 0xFF;\
+    }
     #define SP_RAILYARD_TRACKS(pos, pos2) \
     childsprite { /* track */ \
         always_draw:   1;\
@@ -548,12 +554,20 @@ spritelayout sp_railyard_tracks_x(){
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     SP_RAILYARD_TRACKS(NW, N)
     SP_RAILYARD_TRACKS(SE, S)
+    SP_BUFFERSTOP(NE, 1)
+    SP_BUFFERSTOP_RAILTYARD(NE, 1)
+    SP_BUFFERSTOP(SW, 0)
+    SP_BUFFERSTOP_RAILTYARD(SW, 0)
 }
 
 spritelayout sp_railyard_tracks_y(){
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     SP_RAILYARD_TRACKS(NE, N)
     SP_RAILYARD_TRACKS(SW, S)
+    SP_BUFFERSTOP(NW, 1)
+    SP_BUFFERSTOP_RAILTYARD(NW, 1)
+    SP_BUFFERSTOP(SE, 0)
+    SP_BUFFERSTOP_RAILTYARD(SE, 0)
 }
 
 // temp storage functions
@@ -573,8 +587,8 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_landscape,
 switch (FEAT_STATIONS, SELF, sw_check_rail_continuation,
     // output range: 0b00..0b11
     // checks if the rail continuation is present
-    hasbit(rail_continuation, 1) << TILE_X_NE|
-    hasbit(rail_continuation, 0) << TILE_X_SW) {return;}
+    hasbit(rail_continuation, 1) << 1|
+    hasbit(rail_continuation, 0) << 0) {return;}
 
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_station,
@@ -719,30 +733,6 @@ switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     default: GROUP_RECOLOUR_ERA;
 }
 
-// the bufferstop is a special case. Unlike other sprites it reads both northern and southern bits
-// so we have four bits. and therefore here is a way to match the sprites.
-/*
-* rconnection
-
-0101: 5
-0111: 7
-1110: 14
-
-* lconnection
-
-1010: 10
-1011: 11
-1101: 13
-
-LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N)?
-
-0b00 for middle connection,
-0b01 for right connection,
-0b10 for left connection,
-0b11 for both connection, but this one will be treated as middle connection - using a simple % 3
-
-*/
-
 switch (FEAT_STATIONS, SELF, sw_buffer_formation_preswitch,
     LOAD_TEMP(TEMP_PLAT_FORMATION_S) & LOAD_TEMP(TEMP_PLAT_FORMATION_N))
 {
@@ -787,7 +777,8 @@ switch (FEAT_STATIONS, SELF, sw_determine_fence,
             getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NW, 1) &&
             (getbits(sw_hide_platform_id(LOAD_TEMP(TILE_X_NW)), BIT_SPLAT, 1) ||
             (0))) << BIT_NPLAT
-        ) |
+        )
+        |
         (
             !(!getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_SPLAT, 1) &&
             getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SE, 1) &&
@@ -813,15 +804,25 @@ switch (FEAT_STATIONS, SELF, sw_railyard_formation, is_north,
         (
             (
                 (
-                    sw_railyard_formation_preswitch(LOAD_TEMP(TILE_X_NE), LOAD_TEMP(TILE_X_N))  &&
-                    hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE)                      &&
-                    hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_N)
+                    (
+                        sw_railyard_formation_preswitch(LOAD_TEMP(TILE_X_NE), LOAD_TEMP(TILE_X_N))  &&
+                        hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE)                      &&
+                        hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_N)
+                ) ||
+                    (
+                        !hasbit(rail_continuation, 1)
+                )
             ) << BIT_NPLAT) |
             (
                 (
-                    sw_railyard_formation_preswitch(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_W))  &&
-                    hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW)                      &&
-                    hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_W)
+                    (
+                        sw_railyard_formation_preswitch(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_W))  &&
+                        hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW)                      &&
+                        hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_W)
+                ) ||
+                    (
+                        !hasbit(rail_continuation, 0)
+                )
             ) << BIT_SPLAT
         )
     ) : 0xFF)
@@ -832,16 +833,26 @@ switch (FEAT_STATIONS, SELF, sw_railyard_formation, is_north,
         (
             (
                 (
-                    sw_railyard_formation_preswitch(LOAD_TEMP(TILE_X_NE), LOAD_TEMP(TILE_X_E))  &&
-                    hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE)                      &&
-                    hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_E)
+                    (
+                        sw_railyard_formation_preswitch(LOAD_TEMP(TILE_X_NE), LOAD_TEMP(TILE_X_E))  &&
+                        hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE)                      &&
+                        hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_E)
+                ) ||
+                    (
+                        !hasbit(rail_continuation, 5)
+                )
             ) << BIT_NPLAT)
             |
             (
                 (
-                    sw_railyard_formation_preswitch(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_S))  &&
-                    hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW)                      &&
-                    hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_S)
+                    (
+                        sw_railyard_formation_preswitch(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_S))  &&
+                        hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW)                      &&
+                        hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_S)
+                ) ||
+                    (
+                        !hasbit(rail_continuation, 4)
+                )
             ) << BIT_SPLAT
         )
     ) : 0xFF))
@@ -876,8 +887,8 @@ switch (FEAT_STATIONS, SELF, sw_platform, [
     STORE_TEMP(sw_get_platform_formation_S(),           TEMP_PLAT_FORMATION_S),
     STORE_TEMP(sw_determine_recolour(),                 TEMP_DETERMINE_RECOLOUR),
     STORE_TEMP(sw_determine_fence(),                    TEMP_DETERMINE_FENCE),
-    STORE_TEMP(sw_buffer_formation(1),                   TEMP_BUFFER_FORMATION_N),
-    STORE_TEMP(sw_buffer_formation(0),                   TEMP_BUFFER_FORMATION_S),
+    STORE_TEMP(sw_buffer_formation(1),                  TEMP_BUFFER_FORMATION_N),
+    STORE_TEMP(sw_buffer_formation(0),                  TEMP_BUFFER_FORMATION_S),
     STORE_TEMP(sw_railyard_formation(1),                TEMP_RAILYARD_FORMATION_N), // is_north
     STORE_TEMP(sw_railyard_formation(0),                TEMP_RAILYARD_FORMATION_S),
     STORE_TEMP(0,                                       TEMP_MISC),
@@ -1149,7 +1160,7 @@ STN_STATION_WRAPPER_BUFFER(buffer                   , 2, STN_CALC_PLATFORM_BIT(I
 STN_STATION_WRAPPER_BUFFER_SHELTER(buffer_shelter   , 2, STN_CALC_PLATFORM_BIT(ID_BUFFER_SHELTER_TILES,1,1), s_buffer_real, s_shelter_tiles)
 
 // railyard
-STN_STATION_WRAPPER_RAILYARD(railyard               , 0, ((1 << BIT_RAILYARD) | (1 << BIT_NO_PLATFORM)) + 2, s_railyard_tracks)
+STN_STATION_WRAPPER_RAILYARD(railyard               , 0, ((1 << BIT_RAILYARD) | (1 << BIT_NO_PLATFORM)) + 0, s_railyard_tracks)
 
 #define STN_CLASSNAME_SETTER(class_label, class_name) \
 item(FEAT_STATIONS, i_station_class_name) {\

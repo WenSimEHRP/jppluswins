@@ -76,6 +76,38 @@ const BRIDGE_HEIGHT = 4;
     yextent: BUFFERSTOP_LENGTH;\
     zextent: BUFFERSTOP_HEIGHT;
 
+#define BBOX_BUFFERSTOP_RAILYARD_NW \
+    xoffset: LOAD_TEMP(0) * 0 - 2;\
+    yoffset: 0;\
+    zoffset: 0;\
+    xextent: BUFFERSTOP_LENGTH;\
+    yextent: BUFFERSTOP_WIDTH;\
+    zextent: BUFFERSTOP_HEIGHT;
+
+#define BBOX_BUFFERSTOP_RAILYARD_SE \
+    xoffset: LOAD_TEMP(0) * 0 - 2;\
+    yoffset: FULL_LENGTH - BUFFERSTOP_WIDTH;\
+    zoffset: 0;\
+    xextent: BUFFERSTOP_LENGTH;\
+    yextent: BUFFERSTOP_WIDTH;\
+    zextent: BUFFERSTOP_HEIGHT;
+
+#define BBOX_BUFFERSTOP_RAILYARD_NE \
+    xoffset: 0;\
+    yoffset: LOAD_TEMP(0) * 0 - 2;\
+    zoffset: 0;\
+    xextent: BUFFERSTOP_WIDTH;\
+    yextent: BUFFERSTOP_LENGTH;\
+    zextent: BUFFERSTOP_HEIGHT;
+
+#define BBOX_BUFFERSTOP_RAILYARD_SW \
+    xoffset: FULL_LENGTH - BUFFERSTOP_WIDTH;\
+    yoffset: LOAD_TEMP(0) * 0 - 2;\
+    zoffset: 0;\
+    xextent: BUFFERSTOP_WIDTH;\
+    yextent: BUFFERSTOP_LENGTH;\
+    zextent: BUFFERSTOP_HEIGHT;
+
 #define BBOX_OVERHEAD_STRUCTURE(height)\
     xoffset: 0;\
     yoffset: 0;\
