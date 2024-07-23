@@ -134,7 +134,7 @@ spritelayout sp_platform_x() {
     building { /* platform */ \
         sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
                         BBOX_PLATFORM_##pos\
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT);\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_PLATFORM, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
     }\
@@ -146,34 +146,34 @@ spritelayout sp_platform_x() {
     building { /* fence */ \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
         BBOX_FENCE_##pos\
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1));\
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos));\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        PALETTE_USE_DEFAULT;\
     } \
     building { \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE_BARS, pos)); \
         BBOX_FENCE_##pos \
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_DETERMINE_FENCE), BIT_##pos2##PLAT, 1)); \
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_DETERMINE_FENCE), BIT_##pos2##PLAT)); \
     }
     #define SP_FENCE_Y(pos,pos2)\
     building { /* fence */ \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
         BBOX_FENCE_##pos\
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1));\
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos));\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        PALETTE_USE_DEFAULT;\
     } \
     building { \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE_BARS, pos)); \
         BBOX_FENCE_##pos \
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_DETERMINE_FENCE), BIT_##pos2##PLAT, 1)); \
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_DETERMINE_FENCE), BIT_##pos2##PLAT)); \
     }
     #define SP_FENCE_TRACK(pos,bit)\
     building { /* fence */ \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
         BBOX_FENCE_##pos\
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos, 1) ||\
-        SP_HIDE_SPRITE_BUFFERSTOP(bit));\
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##pos) ||\
+                        SP_HIDE_SPRITE_BUFFERSTOP(bit));\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        PALETTE_USE_DEFAULT;\
     }
@@ -181,20 +181,20 @@ spritelayout sp_platform_x() {
     building { /* fence */ \
         sprite:         CUSTOM(S_MISC, GET_SPRITE_MISC(GROUP_FENCE, pos));\
         BBOX_FENCE_##pos\
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos, 1) ||\
-        SP_HIDE_SPRITE_BUFFERSTOP(bit));\
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##pos) ||\
+                        SP_HIDE_SPRITE_BUFFERSTOP(bit));\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        PALETTE_USE_DEFAULT;\
     }
     // the specific order of the sprites is important
     // because it affects the order of sprites in the purchase view
     SP_FENCE        (NW, N)
-    SP_FENCE_TRACK  (NE, 0)
+    SP_FENCE_TRACK  (NE, 1)
     SP_PLATFORM     (NW, N)
     SP_BUFFERSTOP   (NE, 1)
     SP_BUFFERSTOP   (SW, 0)
     SP_PLATFORM     (SE, S)
-    SP_FENCE_TRACK  (SW, 1)
+    SP_FENCE_TRACK  (SW, 0)
     SP_FENCE        (SE, S)
 }
 
@@ -216,7 +216,7 @@ spritelayout sp_platform_platform_x(platform_recolour) {
     building { /* platform */ \
         sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
                         BBOX_PLATFORM_##pos\
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT);\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_PLATFORM, GET_SPRITE(platform_recolour, LOAD_TEMP(TEMP_STATION_ERA)));\
     }\
@@ -227,27 +227,27 @@ spritelayout sp_platform_platform_x(platform_recolour) {
     childsprite { /* waiting passenger */ \
         sprite:         DEFAULT(pos);\
         /* we don't want it to be shown in the purchase menu */ \
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_MISC), 0, 1);\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_MISC), 0);\
     }
     SP_FENCE            (NW, N)
-    SP_FENCE_TRACK      (NE, 0)
+    SP_FENCE_TRACK      (NE, 1)
     SP_PLATFORM_PLATFORM(NW, N)
     SP_BUFFERSTOP       (NE, 1)
     SP_BUFFERSTOP       (SW, 0)
     SP_PLATFORM_PLATFORM(SE, S)
-    SP_FENCE_TRACK      (SW, 1)
+    SP_FENCE_TRACK      (SW, 0)
     SP_FENCE            (SE, S)
 }
 
 spritelayout sp_platform_platform_y(platform_recolour) {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     SP_FENCE_Y          (NE, N)
-    SP_FENCE_TRACK_Y    (NW, 0)
+    SP_FENCE_TRACK_Y    (NW, 1)
     SP_PLATFORM_PLATFORM(NE, N)
     SP_BUFFERSTOP       (NW, 1)
     SP_BUFFERSTOP       (SE, 0)
     SP_PLATFORM_PLATFORM(SW, S)
-    SP_FENCE_TRACK_Y    (SE, 1)
+    SP_FENCE_TRACK_Y    (SE, 0)
     SP_FENCE_Y          (SW, S)
 }
 
@@ -256,7 +256,7 @@ spritelayout sp_platform_crossing_x() {
     building { /* platform */ \
         sprite:         CUSTOM(S_CROSSING, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
                         BBOX_PLATFORM_##pos\
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT);\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
     }\
@@ -270,9 +270,9 @@ spritelayout sp_platform_crossing_x() {
         BBOX_CORNER_HOUSE_##pos\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE_RECOLOUR, LOAD_TEMP(TEMP_STATION_ERA)));\
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##hide_pos_1, 1)) ||\
-                        (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##hide_pos_2, 1)) ||\
-                        (getbits(LOAD_TEMP(TEMP_RANDBIT_TILE)       , num           , 1));\
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##hide_pos_1)) ||\
+                        (hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_##hide_pos_2)) ||\
+                        (hasbit(LOAD_TEMP(TEMP_RANDBIT_TILE)       , num           ));\
     }
     #define SP_CORNER_HOUSE_Y(hide_pos_1, hide_pos_2, pos, num) \
     building { /* corner house */ \
@@ -280,19 +280,19 @@ spritelayout sp_platform_crossing_x() {
         BBOX_CORNER_HOUSE_##pos\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_CROSSING, GET_SPRITE(GROUP_CORNER_HOUSE_RECOLOUR, LOAD_TEMP(TEMP_STATION_ERA)));\
-        hide_sprite:    (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##hide_pos_1, 1)) ||\
-                        (getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##hide_pos_2, 1)) ||\
-                        (getbits(LOAD_TEMP(TEMP_RANDBIT_TILE)       , num           , 1));\
+        hide_sprite:    (hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##hide_pos_1)) ||\
+                        (hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_Y_##hide_pos_2)) ||\
+                        (hasbit(LOAD_TEMP(TEMP_RANDBIT_TILE)       , num           ));\
     }
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     //SP_FENCE        (NW, N)
-    SP_FENCE_TRACK  (NE, 0)
+    SP_FENCE_TRACK  (NE, 1)
     SP_PLATFORM_CROSSING(NW, N)
     SP_BUFFERSTOP   (NE, 1)
     SP_BUFFERSTOP   (SW, 0)
     SP_PLATFORM_CROSSING(SE, S)
     //SP_FENCE        (SE, S)
-    SP_FENCE_TRACK  (SW, 1)
+    SP_FENCE_TRACK  (SW, 0)
     SP_CORNER_HOUSE_Y (NW,NE,N,0) // N
     SP_CORNER_HOUSE_Y (SE,NE,E,1) // E
     SP_CORNER_HOUSE_Y (SW,SE,S,2) // S
@@ -329,7 +329,7 @@ spritelayout sp_platform_overhead_x() {
     building { /* platform */ \
         sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
                         BBOX_PLATFORM_##pos\
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT);\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
     }\
@@ -341,16 +341,16 @@ spritelayout sp_platform_overhead_x() {
     childsprite { /* waiting passenger */ \
         sprite:         DEFAULT(pos);\
         /* we don't want it to be shown in the purchase menu */ \
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_MISC), 0, 1);\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_MISC), 0);\
     }
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     SP_FENCE                (NW, N)
-    SP_FENCE_TRACK          (NE, 0)
+    SP_FENCE_TRACK          (NE, 1)
     SP_PLATFORM_OVERHEAD    (NW, N)
     SP_BUFFERSTOP           (NE, 1)
     SP_BUFFERSTOP           (SW, 0)
     SP_PLATFORM_OVERHEAD    (SE, S)
-    SP_FENCE_TRACK          (SW, 1)
+    SP_FENCE_TRACK          (SW, 0)
     SP_FENCE                (SE, S)
     SP_OVERHEAD_STRUCTURE   (NW, 12)
 }
@@ -358,12 +358,12 @@ spritelayout sp_platform_overhead_x() {
 spritelayout sp_platform_overhead_y() {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     SP_FENCE_Y              (NE, N)
-    SP_FENCE_TRACK_Y        (NW, 0)
+    SP_FENCE_TRACK_Y        (NW, 1)
     SP_PLATFORM_OVERHEAD    (NE, N)
     SP_BUFFERSTOP           (NW, 1)
     SP_BUFFERSTOP           (SE, 0)
     SP_PLATFORM_OVERHEAD    (SW, S)
-    SP_FENCE_TRACK_Y        (SE, 1)
+    SP_FENCE_TRACK_Y        (SE, 0)
     SP_FENCE_Y              (SW, S)
     SP_OVERHEAD_STRUCTURE   (NE, 12)
 }
@@ -375,7 +375,7 @@ spritelayout sp_platform_overpass_x() {
     building { /* platform */ \
         sprite:         CUSTOM(S_PLATFORM, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
                         BBOX_PLATFORM_##pos\
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1) || LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) == 3;\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT) || LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) == 3;\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
     }\
@@ -391,7 +391,7 @@ spritelayout sp_platform_overpass_x() {
     building { /* the real overpass */ \
         sprite:         CUSTOM(S_OVERPASS, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2)), pos));\
                         BBOX_PLATFORM_OVERPASS_##pos\
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT);\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_OVERPASS, GET_SPRITE(GROUP_RECOLOUR_ERA, LOAD_TEMP(TEMP_STATION_ERA)));\
     }
@@ -404,12 +404,12 @@ spritelayout sp_platform_overpass_x() {
         hide_sprite:    !!(LOAD_TEMP(TEMP_HIDE_PLATFORM) % PLATFORM_FORMATION_COUNT);\
     }
     SP_FENCE            (NW, N)
-    SP_FENCE_TRACK      (NE, 0)
+    SP_FENCE_TRACK      (NE, 1)
     SP_PLATFORM_OVERPASS(NW, N)
     SP_BUFFERSTOP       (NE, 1)
     SP_BUFFERSTOP       (SW, 0)
     SP_PLATFORM_OVERPASS(SE, S)
-    SP_FENCE_TRACK      (SW, 1)
+    SP_FENCE_TRACK      (SW, 0)
     SP_FENCE            (SE, S)
     SP_OVERPASS         (X , 0)
 }
@@ -417,12 +417,12 @@ spritelayout sp_platform_overpass_x() {
 spritelayout sp_platform_overpass_y() {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     SP_FENCE_Y          (NE, N)
-    SP_FENCE_TRACK_Y    (NW, 0)
+    SP_FENCE_TRACK_Y    (NW, 1)
     SP_PLATFORM_OVERPASS(NE, N)
     SP_BUFFERSTOP       (NW, 1)
     SP_BUFFERSTOP       (SE, 0)
     SP_PLATFORM_OVERPASS(SW, S)
-    SP_FENCE_TRACK_Y    (SE, 1)
+    SP_FENCE_TRACK_Y    (SE, 0)
     SP_FENCE_Y          (SW, S)
     SP_OVERPASS         (Y , 1)
 }
@@ -436,28 +436,28 @@ spritelayout sp_platform_shelter_x() {
     }
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     SP_FENCE                (NW, N)
-    SP_FENCE_TRACK          (NE, 0)
+    SP_FENCE_TRACK          (NE, 1)
     SP_PLATFORM_OVERHEAD    (NW, N)
     SP_SHELTER_CHILDSPRITE  (NW, N)
     SP_BUFFERSTOP           (NE, 1)
     SP_BUFFERSTOP           (SW, 0)
     SP_PLATFORM_OVERHEAD    (SE, S)
     SP_SHELTER_CHILDSPRITE  (SE, S)
-    SP_FENCE_TRACK          (SW, 1)
+    SP_FENCE_TRACK          (SW, 0)
     SP_FENCE                (SE, S)
 }
 
 spritelayout sp_platform_shelter_y(){
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     SP_FENCE_Y              (NE, N)
-    SP_FENCE_TRACK_Y        (NW, 0)
+    SP_FENCE_TRACK_Y        (NW, 1)
     SP_PLATFORM_OVERHEAD    (NE, N)
     SP_SHELTER_CHILDSPRITE  (NE, N)
     SP_BUFFERSTOP           (NW, 1)
     SP_BUFFERSTOP           (SE, 0)
     SP_PLATFORM_OVERHEAD    (SW, S)
     SP_SHELTER_CHILDSPRITE  (SW, S)
-    SP_FENCE_TRACK_Y        (SE, 1)
+    SP_FENCE_TRACK_Y        (SE, 0)
     SP_FENCE_Y              (SW, S)
 }
 
@@ -466,7 +466,7 @@ spritelayout sp_buffer_x() {
     building { /* platform */ \
         sprite:         CUSTOM(S_BUFFER, GET_SPRITE((GROUP_SYM + LOAD_TEMP(TEMP_PLAT_FORMATION_##pos2) + LOAD_TEMP(TEMP_BUFFER_FORMATION_##pos2)), pos));\
                         BBOX_PLATFORM_##pos\
-        hide_sprite:    getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT, 1);\
+        hide_sprite:    hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_##pos2##PLAT);\
         recolour_mode:  RECOLOUR_REMAP;\
         palette:        CUSTOM(S_PLATFORM, GET_SPRITE(LOAD_TEMP(TEMP_DETERMINE_RECOLOUR), LOAD_TEMP(TEMP_STATION_ERA)));\
     }
@@ -640,7 +640,7 @@ switch (FEAT_STATIONS, SELF, sw_detect_platform, id, plat,
     // output range: 0b00..0b11
     // checks if the tile is a platform
     hasbit(id, BIT_NO_PLATFORM) ? 1 :
-    (!getbits(getbits(id,BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, plat, 1))){return;}
+    (!hasbit(getbits(id,BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, plat))){return;}
 
 switch (FEAT_STATIONS, SELF, sw_hide_platform,
     // output range: 0b00..0b11
@@ -655,31 +655,48 @@ switch (FEAT_STATIONS, SELF, sw_hide_platform_id, id,
     (sw_detect_platform(id, BIT_NPLAT) << BIT_NPLAT) |
     (sw_detect_platform(id, BIT_SPLAT) << BIT_SPLAT)){return;}
 
-switch (FEAT_STATIONS, SELF, sw_get_platform_formation_N,
+switch (FEAT_STATIONS, SELF, sw_get_platform_formation, is_north,
     // output range: 0b00..0b11
-    // gets platform formation for northern platform
-    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)       |
-     (sw_detect_platform(LOAD_TEMP(TILE_X_SW), BIT_NPLAT)               |
-      nearby_tile_perpendicular(ORI_X_SW))                              &
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1 |
-     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)       |
-     (sw_detect_platform(LOAD_TEMP(TILE_X_NE), BIT_NPLAT)               |
-      nearby_tile_perpendicular(ORI_X_NE))                              &
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0 )){return;}
+    // gets platform formation
+    is_north ?
+    (
+        (
+            !hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW) |
+            (
+                sw_detect_platform(LOAD_TEMP(TILE_X_SW), BIT_NPLAT) |
+                nearby_tile_perpendicular(ORI_X_SW)
+            ) &
+            hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW)
+        ) << 1 |
+        (
+            !hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE) |
+            (
+                sw_detect_platform(LOAD_TEMP(TILE_X_NE), BIT_NPLAT) |
+                nearby_tile_perpendicular(ORI_X_NE)
+            ) &
+            hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE)
+        ) << 0
+    ) :
+    (
+        (
+            !hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW) |
+            (
+                sw_detect_platform(LOAD_TEMP(TILE_X_SW), BIT_SPLAT) |
+                nearby_tile_perpendicular(ORI_X_SW)
+            ) &
+            hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW)
+        ) << 1 |
+        (
+            !hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE) |
+            (
+                sw_detect_platform(LOAD_TEMP(TILE_X_NE), BIT_SPLAT) |
+                nearby_tile_perpendicular(ORI_X_NE)
+            ) &
+            hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE)
+        ) << 0
+    )
+){return;}
 
-switch (FEAT_STATIONS, SELF, sw_get_platform_formation_S,
-    // output range: 0b00..0b11
-    // gets platform formation for southern platform
-    ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1)       |
-     (sw_detect_platform(LOAD_TEMP(TILE_X_SW), BIT_SPLAT)               |
-      nearby_tile_perpendicular(ORI_X_SW))                              &
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_SW, 1)) << 1 |
-     (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1)       |
-     (sw_detect_platform(LOAD_TEMP(TILE_X_NE), BIT_SPLAT)               |
-      nearby_tile_perpendicular(ORI_X_NE))                              &
-       getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF),     TILE_X_NE, 1)) << 0 )){return;}
-// we want to put all calculations and checks in spritelayouts, so here in
-// the switch we only store the results of the checks in temporary variables
 
 switch (FEAT_STATIONS, SELF, sw_determine_recolour,
     // output range: it's written down there
@@ -773,16 +790,16 @@ switch (FEAT_STATIONS, SELF, sw_determine_fence,
     // currently we only want to limit it to the "platform" platforms
     (
         (
-            !(!getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_NPLAT, 1) &&
-            getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NW, 1) &&
-            (getbits(sw_hide_platform_id(LOAD_TEMP(TILE_X_NW)), BIT_SPLAT, 1) ||
+            !(!hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_NPLAT) &&
+            hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NW) &&
+            (hasbit(sw_hide_platform_id(LOAD_TEMP(TILE_X_NW)), BIT_SPLAT) ||
             (0))) << BIT_NPLAT
         )
         |
         (
-            !(!getbits(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_SPLAT, 1) &&
-            getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SE, 1) &&
-            (getbits(sw_hide_platform_id(LOAD_TEMP(TILE_X_SE)), BIT_NPLAT, 1) ||
+            !(!hasbit(LOAD_TEMP(TEMP_HIDE_PLATFORM), BIT_SPLAT) &&
+            hasbit(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SE) &&
+            (hasbit(sw_hide_platform_id(LOAD_TEMP(TILE_X_SE)), BIT_NPLAT) ||
             (0))) << BIT_SPLAT
         )
     )
@@ -883,8 +900,8 @@ switch (FEAT_STATIONS, SELF, sw_platform, [
     STORE_TEMP(nearby_tile_slope(0, 0),                 TEMP_CURRENT_LANDSCAPE),
     STORE_TEMP(sw_station_era(),                        TEMP_STATION_ERA),
     STORE_TEMP(sw_hide_platform(),                      TEMP_HIDE_PLATFORM),
-    STORE_TEMP(sw_get_platform_formation_N(),           TEMP_PLAT_FORMATION_N),
-    STORE_TEMP(sw_get_platform_formation_S(),           TEMP_PLAT_FORMATION_S),
+    STORE_TEMP(sw_get_platform_formation(1),            TEMP_PLAT_FORMATION_N),
+    STORE_TEMP(sw_get_platform_formation(0),            TEMP_PLAT_FORMATION_S),
     STORE_TEMP(sw_determine_recolour(),                 TEMP_DETERMINE_RECOLOUR),
     STORE_TEMP(sw_determine_fence(),                    TEMP_DETERMINE_FENCE),
     STORE_TEMP(sw_buffer_formation(1),                  TEMP_BUFFER_FORMATION_N),
@@ -916,8 +933,8 @@ switch (FEAT_STATIONS, SELF, sw_platform_purchase, station_id, [
     STORE_TEMP((current_date < date(YEAR_ERA_2,1,1) ? 0 :
                 current_date < date(YEAR_ERA_3,1,1) ? 1 : 2),                        TEMP_STATION_ERA),
     STORE_TEMP((hasbit(station_id, BIT_NO_PLATFORM) ? 3 :
-                !getbits(getbits(station_id,BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_NPLAT, 1) << BIT_NPLAT) |
-               (!getbits(getbits(station_id,BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_SPLAT, 1) << BIT_SPLAT),TEMP_HIDE_PLATFORM),
+                !hasbit(getbits(station_id,BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_NPLAT) << BIT_NPLAT) |
+               (!hasbit(getbits(station_id,BIT_PLATFORM_TYPE, SIZE_BIT_PLATFORM_TYPE) % PLATFORM_FORMATION_COUNT + 1, BIT_SPLAT) << BIT_SPLAT),TEMP_HIDE_PLATFORM),
     STORE_TEMP(2,           TEMP_PLAT_FORMATION_N),
     STORE_TEMP(3,           TEMP_PLAT_FORMATION_S),
 //    STORE_TEMP(current_date,                            TEMP_CURRENT_DATE),
@@ -1160,7 +1177,7 @@ STN_STATION_WRAPPER_BUFFER(buffer                   , 2, STN_CALC_PLATFORM_BIT(I
 STN_STATION_WRAPPER_BUFFER_SHELTER(buffer_shelter   , 2, STN_CALC_PLATFORM_BIT(ID_BUFFER_SHELTER_TILES,1,1), s_buffer_real, s_shelter_tiles)
 
 // railyard
-STN_STATION_WRAPPER_RAILYARD(railyard               , 0, ((1 << BIT_RAILYARD) | (1 << BIT_NO_PLATFORM)) + 0, s_railyard_tracks)
+STN_STATION_WRAPPER_RAILYARD(railyard               , 0, bitmask(BIT_RAILYARD, BIT_NO_PLATFORM) + 0, s_railyard_tracks)
 
 #define STN_CLASSNAME_SETTER(class_label, class_name) \
 item(FEAT_STATIONS, i_station_class_name) {\
