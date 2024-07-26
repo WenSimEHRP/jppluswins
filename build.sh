@@ -52,6 +52,7 @@ gcc -E -x c wins.pnml > wins.nml &&
 if [ "$1" == "sample" ]; then
     echo "Sample mode! will output wins_sample.grf"
     cp wins.grf wins_sample.grf
+    cp ./sprites/wins.yagl ./sprites/wins_sample.yagl
 fi
 
 if [ "$1" == "patch" ]; then
@@ -66,6 +67,7 @@ if [ "$1" == "patch" ]; then
         echo "Checksums match! wins.grf is the same as wins_sample.grf"
     else
         echo "Checksums do not match! wins.grf is different from wins_sample.grf"
+        diff ./sprites/wins.yagl ./sprites/wins_sample.yagl
     fi
 fi
 

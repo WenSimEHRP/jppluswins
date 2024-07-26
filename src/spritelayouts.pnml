@@ -587,6 +587,12 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_landscape,
 switch (FEAT_STATIONS, SELF, sw_check_rail_continuation,
     // output range: 0b00..0b11
     // checks if the rail continuation is present
+    hasbit(rail_continuation, 7) << 7|
+    hasbit(rail_continuation, 6) << 6|
+    hasbit(rail_continuation, 5) << 5|
+    hasbit(rail_continuation, 4) << 4|
+    hasbit(rail_continuation, 3) << 3|
+    hasbit(rail_continuation, 2) << 2|
     hasbit(rail_continuation, 1) << 1|
     hasbit(rail_continuation, 0) << 0) {return;}
 
@@ -620,14 +626,14 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_perpendicular,
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
     // output range: 0b0000..0b1111
     // checks if the nearby tile is the same grf
-    nearby_tile_same_grf(ORI_X_NE) << TILE_X_NE|
-    nearby_tile_same_grf(ORI_X_SW) << TILE_X_SW|
-    nearby_tile_same_grf(ORI_X_NW) << TILE_X_NW|
-    nearby_tile_same_grf(ORI_X_SE) << TILE_X_SE|
-    nearby_tile_same_grf(ORI_X_N)  << TILE_X_N|
-    nearby_tile_same_grf(ORI_X_S)  << TILE_X_S|
-    nearby_tile_same_grf(ORI_X_W)  << TILE_X_W|
-    nearby_tile_same_grf(ORI_X_E)  << TILE_X_E) {return;}
+    (nearby_tile_grfid(ORI_X_NE) == 0x01015357) << TILE_X_NE|
+    (nearby_tile_grfid(ORI_X_SW) == 0x01015357) << TILE_X_SW|
+    (nearby_tile_grfid(ORI_X_NW) == 0x01015357) << TILE_X_NW|
+    (nearby_tile_grfid(ORI_X_SE) == 0x01015357) << TILE_X_SE|
+    (nearby_tile_grfid(ORI_X_N)  == 0x01015357) << TILE_X_N|
+    (nearby_tile_grfid(ORI_X_S)  == 0x01015357) << TILE_X_S|
+    (nearby_tile_grfid(ORI_X_W)  == 0x01015357) << TILE_X_W|
+    (nearby_tile_grfid(ORI_X_E)  == 0x01015357) << TILE_X_E) {return;}
 
 
 switch (FEAT_STATIONS, SELF, sw_station_era,
@@ -980,10 +986,6 @@ property {\
     cargo_random_triggers:  [PASS, MAIL];\
 }
 
-#define STN_CALC_ID(platform_type, shelter_type) \
-    /* this one originally was shelter << BIT_SHELTER_TYPE, but I decided to disable shelters */ \
-    (((platform_type) << BIT_PLATFORM_TYPE) | ((shelter_type) >> BIT_SHELTER_TYPE))
-
 #define STN_CALC_PLATFORM_BIT(group, nplat, splat) \
     ((group * 3) + (nplat << BIT_NPLAT) + (splat << BIT_SPLAT) - 1)
 
@@ -995,7 +997,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_platform_x(), sp_platform_y()];\
         custom_spritesets: [platform_spriteset, s_misc, s_shelter_tiles];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
     }\
 }
 
@@ -1007,7 +1009,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_platform_crossing_x(), sp_platform_crossing_y()];\
         custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
     }\
 }
 
@@ -1019,7 +1021,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_platform_platform_x(platform_recolour), sp_platform_platform_y(platform_recolour)];\
         custom_spritesets: [platform_spriteset, s_misc, s_shelter_tiles];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
         default: rsw_cargo_boxes;\
         PASS: rsw_cargo_passenger;\
     }\
@@ -1033,7 +1035,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_platform_overhead_x(), sp_platform_overhead_y()];\
         custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
         default: rsw_cargo_boxes;\
         PASS: rsw_cargo_passenger;\
     }\
@@ -1047,7 +1049,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_platform_overpass_x(), sp_platform_overpass_y()];\
         custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
     }\
 }
 
@@ -1059,7 +1061,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_platform_shelter_x(), sp_platform_shelter_y()];\
         custom_spritesets: [s_platform_cement, s_misc, platform_spriteset];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
         default: rsw_cargo_boxes;\
         PASS: rsw_cargo_passenger;\
     }\
@@ -1073,7 +1075,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_buffer_x(), sp_buffer_y()];\
         custom_spritesets: [s_platform_cement, s_misc, s_shelter_tiles, platform_spriteset];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
     }\
 }
 
@@ -1085,7 +1087,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_buffer_shelter_x(), sp_buffer_shelter_y()];\
         custom_spritesets: [s_platform_cement, s_misc, shelter_spriteset, platform_spriteset];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
     }\
 }
 
@@ -1097,7 +1099,7 @@ item(FEAT_STATIONS, i_station_##name,\
         sprite_layouts: [sp_railyard_tracks_x(), sp_railyard_tracks_y()];\
         custom_spritesets: [s_platform_cement, s_misc, rails_spriteset];\
         prepare_layout: sw_platform();\
-        purchase_prepare_layout: sw_platform_purchase(platform_type);\
+        purchase_prepare_layout: sw_platform_purchase(i_station_##name);\
     }\
 }
 
@@ -1169,8 +1171,8 @@ STN_STATION_WRAPPER_SHELTER (shelter_metal_both     , 0, STN_CALC_PLATFORM_BIT(I
 STN_STATION_WRAPPER_SHELTER (shelter_metal_1        , 0, STN_CALC_PLATFORM_BIT(ID_SHELTER_METAL,1,0), s_shelter_metal)
 STN_STATION_WRAPPER_SHELTER (shelter_metal_2        , 0, STN_CALC_PLATFORM_BIT(ID_SHELTER_METAL,0,1), s_shelter_metal)
 
-STN_STATION_WRAPPER_PLATFORM(blank                  , 0, 1 << BIT_NO_PLATFORM + 0, s_platform_cement, GROUP_RECOLOUR_ERA)
-STN_STATION_WRAPPER_PLATFORM(wayp_blank             , 1, 1 << BIT_NO_PLATFORM + 1, s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(blank                  , 0, bitmask(BIT_NO_PLATFORM) + 0, s_platform_cement, GROUP_RECOLOUR_ERA)
+STN_STATION_WRAPPER_PLATFORM(wayp_blank             , 1, bitmask(BIT_NO_PLATFORM) + 1, s_platform_cement, GROUP_RECOLOUR_ERA)
 
 // buffer stops
 STN_STATION_WRAPPER_BUFFER(buffer                   , 2, STN_CALC_PLATFORM_BIT(ID_BUFFER,1,1), s_buffer_real)
