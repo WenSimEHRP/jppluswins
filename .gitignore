@@ -8,3 +8,4 @@ sprites/
 *.tar
 *.xz
 *.log
+__pycache__/
