@@ -16,7 +16,7 @@ template tmpl_underlay (x, y, path) {
     [ x,      y,      48,      30,     -39,     -12, path]
     [ x+50,   y,      48,      30,      -8,     -12, path]
     [ x,      y+40,   48,      30,      -7,       3, path]
-    [ x+50,   y+40,   48,      30,     -39,       2, path]
+    [ x+50,   y+40,   48,      30,     -40,       3, path]
 }
 
 spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
@@ -32,12 +32,10 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png")
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png") //TODO
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png")
-    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_snow.png") //TODO
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png") //TODO
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png") //TODO
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png") //TODO
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png") //TODO
-    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_snow.png") //TODO
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png") //TODO
 
 }
@@ -69,13 +67,28 @@ const id_fence_end = id_fence_concrete_2 + 1;
 const id_underlay_ogfx2_temperate = 0;
 const id_underlay_ogfx2_arctic = 1;
 const id_underlay_ogfx2_tropical = 2;
-const id_underlay_ogfx2_snow = 3;
-const id_underlay_ogfx2_desert = 4;
-const id_underlay_ogfx_temperate = 5;
-const id_underlay_ogfx_arctic = 6;
-const id_underlay_ogfx_tropical = 7;
-const id_underlay_ogfx_snow = 8;
-const id_underlay_ogfx_desert = 9;
+const id_underlay_ogfx2_desert = 3;
+const id_underlay_ogfx_temperate = 4;
+const id_underlay_ogfx_arctic = 5;
+const id_underlay_ogfx_tropical = 6;
+const id_underlay_ogfx_desert = 7;
+
+switch(FEAT_STATIONS, SELF, _sw_slab, track_type){
+    dBAE: 1;
+    SBAI: 1;
+    SCAE: 1;
+    SCAN: 1;
+    SCAA: 1;
+    SHAA: 1;
+    SBA3: 1;
+    SCAD: 1;
+    NCAA: 1;
+    sCAD: 1;
+    NCAE: 1;
+    NDAN: 1;
+    NCAD: 1;
+    0;
+}
 
 // fences under tropical, temperate, and snowy climates
 switch(FEAT_STATIONS, SELF, _sw_fence, track_type){
@@ -168,32 +181,32 @@ switch(FEAT_STATIONS, SELF, sw_fence, [
 }
 
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_temperate, terrain_type){
-    TILETYPE_SNOW: id_underlay_ogfx2_snow;
+    TILETYPE_SNOW: none_code;
     TILETYPE_DESERT: id_underlay_ogfx2_desert;
     id_underlay_ogfx2_temperate;
 }
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_arctic, terrain_type){
-    TILETYPE_SNOW: id_underlay_ogfx2_snow;
+    TILETYPE_SNOW: none_code;
     TILETYPE_DESERT: id_underlay_ogfx2_desert;
     id_underlay_ogfx2_arctic;
 }
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_tropical, terrain_type){
-    TILETYPE_SNOW: id_underlay_ogfx2_snow;
+    TILETYPE_SNOW: none_code;
     TILETYPE_DESERT: id_underlay_ogfx2_desert;
     id_underlay_ogfx2_tropical;
 }
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx_temperate, terrain_type){
-    TILETYPE_SNOW: id_underlay_ogfx_snow;
+    TILETYPE_SNOW: none_code;
     TILETYPE_DESERT: id_underlay_ogfx_desert;
     id_underlay_ogfx_temperate;
 }
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx_arctic, terrain_type){
-    TILETYPE_SNOW: id_underlay_ogfx_snow;
+    TILETYPE_SNOW: none_code;
     TILETYPE_DESERT: id_underlay_ogfx_desert;
     id_underlay_ogfx_arctic;
 }
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx_tropical, terrain_type){
-    TILETYPE_SNOW: id_underlay_ogfx_snow;
+    TILETYPE_SNOW: none_code;
     TILETYPE_DESERT: id_underlay_ogfx_desert;
     id_underlay_ogfx_tropical;
 }
@@ -229,9 +242,11 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay_automatic,
 // check fence underlay
 switch(FEAT_STATIONS, SELF, _sw_fence_underlay, param_fences_underlay) {
     1: _sw_fence_underlay_automatic();
-    2: param["YZ\AA\02", 24] == 0 ?
-        _sw_underlay_ogfx2_temperate() :
-        _sw_underlay_ogfx2_tropical();
+    2:  param["YZ\AA\02", 25] == 0 ?
+            none_code :
+        param["YZ\AA\02", 24] == 0 ?
+            _sw_underlay_ogfx2_temperate() :
+            _sw_underlay_ogfx2_tropical();
     3: _sw_underlay_ogfx2_temperate();
     4: _sw_underlay_ogfx2_arctic();
     5: _sw_underlay_ogfx2_tropical();
@@ -255,5 +270,5 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
 switch(FEAT_STATIONS, SELF, sw_fence_underlay,
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << 0 |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << 1 |
-    _sw_fence_underlay() << 2
+    (_sw_slab() ? none_code : _sw_fence_underlay()) << 2
 ){return;}

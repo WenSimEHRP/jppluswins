@@ -70,6 +70,5 @@ item(FEAT_STATIONS, fence) {
         prepare_layout: sw_fence_prepare();
         custom_spritesets: [s_fences_and_underlay];
         sprite_layouts: [spx, spy];
-        select_sprite_layout: sw_fence() * sw_fence_underlay();
     }
 }
