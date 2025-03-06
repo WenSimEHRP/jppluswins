@@ -43,16 +43,17 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
 }
 
 // fence parameters, from JP+ Tracks
-const param_fence_old = 26;
-const param_fence_narrow_1 = 27;
-const param_fence_narrow_2 = 28;
-const param_fence_narrow_3 = 29;
-const param_fence_standard_1 = 30;
-const param_fence_standard_2 = 31;
-const param_fence_standard_3 = 32;
-const param_fence_shinkansen_1 = 33;
-const param_fence_shinkansen_2 = 34;
-const param_fence_ind = 35;
+const param_fence_offset = 26;
+const param_fence_old = 0;
+const param_fence_narrow_1 = 1;
+const param_fence_narrow_2 = 2;
+const param_fence_narrow_3 = 3;
+const param_fence_standard_1 = 4;
+const param_fence_standard_2 = 5;
+const param_fence_standard_3 = 6;
+const param_fence_shinkansen_1 = 7;
+const param_fence_shinkansen_2 = 8;
+const param_fence_ind = 9;
 
 // fence types
 const id_fence_hedge = 0;
@@ -79,81 +80,81 @@ const id_underlay_ogfx_desert = 9;
 // fences under tropical, temperate, and snowy climates
 switch(FEAT_STATIONS, SELF, _sw_fence, track_type){
     // param_fence_old
-    RAIL: LOAD_TEMP(param_fence_old - param_fence_old);
-    NAAN: LOAD_TEMP(param_fence_old - param_fence_old);
+    RAIL: LOAD_TEMP(param_fence_old);
+    NAAN: LOAD_TEMP(param_fence_old);
     // param_fence_narrow_1
-    NAAA: LOAD_TEMP(param_fence_narrow_1 - param_fence_old);
-    NAAE: LOAD_TEMP(param_fence_narrow_1 - param_fence_old);
-    NAAD: LOAD_TEMP(param_fence_narrow_1 - param_fence_old);
-    NBAN: LOAD_TEMP(param_fence_narrow_1 - param_fence_old);
+    NAAA: LOAD_TEMP(param_fence_narrow_1);
+    NAAE: LOAD_TEMP(param_fence_narrow_1);
+    NAAD: LOAD_TEMP(param_fence_narrow_1);
+    NBAN: LOAD_TEMP(param_fence_narrow_1);
     // param_fence_narrow_2
-    NBAE: LOAD_TEMP(param_fence_narrow_2 - param_fence_old);
-    NBAA: LOAD_TEMP(param_fence_narrow_2 - param_fence_old);
-    NCAN: LOAD_TEMP(param_fence_narrow_2 - param_fence_old);
-    NBAD: LOAD_TEMP(param_fence_narrow_2 - param_fence_old);
+    NBAE: LOAD_TEMP(param_fence_narrow_2);
+    NBAA: LOAD_TEMP(param_fence_narrow_2);
+    NCAN: LOAD_TEMP(param_fence_narrow_2);
+    NBAD: LOAD_TEMP(param_fence_narrow_2);
     // param_fence_narrow_3
-    NCAE: LOAD_TEMP(param_fence_narrow_3 - param_fence_old);
-    NDAN: LOAD_TEMP(param_fence_narrow_3 - param_fence_old);
-    NCAD: LOAD_TEMP(param_fence_narrow_3 - param_fence_old);
-    NCAA: LOAD_TEMP(param_fence_narrow_3 - param_fence_old);
+    NCAE: LOAD_TEMP(param_fence_narrow_3);
+    NDAN: LOAD_TEMP(param_fence_narrow_3);
+    NCAD: LOAD_TEMP(param_fence_narrow_3);
+    NCAA: LOAD_TEMP(param_fence_narrow_3);
     // param_fence_standard_1
-    dAAN: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
-    SAAA: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
-    ELRL: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
-    SAAN: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
-    SAAD: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
-    sAAD: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
+    dAAN: LOAD_TEMP(param_fence_standard_1);
+    SAAA: LOAD_TEMP(param_fence_standard_1);
+    ELRL: LOAD_TEMP(param_fence_standard_1);
+    SAAN: LOAD_TEMP(param_fence_standard_1);
+    SAAD: LOAD_TEMP(param_fence_standard_1);
+    sAAD: LOAD_TEMP(param_fence_standard_1);
     // param_fence_standard_2
-    SBAE: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
-    SBAN: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
-    SBAA: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
-    SAA3: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
-    SBAD: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
-    dAAE: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
-    sBAD: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
+    SBAE: LOAD_TEMP(param_fence_standard_2);
+    SBAN: LOAD_TEMP(param_fence_standard_2);
+    SBAA: LOAD_TEMP(param_fence_standard_2);
+    SAA3: LOAD_TEMP(param_fence_standard_2);
+    SBAD: LOAD_TEMP(param_fence_standard_2);
+    dAAE: LOAD_TEMP(param_fence_standard_2);
+    sBAD: LOAD_TEMP(param_fence_standard_2);
     // param_fence_standard_3
-    sCAD: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
-    SCAE: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
-    dBAE: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
-    SCAN: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
-    SBA3: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
-    SCAD: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
-    SCAA: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
+    sCAD: LOAD_TEMP(param_fence_standard_3);
+    SCAE: LOAD_TEMP(param_fence_standard_3);
+    dBAE: LOAD_TEMP(param_fence_standard_3);
+    SCAN: LOAD_TEMP(param_fence_standard_3);
+    SBA3: LOAD_TEMP(param_fence_standard_3);
+    SCAD: LOAD_TEMP(param_fence_standard_3);
+    SCAA: LOAD_TEMP(param_fence_standard_3);
     // param_fence_shinkansen_1
-    SGAA: LOAD_TEMP(param_fence_shinkansen_1 - param_fence_old);
+    SGAA: LOAD_TEMP(param_fence_shinkansen_1);
     // param_fence_shinkansen_2
-    SHAA: LOAD_TEMP(param_fence_shinkansen_2 - param_fence_old);
+    SHAA: LOAD_TEMP(param_fence_shinkansen_2);
     // param_fence_ind
-    SGAN: LOAD_TEMP(param_fence_ind - param_fence_old);
-    SGAE: LOAD_TEMP(param_fence_ind - param_fence_old);
-    SFAN: LOAD_TEMP(param_fence_ind - param_fence_old);
-    SFAE: LOAD_TEMP(param_fence_ind - param_fence_old);
-    SDAN: LOAD_TEMP(param_fence_ind - param_fence_old);
-    SDAE: LOAD_TEMP(param_fence_ind - param_fence_old);
-    SEAN: LOAD_TEMP(param_fence_ind - param_fence_old);
-    SEAE: LOAD_TEMP(param_fence_ind - param_fence_old);
-    NHAN: LOAD_TEMP(param_fence_ind - param_fence_old);
-    NHAE: LOAD_TEMP(param_fence_ind - param_fence_old);
-    NGAN: LOAD_TEMP(param_fence_ind - param_fence_old);
-    NGAE: LOAD_TEMP(param_fence_ind - param_fence_old);
-    NEAE: LOAD_TEMP(param_fence_ind - param_fence_old);
-    NEAN: LOAD_TEMP(param_fence_ind - param_fence_old);
-    NFAN: LOAD_TEMP(param_fence_ind - param_fence_old);
-    NFAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    SGAN: LOAD_TEMP(param_fence_ind);
+    SGAE: LOAD_TEMP(param_fence_ind);
+    SFAN: LOAD_TEMP(param_fence_ind);
+    SFAE: LOAD_TEMP(param_fence_ind);
+    SDAN: LOAD_TEMP(param_fence_ind);
+    SDAE: LOAD_TEMP(param_fence_ind);
+    SEAN: LOAD_TEMP(param_fence_ind);
+    SEAE: LOAD_TEMP(param_fence_ind);
+    NHAN: LOAD_TEMP(param_fence_ind);
+    NHAE: LOAD_TEMP(param_fence_ind);
+    NGAN: LOAD_TEMP(param_fence_ind);
+    NGAE: LOAD_TEMP(param_fence_ind);
+    NEAE: LOAD_TEMP(param_fence_ind);
+    NEAN: LOAD_TEMP(param_fence_ind);
+    NFAN: LOAD_TEMP(param_fence_ind);
+    NFAE: LOAD_TEMP(param_fence_ind);
     default: param_fences_default;
 }
 
 switch(FEAT_STATIONS, SELF, sw_fence, [
-    STORE_TEMP(param["YZ\AA\02", param_fence_old], param_fence_old - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_narrow_1], param_fence_narrow_1 - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_narrow_2], param_fence_narrow_2 - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_narrow_3], param_fence_narrow_3 - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_standard_1], param_fence_standard_1 - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_standard_2], param_fence_standard_2 - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_standard_3], param_fence_standard_3 - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_shinkansen_1], param_fence_shinkansen_1 - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_shinkansen_2], param_fence_shinkansen_2 - param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_ind], param_fence_ind - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_old], param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_1], param_fence_narrow_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_2], param_fence_narrow_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_3], param_fence_narrow_3),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_1], param_fence_standard_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_2], param_fence_standard_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_3], param_fence_standard_3),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_1], param_fence_shinkansen_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_2], param_fence_shinkansen_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_ind], param_fence_ind),
     _sw_fence(),
 ]){
     1: id_fence_hedge;
