@@ -8,3 +8,4 @@
 | sp     | a spritelayout                                                                      |
 | sw     | a switch                                                                            |
 | i      | an item                                                                             |
+| tmpl   | a template                                                                          |
