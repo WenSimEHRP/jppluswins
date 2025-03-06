@@ -1,0 +1,28 @@
+##grflangid 0x01
+
+STR_GRF_NAME            :WINS Stations {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
+STR_GRF_DESC            :A station set by WenSim
+
+STR_PARAM_FENCE_UNDERLAY_NAME   :Fence grass underlay
+STR_PARAM_FENCE_UNDERLAY_DESC   :{PUSH_COLOUR}{GOLD}Automatic:{POP_COLOUR}{}Automatically detects your NewGRF and baseset settings and search for OpenGFX2 and OpenGFX landscapes. OpenGFX2 will have higher priority.{}{}{PUSH_COLOUR}{GOLD}As in JP+ Tracks:{POP_COLOUR}{}Detects JP+ Tracks settings.
+STR_PARAM_FENCE_UNDERLAY_0      :Hide
+STR_PARAM_FENCE_UNDERLAY_1      :Automatic {PUSH_COLOUR}{BLUE}(recommended){POP_COLOUR}
+STR_PARAM_FENCE_UNDERLAY_2      :As in JP+ Tracks
+STR_PARAM_FENCE_UNDERLAY_3      :{PUSH_COLOUR}{GRAY}Force OpenGFX2 Temperate{POP_COLOUR}
+STR_PARAM_FENCE_UNDERLAY_4      :{PUSH_COLOUR}{GRAY}Force OpenGFX2 Arctic{POP_COLOUR}
+STR_PARAM_FENCE_UNDERLAY_5      :{PUSH_COLOUR}{GRAY}Force OpenGFX2 Tropical{POP_COLOUR}
+STR_PARAM_FENCE_UNDERLAY_6      :{PUSH_COLOUR}{GRAY}Force OpenGFX Temperate{POP_COLOUR}
+STR_PARAM_FENCE_UNDERLAY_7      :{PUSH_COLOUR}{GRAY}Force OpenGFX Arctic{POP_COLOUR}
+STR_PARAM_FENCE_UNDERLAY_8      :{PUSH_COLOUR}{GRAY}Force OpenGFX Tropical{POP_COLOUR}
+
+STR_PARAM_FENCE_DEFAULT_NAME    :Default fence style
+STR_PARAM_FENCE_DEFAULT_DESC    :Select the default fence style. When using WINS with JP+ Tracks, the fence style will be automatically adjusted to match the track set.
+STR_PARAM_FENCE_0               :No fence
+STR_PARAM_FENCE_1               :Hedge
+STR_PARAM_FENCE_2               :Wooden fence
+STR_PARAM_FENCE_3               :Painted wooden fence
+STR_PARAM_FENCE_4               :Mesh fence
+STR_PARAM_FENCE_5               :Tiny mesh fence
+STR_PARAM_FENCE_6               :Concrete fence
+STR_PARAM_FENCE_7               :Concrete fence with stripe
+STR_PARAM_FENCE_8               :Grass overlap

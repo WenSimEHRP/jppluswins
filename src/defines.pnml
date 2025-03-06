@@ -1,0 +1,11 @@
+// define some bits
+const front = 0;
+const back = 1;
+const left = 2;
+const right = 3;
+
+/*
+right     back
+____ ____ ____ ____
+     left      front
+*/

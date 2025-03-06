@@ -1,0 +1,36 @@
+/*
+spritelayout spx(){
+    ground { sprite: GROUNDSPRITE_RAIL_X; }
+    childsprite { sprite: CUSTOM(0, LOAD_TEMP(1)); }
+    childsprite { sprite: CUSTOM(0, LOAD_TEMP(2)); }
+}
+
+switch(FEAT_STATIONS, SELF, sw_fence_prepare, [
+    STORE_TEMP(sw_fence, 0),
+    STORE_TEMP(sw_fence_underlay, 1),
+]){ return; }
+*/
+
+spritelayout spx(){
+    ground { sprite: GROUNDSPRITE_RAIL_X; }
+}
+spritelayout spy(){
+    ground { sprite: GROUNDSPRITE_RAIL_Y; }
+}
+
+item(FEAT_STATIONS, fence) {
+    property {
+        class: "WINS";
+        classname: string(STR_GRF_NAME);
+        name: string(STR_GRF_NAME);
+        tile_flags: [
+            1,1,1,1,1,1,1,1,
+        ];
+    }
+    graphics {
+        // default: sw_fence_prepare;
+        // custom_spritesets: [s_fences_and_underlay];
+        sprite_layouts: [spx, spy];
+        select_sprite_layout: sw_fence() * sw_fence_underlay();
+    }
+}

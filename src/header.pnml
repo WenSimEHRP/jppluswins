@@ -1,0 +1,70 @@
+grf {
+    grfid: "WS\01\01";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESC);
+    version: COMMIT;
+    min_compatible_version: MIN_COMMIT;
+    param 0 {
+        param_fences_underlay {
+            type: int;
+            name: string(STR_PARAM_FENCE_UNDERLAY_NAME);
+            desc: string(STR_PARAM_FENCE_UNDERLAY_DESC);
+            min_value: 0;
+            max_value: 8;
+            def_value: 1;
+            names: {
+                0: string(STR_PARAM_FENCE_UNDERLAY_0);
+                1: string(STR_PARAM_FENCE_UNDERLAY_1);
+                2: string(STR_PARAM_FENCE_UNDERLAY_2);
+                3: string(STR_PARAM_FENCE_UNDERLAY_3);
+                4: string(STR_PARAM_FENCE_UNDERLAY_4);
+                5: string(STR_PARAM_FENCE_UNDERLAY_5);
+                6: string(STR_PARAM_FENCE_UNDERLAY_6);
+                7: string(STR_PARAM_FENCE_UNDERLAY_7);
+                8: string(STR_PARAM_FENCE_UNDERLAY_8);
+            };
+        }
+    }
+    param 1 {
+        param_fences_default {
+            type: int;
+            name: string(STR_PARAM_FENCE_DEFAULT_NAME);
+            desc: string(STR_PARAM_FENCE_DEFAULT_DESC);
+            min_value: 0;
+            max_value: 8;
+            def_value: 6;
+            names: {
+                0: string(STR_PARAM_FENCE_0);
+                1: string(STR_PARAM_FENCE_1);
+                2: string(STR_PARAM_FENCE_2);
+                3: string(STR_PARAM_FENCE_3);
+                4: string(STR_PARAM_FENCE_4);
+                5: string(STR_PARAM_FENCE_5);
+                6: string(STR_PARAM_FENCE_6);
+                7: string(STR_PARAM_FENCE_7);
+                8: string(STR_PARAM_FENCE_8);
+            };
+        }
+    }
+}
+
+if (ttd_platform != PLATFORM_OPENTTD) {
+    error(FATAL, USED_WITH, "OpenTTD");
+}
+
+if (openttd_version < version_openttd(15,0)) {
+    error(FATAL, REQUIRES_OPENTTD, "15");
+}
+
+// JP+ Tracks compatibility
+railtypetable {
+    ELRL, JEC0, JEC1, JEC2, JEC3, JEC4, JEC5, JEC6,
+    JEC7, JEC8, MGLV, NAAA, NAAD, NAAE, NAAN, NBAA,
+    NBAD, NBAE, NBAN, NCAA, NCAD, NCAE, NCAN, NDAN,
+    NEAE, NEAN, NFAE, NFAN, NGAE, NGAN, NHAE, NHAN,
+    RAIL, SAA3, SAAA, SAAD, SAAI, SAAN, SBA3, SBAA,
+    SBAD, SBAE, SBAI, SBAN, SCAA, SCAD, SCAE, SCAN,
+    SDAE, SDAN, SEAE, SEAN, SFAE, SFAN, SGAA, SGAE,
+    SGAN, SHAA, _AAE, dAAE, dAAN, dBAE, rAA3, sAAD,
+    sBAD, sCAD,
+}

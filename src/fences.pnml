@@ -1,0 +1,214 @@
+// spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP) {
+//
+// }
+
+// fence parameters, from JP+ Tracks
+const param_fence_old = 26;
+const param_fence_narrow_1 = 27;
+const param_fence_narrow_2 = 28;
+const param_fence_narrow_3 = 29;
+const param_fence_standard_1 = 30;
+const param_fence_standard_2 = 31;
+const param_fence_standard_3 = 32;
+const param_fence_shinkansen_1 = 33;
+const param_fence_shinkansen_2 = 34;
+const param_fence_ind = 35;
+
+// fence types
+const id_none = 0;
+const id_fence_hedge = 1;
+const id_fence_wooden = 2;
+const id_fence_wooden_white = 3;
+const id_fence_mesh = 4;
+const id_fence_mesh_low = 5;
+const id_fence_concrete = 6;
+const id_fence_concrete_2 = 7;
+
+// underlay types
+const id_underlay_ogfx2_temperate = 1;
+const id_underlay_ogfx2_arctic = 2;
+const id_underlay_ogfx2_tropical = 3;
+const id_underlay_ogfx2_snow = 4;
+const id_underlay_ogfx2_desert = 5;
+const id_underlay_ogfx_temperate = 6;
+const id_underlay_ogfx_arctic = 7;
+const id_underlay_ogfx_tropical = 8;
+const id_underlay_ogfx_snow = 9;
+const id_underlay_ogfx_desert = 10;
+
+// fences under tropical, temperate, and snowy climates
+switch(FEAT_STATIONS, SELF, _sw_fence, track_type){
+    // param_fence_old
+    RAIL: LOAD_TEMP(param_fence_old - param_fence_old);
+    NAAN: LOAD_TEMP(param_fence_old - param_fence_old);
+    // param_fence_narrow_1
+    NAAA: LOAD_TEMP(param_fence_narrow_1 - param_fence_old);
+    NAAE: LOAD_TEMP(param_fence_narrow_1 - param_fence_old);
+    NAAD: LOAD_TEMP(param_fence_narrow_1 - param_fence_old);
+    NBAN: LOAD_TEMP(param_fence_narrow_1 - param_fence_old);
+    // param_fence_narrow_2
+    NBAE: LOAD_TEMP(param_fence_narrow_2 - param_fence_old);
+    NBAA: LOAD_TEMP(param_fence_narrow_2 - param_fence_old);
+    NCAN: LOAD_TEMP(param_fence_narrow_2 - param_fence_old);
+    NBAD: LOAD_TEMP(param_fence_narrow_2 - param_fence_old);
+    // param_fence_narrow_3
+    NCAE: LOAD_TEMP(param_fence_narrow_3 - param_fence_old);
+    NDAN: LOAD_TEMP(param_fence_narrow_3 - param_fence_old);
+    NCAD: LOAD_TEMP(param_fence_narrow_3 - param_fence_old);
+    NCAA: LOAD_TEMP(param_fence_narrow_3 - param_fence_old);
+    // param_fence_standard_1
+    dAAN: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
+    SAAA: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
+    ELRL: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
+    SAAN: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
+    SAAD: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
+    sAAD: LOAD_TEMP(param_fence_standard_1 - param_fence_old);
+    // param_fence_standard_2
+    SBAE: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
+    SBAN: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
+    SBAA: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
+    SAA3: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
+    SBAD: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
+    dAAE: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
+    sBAD: LOAD_TEMP(param_fence_standard_2 - param_fence_old);
+    // param_fence_standard_3
+    sCAD: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
+    SCAE: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
+    dBAE: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
+    SCAN: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
+    SBA3: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
+    SCAD: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
+    SCAA: LOAD_TEMP(param_fence_standard_3 - param_fence_old);
+    // param_fence_shinkansen_1
+    SGAA: LOAD_TEMP(param_fence_shinkansen_1 - param_fence_old);
+    // param_fence_shinkansen_2
+    SHAA: LOAD_TEMP(param_fence_shinkansen_2 - param_fence_old);
+    // param_fence_ind
+    SGAN: LOAD_TEMP(param_fence_ind - param_fence_old);
+    SGAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    SFAN: LOAD_TEMP(param_fence_ind - param_fence_old);
+    SFAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    SDAN: LOAD_TEMP(param_fence_ind - param_fence_old);
+    SDAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    SEAN: LOAD_TEMP(param_fence_ind - param_fence_old);
+    SEAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    NHAN: LOAD_TEMP(param_fence_ind - param_fence_old);
+    NHAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    NGAN: LOAD_TEMP(param_fence_ind - param_fence_old);
+    NGAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    NEAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    NEAN: LOAD_TEMP(param_fence_ind - param_fence_old);
+    NFAN: LOAD_TEMP(param_fence_ind - param_fence_old);
+    NFAE: LOAD_TEMP(param_fence_ind - param_fence_old);
+    default: param_fences_default;
+}
+
+switch(FEAT_STATIONS, SELF, sw_fence, [
+    STORE_TEMP(param["YZ\AA\02", param_fence_old], param_fence_old - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_narrow_1], param_fence_narrow_1 - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_narrow_2], param_fence_narrow_2 - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_narrow_3], param_fence_narrow_3 - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_standard_1], param_fence_standard_1 - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_standard_2], param_fence_standard_2 - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_standard_3], param_fence_standard_3 - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_shinkansen_1], param_fence_shinkansen_1 - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_shinkansen_2], param_fence_shinkansen_2 - param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_ind], param_fence_ind - param_fence_old),
+    _sw_fence(),
+]){
+    1: id_fence_hedge;
+    2: id_fence_wooden;
+    3: id_fence_wooden_white;
+    4: id_fence_mesh;
+    5: id_fence_mesh_low;
+    6: id_fence_concrete;
+    7: id_fence_concrete_2;
+    id_none;
+}
+
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_temperate, terrain_type){
+    TILETYPE_SNOW: id_underlay_ogfx2_snow;
+    TILETYPE_DESERT: id_underlay_ogfx2_desert;
+    id_underlay_ogfx2_temperate;
+}
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_arctic, terrain_type){
+    TILETYPE_SNOW: id_underlay_ogfx2_snow;
+    TILETYPE_DESERT: id_underlay_ogfx2_desert;
+    id_underlay_ogfx2_arctic;
+}
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_tropical, terrain_type){
+    TILETYPE_SNOW: id_underlay_ogfx2_snow;
+    TILETYPE_DESERT: id_underlay_ogfx2_desert;
+    id_underlay_ogfx2_tropical;
+}
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx_temperate, terrain_type){
+    TILETYPE_SNOW: id_underlay_ogfx_snow;
+    TILETYPE_DESERT: id_underlay_ogfx_desert;
+    id_underlay_ogfx_temperate;
+}
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx_arctic, terrain_type){
+    TILETYPE_SNOW: id_underlay_ogfx_snow;
+    TILETYPE_DESERT: id_underlay_ogfx_desert;
+    id_underlay_ogfx_arctic;
+}
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx_tropical, terrain_type){
+    TILETYPE_SNOW: id_underlay_ogfx_snow;
+    TILETYPE_DESERT: id_underlay_ogfx_desert;
+    id_underlay_ogfx_tropical;
+}
+
+switch(FEAT_STATIONS, SELF, _sw_fence_underlay_ogfx, climate){
+    CLIMATE_ARCTIC: _sw_underlay_ogfx_arctic();
+    CLIMATE_TROPICAL: _sw_underlay_ogfx_tropical();
+    _sw_underlay_ogfx_temperate();
+}
+
+switch(FEAT_STATIONS, SELF, _sw_fence_underlay_ogfx2_check_param, a, a){
+    1: _sw_underlay_ogfx2_tropical();
+    2: _sw_underlay_ogfx2_arctic();
+    _sw_underlay_ogfx2_temperate();
+}
+
+switch(FEAT_STATIONS, SELF, _sw_fence_underlay_ogfx2, climate){
+    CLIMATE_ARCTIC:   _sw_fence_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]);
+    CLIMATE_TROPICAL: _sw_fence_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]);
+                      _sw_fence_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]); // no toyland, sorrey!
+}
+
+switch(FEAT_STATIONS, SELF, _sw_fence_underlay_automatic,
+    grf_order_behind("\4f\47\2b\34") ? 1 : // OpenGFX+ Landscape
+    grf_order_behind("\6f\67\66\78") ? 0 : // OpenGFX2
+    grf_order_behind("\4f\47\46\58") ? 1 : // OpenGFX
+    0
+) {
+    1: _sw_fence_underlay_ogfx();
+    _sw_fence_underlay_ogfx2();
+}
+
+// check fence underlay
+switch(FEAT_STATIONS, SELF, _sw_fence_underlay, param_fences_underlay) {
+    1: _sw_fence_underlay_automatic();
+    2: param["YZ\AA\02", 25] == 1 ?
+        _sw_underlay_ogfx2_temperate() :
+        _sw_underlay_ogfx2_tropical();
+    3: _sw_underlay_ogfx2_temperate();
+    4: _sw_underlay_ogfx2_arctic();
+    5: _sw_underlay_ogfx2_tropical();
+    6: _sw_underlay_ogfx_temperate();
+    7: _sw_underlay_ogfx_arctic();
+    8: _sw_underlay_ogfx_tropical();
+    id_none;
+}
+
+switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
+    TILE_CLASS_RAIL: 1;
+    TILE_CLASS_STATION: 1;
+    0;
+}
+
+// Returns a 6-bit value representing the fence type and underlay type
+switch(FEAT_STATIONS, SELF, sw_fence_underlay,
+    _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << 0 |
+    _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << 1 |
+    _sw_fence_underlay() << 2
+){return;}
