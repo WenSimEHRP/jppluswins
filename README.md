@@ -1,21 +1,12 @@
-# JP+ Stations (WINS)
+# WINS Station Set
 
-An unofficial sister set to JP+ Engines and Wagons, JP+ Shinkansen, JP+ MUs, and JP+ Private;
-designed to replace JP3 Stations
+[![wakatime](https://wakatime.com/badge/user/3ccfe070-205f-4eef-826d-419a0ac19311/project/1f5ff741-a34c-4481-9c9f-e8379ed1e9b6.svg)](https://wakatime.com/badge/user/3ccfe070-205f-4eef-826d-419a0ac19311/project/1f5ff741-a34c-4481-9c9f-e8379ed1e9b6)
 
-## Building
+This is not yet JP+ Stations, but I'm working on the sprites - and maybe there will be some advanced stuff added in the future (auto platforms, buffers, also passenger and cargo on station platforms, etc.)
 
-To build the GRF, you should have these subjects installed;
+This set features a set of Japanese style platforms. Some of them are not based on Japanese stations though, rather they are based off SkyTrain systems.
 
-- bash
-- nml (modified version)
-- gcc
-- python
+## Features
 
-Note: you should be able to access `bash` after you installed `git` if you are on Windows.\
-You could use `install_dependencies.sh` to quickly install nml and its requirements.\
-
-Please note that this grf requires a specific modified version of NML. It is recommended to install
-NML through the install script.
-
-After having all dependencies installed, you should be able to build the grf by running `build.sh`.
+- JP+ Tracks compatibility
+  - Fences
