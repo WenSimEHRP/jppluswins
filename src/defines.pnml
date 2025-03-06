@@ -4,6 +4,8 @@ const back = 1;
 const left = 2;
 const right = 3;
 
+const none_code = 0xFF;
+
 /*
 right     back
 ____ ____ ____ ____
