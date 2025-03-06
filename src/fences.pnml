@@ -2,6 +2,46 @@
 //
 // }
 
+template tmpl_fence (x, y, path) {
+    [ x,      y,      32,      25,     -31,     -10, path]
+    [ x+40,   y,      32,      25,       1,     -10, path]
+}
+
+template tmpl_fence_v2 (x, y, path) {
+    [ x,      y,      48,      30,     -39,     -12, path]
+    [ x+50,   y,      48,      30,      -8,     -12, path]
+}
+
+template tmpl_underlay (x, y, path) {
+    [ x,      y,      48,      30,     -39,     -12, path]
+    [ x+50,   y,      48,      30,      -8,     -12, path]
+    [ x,      y+40,   48,      30,      -7,       3, path]
+    [ x+50,   y+40,   48,      30,     -39,       2, path]
+}
+
+spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
+    // fences
+    tmpl_fence_v2(0, 80, "gfx/fences/fences_2_no_grass.png")
+    tmpl_fence_v2(0, 160, "gfx/fences/fences_2_no_grass.png")
+    tmpl_fence_v2(0, 240, "gfx/fences/fences_2_no_grass.png")
+    tmpl_fence_v2(0, 320, "gfx/fences/fences_2_no_grass.png")
+    tmpl_fence_v2(0, 400, "gfx/fences/fences_2_no_grass.png")
+    tmpl_fence(0, 50, "gfx/fences/fences_symmetric.png")
+    tmpl_fence(0, 100, "gfx/fences/fences_symmetric.png")
+    // underlay
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png")
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png")
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_snow.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_snow.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png") //TODO
+
+}
+
 // fence parameters, from JP+ Tracks
 const param_fence_old = 26;
 const param_fence_narrow_1 = 27;
@@ -15,26 +55,26 @@ const param_fence_shinkansen_2 = 34;
 const param_fence_ind = 35;
 
 // fence types
-const id_none = 0;
-const id_fence_hedge = 1;
-const id_fence_wooden = 2;
-const id_fence_wooden_white = 3;
-const id_fence_mesh = 4;
-const id_fence_mesh_low = 5;
-const id_fence_concrete = 6;
-const id_fence_concrete_2 = 7;
+const id_fence_hedge = 0;
+const id_fence_wooden = 1;
+const id_fence_wooden_white = 2;
+const id_fence_mesh = 3;
+const id_fence_mesh_low = 4;
+const id_fence_concrete = 5;
+const id_fence_concrete_2 = 6;
+const id_fence_end = id_fence_concrete_2 + 1;
 
 // underlay types
-const id_underlay_ogfx2_temperate = 1;
-const id_underlay_ogfx2_arctic = 2;
-const id_underlay_ogfx2_tropical = 3;
-const id_underlay_ogfx2_snow = 4;
-const id_underlay_ogfx2_desert = 5;
-const id_underlay_ogfx_temperate = 6;
-const id_underlay_ogfx_arctic = 7;
-const id_underlay_ogfx_tropical = 8;
-const id_underlay_ogfx_snow = 9;
-const id_underlay_ogfx_desert = 10;
+const id_underlay_ogfx2_temperate = 0;
+const id_underlay_ogfx2_arctic = 1;
+const id_underlay_ogfx2_tropical = 2;
+const id_underlay_ogfx2_snow = 3;
+const id_underlay_ogfx2_desert = 4;
+const id_underlay_ogfx_temperate = 5;
+const id_underlay_ogfx_arctic = 6;
+const id_underlay_ogfx_tropical = 7;
+const id_underlay_ogfx_snow = 8;
+const id_underlay_ogfx_desert = 9;
 
 // fences under tropical, temperate, and snowy climates
 switch(FEAT_STATIONS, SELF, _sw_fence, track_type){
@@ -123,7 +163,7 @@ switch(FEAT_STATIONS, SELF, sw_fence, [
     5: id_fence_mesh_low;
     6: id_fence_concrete;
     7: id_fence_concrete_2;
-    id_none;
+    none_code;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_temperate, terrain_type){
@@ -197,7 +237,7 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay, param_fences_underlay) {
     6: _sw_underlay_ogfx_temperate();
     7: _sw_underlay_ogfx_arctic();
     8: _sw_underlay_ogfx_tropical();
-    id_none;
+    none_code;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
@@ -206,7 +246,11 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
     0;
 }
 
-// Returns a 6-bit value representing the fence type and underlay type
+// Returns a 10 bit value representing the fence type and underlay type
+// aaaaaaaa b c
+// a: fence type
+// b: show fence for -1
+// c: show fence for +1
 switch(FEAT_STATIONS, SELF, sw_fence_underlay,
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << 0 |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << 1 |
