@@ -15,8 +15,8 @@ build: preprocess
 release: preprocess
     ./nml/nmlc -c {{NAME}}.nml --grf {{NAME}}.grf
     @echo "All jobs done"
-    du -bh {{NAME}}.nml
-    du -bh {{NAME}}.grf
+    @du -bh {{NAME}}.nml
+    @du -bh {{NAME}}.grf
 
 # preprocess the pnml file
 preprocess:
