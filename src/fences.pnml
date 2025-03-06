@@ -228,7 +228,7 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay_automatic,
 // check fence underlay
 switch(FEAT_STATIONS, SELF, _sw_fence_underlay, param_fences_underlay) {
     1: _sw_fence_underlay_automatic();
-    2: param["YZ\AA\02", 25] == 1 ?
+    2: param["YZ\AA\02", 24] == 0 ?
         _sw_underlay_ogfx2_temperate() :
         _sw_underlay_ogfx2_tropical();
     3: _sw_underlay_ogfx2_temperate();
