@@ -73,7 +73,7 @@ const id_underlay_ogfx_arctic = 5;
 const id_underlay_ogfx_tropical = 6;
 const id_underlay_ogfx_desert = 7;
 
-switch(FEAT_STATIONS, SELF, _sw_slab, track_type){
+switch(FEAT_STATIONS, SELF, _sw_no_underlay, track_type){
     dBAE: 1;
     SBAI: 1;
     SCAE: 1;
@@ -87,6 +87,7 @@ switch(FEAT_STATIONS, SELF, _sw_slab, track_type){
     NCAE: 1;
     NDAN: 1;
     NCAD: 1;
+    MGLV: 1;
     0;
 }
 
@@ -270,5 +271,5 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
 switch(FEAT_STATIONS, SELF, sw_fence_underlay,
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << 0 |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << 1 |
-    (_sw_slab() ? none_code : _sw_fence_underlay()) << 2
+    (_sw_no_underlay() && grf_future_status("YZ\AA\02") ? none_code : _sw_fence_underlay()) << 2
 ){return;}
