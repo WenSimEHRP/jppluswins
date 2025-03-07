@@ -36,6 +36,13 @@ setup:
 cp:
     cp {{NAME}}.grf ~/.local/share/openttd/newgrf/
 
+# pack the grf into a tar file
+pack:
+    cp LICENSE.md LICENSE.txt
+    cp README.md README.txt
+    tar -cvf {{NAME}}-"$(git rev-parse --short HEAD || echo 0000000)".tar {{NAME}}.grf LICENSE.txt README.txt
+    rm LICENSE.txt README.txt
+
 # clean up
 clean:
     rm *.grf
