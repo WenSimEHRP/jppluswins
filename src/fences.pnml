@@ -15,7 +15,7 @@ template tmpl_fence_v2 (x, y, path) {
 template tmpl_underlay (x, y, path) {
     [ x,      y,      48,      30,     -39,     -12, path]
     [ x+50,   y,      48,      30,      -8,     -12, path]
-    [ x,      y+40,   48,      30,      -7,       3, path]
+    [ x,      y+40,   48,      30,      -7,       4, path]
     [ x+50,   y+40,   48,      30,     -40,       4, path]
 }
 
