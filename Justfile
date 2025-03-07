@@ -21,6 +21,9 @@ release: preprocess
 # preprocess the pnml file
 preprocess:
     ./build.py
+    gcc -E -P -x c tags.txt \
+        -D GIT_VERSION="$(git describe --tags --always --dirty || echo 0.0.0-0-0000000)" \
+        > custom_tags.txt
     gcc -E -x c {{NAME}}.pnml \
         -D COMMIT="$(git rev-list --count HEAD || echo 1145)" \
         -D MIN_COMMIT="$(git rev-list --count "$(cat min_compatible_version)" || echo 1)" \
@@ -40,7 +43,7 @@ cp:
 pack:
     cp LICENSE.md LICENSE.txt
     cp README.md README.txt
-    tar -cvf {{NAME}}-"$(git rev-parse --short HEAD || echo 0000000)".tar {{NAME}}.grf LICENSE.txt README.txt
+    tar -cvf {{NAME}}-"$(git describe --tags --always --dirty || echo 0.0.0-0-0000000)".tar {{NAME}}.grf LICENSE.txt README.txt
     rm LICENSE.txt README.txt
 
 # clean up
