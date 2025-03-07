@@ -20,6 +20,7 @@ release: preprocess
 
 # preprocess the pnml file
 preprocess:
+    ./build.py
     gcc -E -x c {{NAME}}.pnml \
         -D COMMIT="$(git rev-list --count HEAD || echo 1145)" \
         -D MIN_COMMIT="$(git rev-list --count "$(cat min_compatible_version)" || echo 1)" \
