@@ -40,5 +40,6 @@ cp:
 clean:
     rm *.grf
     rm *.nml
+    rm generated/*.nml
     rm *.nfo
     rm -rf ./.nmlcache

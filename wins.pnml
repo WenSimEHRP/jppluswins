@@ -2,4 +2,4 @@
 #include "src/header.pnml"
 #include "src/fences.pnml"
 
-#include "src/platforms.nml"
+#include "generated/platforms.nml"

@@ -23,7 +23,7 @@ def layout(name: str, val: dict) -> list:
     return sorted(kw)
 
 
-with open("src/platforms.nml", "w+") as fw:
+with open("generated/platforms.nml", "w+") as fw:
     for p in platforms:
         with open(p, "r") as f:
             for ind, val in enumerate(sorted(tem["temps"].keys())):
