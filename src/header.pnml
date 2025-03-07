@@ -56,6 +56,11 @@ if (openttd_version < version_openttd(15,0)) {
     error(FATAL, REQUIRES_OPENTTD, "15");
 }
 
+// check for JP+ Tracks
+if (param["YZ\AA\02", 254] != 040 && param["YZ\AA\02", 254] > 040){
+    error(FATAL, USED_WITH, string(STR_JPP_TRACKS));
+}
+
 // JP+ Tracks compatibility
 railtypetable {
     ELRL, JEC0, JEC1, JEC2, JEC3, JEC4, JEC5, JEC6,
