@@ -158,29 +158,6 @@ switch(FEAT_STATIONS, SELF, _sw_fence, track_type){
     default: param_fences_default;
 }
 
-switch(FEAT_STATIONS, SELF, sw_fence, [
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_old], param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_1], param_fence_narrow_1),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_2], param_fence_narrow_2),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_3], param_fence_narrow_3),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_1], param_fence_standard_1),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_2], param_fence_standard_2),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_3], param_fence_standard_3),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_1], param_fence_shinkansen_1),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_2], param_fence_shinkansen_2),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_ind], param_fence_ind),
-    _sw_fence(),
-]){
-    1: id_fence_hedge;
-    2: id_fence_wooden;
-    3: id_fence_wooden_white;
-    4: id_fence_mesh;
-    5: id_fence_mesh_low;
-    6: id_fence_concrete;
-    7: id_fence_concrete_2;
-    none_code;
-}
-
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_temperate, terrain_type){
     TILETYPE_SNOW: none_code;
     TILETYPE_DESERT: id_underlay_ogfx2_desert;
@@ -268,8 +245,37 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
 // a: fence type
 // b: show fence for -1
 // c: show fence for +1
+// returns none_code + extra bits if there are no underlay to show
+// that is, 0b11111111 XX where XX doesn't matter
 switch(FEAT_STATIONS, SELF, sw_fence_underlay,
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << 0 |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << 1 |
     (_sw_no_underlay() && grf_future_status("YZ\AA\02") ? none_code : _sw_fence_underlay()) << 2
 ){return;}
+
+// Returns a 8 bit value representing the fence type
+// aaaaaaaa
+// a: fence type
+// returns none_code (0xFF) if there are no fence to show
+switch(FEAT_STATIONS, SELF, sw_fence, [
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_old], param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_1], param_fence_narrow_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_2], param_fence_narrow_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_3], param_fence_narrow_3),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_1], param_fence_standard_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_2], param_fence_standard_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_3], param_fence_standard_3),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_1], param_fence_shinkansen_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_2], param_fence_shinkansen_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_ind], param_fence_ind),
+    _sw_fence(),
+]){
+    1: id_fence_hedge;
+    2: id_fence_wooden;
+    3: id_fence_wooden_white;
+    4: id_fence_mesh;
+    5: id_fence_mesh_low;
+    6: id_fence_concrete;
+    7: id_fence_concrete_2;
+    none_code;
+}
