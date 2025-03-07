@@ -9,3 +9,4 @@
 | sw     | a switch                                                                            |
 | i      | an item                                                                             |
 | tmpl   | a template                                                                          |
+| t      | an index to a temp register                                                         |
