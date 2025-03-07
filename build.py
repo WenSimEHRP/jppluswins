@@ -27,7 +27,7 @@ with open("generated/platforms.nml", "w+") as fw:
     for p in platforms:
         with open(p, "r") as f:
             for ind, val in enumerate(sorted(tem["temps"].keys())):
-                print(f"const {val} = {ind};", file=fw)
+                print(f"const {val} = {ind+10};", file=fw)
             data = yaml.safe_load(f)
             for key, val in data.items():
                 temps = layout(key, val["layout"])

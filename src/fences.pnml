@@ -19,6 +19,13 @@ template tmpl_underlay (x, y, path) {
     [ x+50,   y+40,   48,      30,     -40,       3, path]
 }
 
+template tmpl_barrier(path){
+    [0*16, 0, 16, 16, -8, -6, path]
+    [1*16, 0, 16, 16, -9, -5, path]
+    [2*16, 0, 16, 16, -5, -5, path]
+    [3*16, 0, 16, 16, -9, -5, path]
+}
+
 spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     // fences
     tmpl_fence_v2(0, 80, "gfx/fences/fences_2_no_grass.png")
@@ -37,7 +44,8 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png") //TODO
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png") //TODO
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png") //TODO
-
+    // barrier
+    tmpl_barrier("gfx/barrier.png")
 }
 
 // fence parameters, from JP+ Tracks
@@ -61,9 +69,10 @@ const id_fence_mesh = 3;
 const id_fence_mesh_low = 4;
 const id_fence_concrete = 5;
 const id_fence_concrete_2 = 6;
-const id_fence_end = id_fence_concrete_2 + 1;
+const pos_fence_end = (id_fence_concrete_2 + 1) * 2;
 
 // underlay types
+const pos_underlay_start = pos_fence_end;
 const id_underlay_ogfx2_temperate = 0;
 const id_underlay_ogfx2_arctic = 1;
 const id_underlay_ogfx2_tropical = 2;
@@ -72,6 +81,11 @@ const id_underlay_ogfx_temperate = 4;
 const id_underlay_ogfx_arctic = 5;
 const id_underlay_ogfx_tropical = 6;
 const id_underlay_ogfx_desert = 7;
+const pos_underlay_end = pos_underlay_start + (id_underlay_ogfx_desert + 1) * 4;
+
+// barrier types
+const pos_barrier_start = pos_underlay_end;
+const pos_barrier_end = pos_barrier_start + 4;
 
 switch(FEAT_STATIONS, SELF, _sw_no_underlay, track_type){
     dBAE: 1;
@@ -92,7 +106,7 @@ switch(FEAT_STATIONS, SELF, _sw_no_underlay, track_type){
 }
 
 // fences under tropical, temperate, and snowy climates
-switch(FEAT_STATIONS, SELF, _sw_fence, track_type){
+switch(FEAT_STATIONS, SELF, _sw_fence_query_railtype, track_type){
     // param_fence_old
     RAIL: LOAD_TEMP(param_fence_old);
     NAAN: LOAD_TEMP(param_fence_old);
@@ -156,6 +170,29 @@ switch(FEAT_STATIONS, SELF, _sw_fence, track_type){
     NFAN: LOAD_TEMP(param_fence_ind);
     NFAE: LOAD_TEMP(param_fence_ind);
     default: param_fences_default;
+}
+
+switch(FEAT_STATIONS, SELF, _sw_fence, [
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_old], param_fence_old),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_1], param_fence_narrow_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_2], param_fence_narrow_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_3], param_fence_narrow_3),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_1], param_fence_standard_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_2], param_fence_standard_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_3], param_fence_standard_3),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_1], param_fence_shinkansen_1),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_2], param_fence_shinkansen_2),
+    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_ind], param_fence_ind),
+    _sw_fence_query_railtype(),
+]){
+    1: id_fence_hedge;
+    2: id_fence_wooden;
+    3: id_fence_wooden_white;
+    4: id_fence_mesh;
+    5: id_fence_mesh_low;
+    6: id_fence_concrete;
+    7: id_fence_concrete_2;
+    none_code;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_temperate, terrain_type){
@@ -240,42 +277,37 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
     0;
 }
 
-// Returns a 10 bit value representing the fence type and underlay type
-// aaaaaaaa b c
+// Returns a 12 bit value representing the fence type and underlay type
+// aaaaaaaa bbbb
 // a: fence type
-// b: show fence for -1
-// c: show fence for +1
+// b: nearby rail/station information
 // returns none_code + extra bits if there are no underlay to show
-// that is, 0b11111111 XX where XX doesn't matter
+// that is, 0b11111111 XXXX where XXXX doesn't matter
 switch(FEAT_STATIONS, SELF, sw_fence_underlay,
-    _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << 0 |
-    _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << 1 |
-    (_sw_no_underlay() && grf_future_status("YZ\AA\02") ? none_code : _sw_fence_underlay()) << 2
+    hasbit(rail_continuation, 1) << pos_front |
+    hasbit(rail_continuation, 0) << pos_back |
+    _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
+    _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
+    (_sw_no_underlay() && grf_future_status("YZ\AA\02") ? none_code : _sw_fence_underlay()) << pos_end
 ){return;}
 
-// Returns a 8 bit value representing the fence type
-// aaaaaaaa
+// Returns a 12 bit value representing the fence type
+// aaaaaaaa bbbb
 // a: fence type
+// b: nearby rail/station information
 // returns none_code (0xFF) if there are no fence to show
-switch(FEAT_STATIONS, SELF, sw_fence, [
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_old], param_fence_old),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_1], param_fence_narrow_1),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_2], param_fence_narrow_2),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_narrow_3], param_fence_narrow_3),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_1], param_fence_standard_1),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_2], param_fence_standard_2),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_standard_3], param_fence_standard_3),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_1], param_fence_shinkansen_1),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_shinkansen_2], param_fence_shinkansen_2),
-    STORE_TEMP(param["YZ\AA\02", param_fence_offset + param_fence_ind], param_fence_ind),
-    _sw_fence(),
-]){
-    1: id_fence_hedge;
-    2: id_fence_wooden;
-    3: id_fence_wooden_white;
-    4: id_fence_mesh;
-    5: id_fence_mesh_low;
-    6: id_fence_concrete;
-    7: id_fence_concrete_2;
-    none_code;
-}
+switch(FEAT_STATIONS, SELF, sw_fence,
+    _sw_fence_underlay_check_tile_class(nearby_tile_class(1,  0)) << pos_back |
+    _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0)) << pos_front |
+    _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
+    _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
+    _sw_fence() << pos_end
+){return;}
+
+// Returns a 4 bit value
+// aaaa
+// a: nearby rail/station information
+switch(FEAT_STATIONS, SELF, sw_barrier,
+    hasbit(rail_continuation, 1) << pos_front |
+    hasbit(rail_continuation, 0) << pos_back
+){return;}

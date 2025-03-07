@@ -1,7 +1,13 @@
 bare:
   layout:
     - rail.ground
-    - underlay.north
-    - underlay.south
-    - fence.north
-    - fence.south
+    - underlay.left
+    - underlay.right
+    - underlay.front
+    - underlay.back
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back
+    - barrier.front
+    - barrier.back

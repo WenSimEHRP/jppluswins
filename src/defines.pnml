@@ -1,8 +1,9 @@
 // define some bits
-const front = 0;
-const back = 1;
-const left = 2;
-const right = 3;
+const pos_front = 0;
+const pos_back = 1;
+const pos_left = 2;
+const pos_right = 3;
+const pos_end = 4;
 
 const none_code = 0xFF;
 
