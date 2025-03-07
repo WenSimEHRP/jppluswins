@@ -1,4 +1,4 @@
-bare:
+bare_full:
   layout:
     - rail.ground
     - underlay.left
@@ -9,5 +9,25 @@ bare:
     - fence.right
     - fence.front
     - fence.back
+    - barrier.front
+    - barrier.back
+
+bare_fence:
+  layout:
+    - rail.ground
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back
+    - barrier.front
+    - barrier.back
+
+bare_underlay:
+  layout:
+    - rail.ground
+    - underlay.left
+    - underlay.right
+    - underlay.front
+    - underlay.back
     - barrier.front
     - barrier.back
