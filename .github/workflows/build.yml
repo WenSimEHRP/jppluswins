@@ -15,6 +15,9 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+      - name: install pip dependencies
+        run: |
+          pip install pyyaml pillow ply
       - uses: extractions/setup-just@v2
       - name: Build
         run: |
