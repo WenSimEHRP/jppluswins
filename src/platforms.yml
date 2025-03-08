@@ -33,18 +33,18 @@ bare_underlay:
     - barrier.back
 
 #TODO
-yard:
+yard_left:
   layout:
     - rail.ground
     - yard.left
-    - underlay.yard_front
-    - underlay.yard_back
+    - underlay.yard_left_front
+    - underlay.yard_left_back
     - underlay.left
     - underlay.right
     - barrier.front
     - barrier.back
-    - barrier.yard_front
-    - barrier.yard_back
+    - barrier.yard_left_front
+    - barrier.yard_left_back
     - fence.left
     - fence.right
     - fence.front

@@ -24,11 +24,9 @@ template tmpl_barrier(path){
 
 //TODO yard sprites
 template tmpl_yard(path){
-    [ 210, 0, 64, 31, -39, -4, path] //TODO
-    [ 0, 80, 64, 71,  -23, -1, path] //TODO
-    [ 280, 0, 64, 31, -27, 4, path] //TODO
-    [ 0, 360, 64, 31, -39, -4, path]
-    []
+    [ 0, 360, 64, 31, -39, -4, path] // 0: front split, back split
+    [ 280, 0, 64, 31, -27,  4, path] // 1: front merge, back split
+    [ 0, 80, 64,  71, -23, -1, path] // 2: front split, back merge
     []
     []
     [ 70, 360, 64, 31, -31, 0, path]

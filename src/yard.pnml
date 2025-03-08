@@ -94,21 +94,21 @@ switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
 }
 
 
-const pos_yard_connection_info = 0;
+const pos_yard_connection_info_left = 0;
+const pos_yard_connection_info_right = 2;
 const pos_yard_connection_type = 4;
-const none_yard = 0xF;
+const none_yard = 3;
 
 //TODO: change to test badges instead of station presence
-// 0: front merge, back merge
-// 1: front split, back merge
-// 2: front merge, back split
-// 3: front split, back split
-// 0xF: no connection
-switch(FEAT_STATIONS, SELF, _sw_yard_info,
+// 0: front split, back split
+// 1: front merge, back split
+// 2: front split, back merge
+// 3: none
+switch(FEAT_STATIONS, SELF, _sw_yard_info_left,
     !nearby_tile_is_station(0, -1) ? none_yard :
     (
         (
-            (
+            !(
                 (
                     nearby_tile_is_station(-1,  0) &&
                     nearby_tile_is_station(-1, -1) &&
@@ -121,10 +121,47 @@ switch(FEAT_STATIONS, SELF, _sw_yard_info,
             << pos_front
         ) |
         (
-            (
+            !(
                 (
                     nearby_tile_is_station( 1,  0) &&
                     nearby_tile_is_station( 1, -1) &&
+                    hasbit(rail_continuation, 0)
+                ) ||
+                (
+                    !hasbit(rail_continuation, 0)
+                )
+            )
+            << pos_back
+        )
+    )
+){return;}
+
+
+// 0: front split, back split
+// 1: front merge, back split
+// 2: front split, back merge
+// 3: none
+switch(FEAT_STATIONS, SELF, _sw_yard_info_left,
+    !nearby_tile_is_station(0, 1) ? none_yard :
+    (
+        (
+            !(
+                (
+                    nearby_tile_is_station(-1,  0) &&
+                    nearby_tile_is_station(-1,  1) &&
+                    hasbit(rail_continuation, 1)
+                ) ||
+                (
+                    !hasbit(rail_continuation, 1)
+                )
+            )
+            << pos_front
+        ) |
+        (
+            !(
+                (
+                    nearby_tile_is_station( 1,  0) &&
+                    nearby_tile_is_station( 1,  1) &&
                     hasbit(rail_continuation, 0)
                 ) ||
                 (
@@ -141,7 +178,8 @@ switch(FEAT_STATIONS, SELF, _sw_yard_info,
 // a: rail type
 // b: connection info
 switch(FEAT_STATIONS, SELF, sw_yard,
-    _sw_yard_info() << 0 |
+    _sw_yard_info_left() << 0 |
+    _sw_yard_info_right() << 2 |
     // _sw_yard_type() << 4
     0 << 4
 ){return;}
