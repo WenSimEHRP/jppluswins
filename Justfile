@@ -48,9 +48,5 @@ pack:
 
 # clean up
 clean:
-    rm *.grf
-    rm *.nml
-    rm generated/*.nml
-    rm *.nfo
-    rm *.tar
+    rm -f *.{grf,nml,nfo,tar} custom_tags.txt generated/*.nml
     rm -rf ./.nmlcache
