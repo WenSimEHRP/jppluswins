@@ -86,22 +86,6 @@ switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
     SFAE: i_standard_wood_underlay;
     SGAN: i_standard_wood_underlay;
     SGAE: i_standard_wood_underlay;
-    SGAN: i_standard_ind_underlay;
-    SGAE: i_standard_ind_underlay;
-    SFAN: i_standard_ind_underlay;
-    SFAE: i_standard_ind_underlay;
-    SDAN: i_standard_ind_underlay;
-    SDAE: i_standard_ind_underlay;
-    SEAN: i_standard_ind_underlay;
-    SEAE: i_standard_ind_underlay;
-    NHAN: i_narrow_ind_underlay;
-    NHAE: i_narrow_ind_underlay;
-    NGAN: i_narrow_ind_underlay;
-    NGAE: i_narrow_ind_underlay;
-    NEAE: i_narrow_ind_underlay;
-    NEAN: i_narrow_ind_underlay;
-    NFAN: i_narrow_ind_underlay;
-    NFAE: i_narrow_ind_underlay;
     i_narrow_wood_underlay;
 }
 
