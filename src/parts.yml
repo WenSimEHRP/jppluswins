@@ -74,6 +74,8 @@ underlay:
     x: >
       childsprite {
         sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 3);
+        xoffset: LOAD_TEMP(t_underlay) ? -6 : -6;
+        yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
       }
     y: ""
