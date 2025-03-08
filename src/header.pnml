@@ -2,6 +2,7 @@ grf {
     grfid: "WS\24\05";
     name: string(STR_GRF_NAME);
     desc: string(STR_GRF_DESC);
+    url: string(STR_GRF_URL);
     version: COMMIT;
     min_compatible_version: MIN_COMMIT;
     param 0 {
