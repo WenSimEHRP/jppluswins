@@ -20,10 +20,10 @@ template tmpl_underlay (x, y, path) {
 }
 
 template tmpl_barrier(path){
-    [0*16, 0, 16, 16, -8, -6, path]
-    [1*16, 0, 16, 16, -9, -5, path]
-    [2*16, 0, 16, 16, -5, -5, path]
-    [3*16, 0, 16, 16, -9, -5, path]
+    [0*16, 0, 16, 16, -7, -6, path]
+    [1*16, 0, 16, 16, -7, -6, path]
+    [2*16, 0, 16, 16, -3, -4, path]
+    [3*16, 0, 16, 16,-11, -4, path]
 }
 
 spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
@@ -151,6 +151,10 @@ switch(FEAT_STATIONS, SELF, _sw_fence_query_railtype, track_type){
     NEAN: LOAD_TEMP(param_fence_ind);
     NFAN: LOAD_TEMP(param_fence_ind);
     NFAE: LOAD_TEMP(param_fence_ind);
+    // some tracks return a constant
+    SAAI: 4;
+    SBAI: 6;
+    MGLV: 6;
     default: param_fences_default;
 }
 
@@ -272,8 +276,8 @@ switch(FEAT_STATIONS, SELF, _sw_no_underlay, a, a){
 // returns none_code + extra bits if there are no underlay to show
 // that is, 0b11111111 XXXX where XXXX doesn't matter
 switch(FEAT_STATIONS, SELF, sw_fence_underlay,
-    hasbit(rail_continuation, 1) << pos_front |
-    hasbit(rail_continuation, 0) << pos_back |
+    (hasbit(rail_continuation, 1) || _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
+    (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
     (_sw_no_underlay(_sw_fence()) ? none_code : _sw_fence_underlay()) << pos_end
