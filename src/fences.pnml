@@ -87,24 +87,6 @@ const pos_underlay_end = pos_underlay_start + (id_underlay_ogfx_desert + 1) * 4;
 const pos_barrier_start = pos_underlay_end;
 const pos_barrier_end = pos_barrier_start + 4;
 
-switch(FEAT_STATIONS, SELF, _sw_no_underlay, track_type){
-    dBAE: 1;
-    SBAI: 1;
-    SCAE: 1;
-    SCAN: 1;
-    SCAA: 1;
-    SHAA: 1;
-    SBA3: 1;
-    SCAD: 1;
-    NCAA: 1;
-    sCAD: 1;
-    NCAE: 1;
-    NDAN: 1;
-    NCAD: 1;
-    MGLV: 1;
-    0;
-}
-
 // fences under tropical, temperate, and snowy climates
 switch(FEAT_STATIONS, SELF, _sw_fence_query_railtype, track_type){
     // param_fence_old
@@ -277,6 +259,12 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
     0;
 }
 
+switch(FEAT_STATIONS, SELF, _sw_no_underlay, a, a){
+    id_fence_concrete: 1;
+    id_fence_concrete_2: 1;
+    0;
+}
+
 // Returns a 12 bit value representing the fence type and underlay type
 // aaaaaaaa bbbb
 // a: fence type
@@ -288,7 +276,7 @@ switch(FEAT_STATIONS, SELF, sw_fence_underlay,
     hasbit(rail_continuation, 0) << pos_back |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
-    (_sw_no_underlay() && grf_future_status("YZ\AA\02") ? none_code : _sw_fence_underlay()) << pos_end
+    (_sw_no_underlay(_sw_fence()) ? none_code : _sw_fence_underlay()) << pos_end
 ){return;}
 
 // Returns a 12 bit value representing the fence type
