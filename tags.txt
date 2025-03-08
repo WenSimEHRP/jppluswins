@@ -1,2 +1,3 @@
-VERSION     :GIT_VERSION
-TITLE       :WINS Stations
+VERSION             :GIT_VERSION
+TITLE               :WINS Stations
+JPP_TRACKS_VERSION  :0.4.0
