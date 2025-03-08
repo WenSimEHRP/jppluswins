@@ -15,7 +15,6 @@ rail:
       ground { sprite: GROUNDSPRITE_RAIL_Y; }
 
 # fence grass underlay
-#TODO: yard grass underlay
 underlay:
   left:
     x: >
@@ -99,7 +98,6 @@ underlay:
           getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code ||
           hasbit(LOAD_TEMP(t_underlay), pos_back);
       }
-# TODO yard right font & back
 
 # fence
 fence:
@@ -266,12 +264,13 @@ barrier:
           hasbit(LOAD_TEMP(t_barrier), pos_back);
       }
 
-#TODO
 yard:
   left:
     x: >
       childsprite {
-        sprite: CUSTOM(0, pos_yard_start + getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2));
+        sprite: CUSTOM(0, pos_yard_start +
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) * 6 +
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2));
         yoffset: LOAD_TEMP(t_yard) ? -4 : -4;
         xoffset: LOAD_TEMP(t_yard) ? -8 : -8;
         hide_sprite:
@@ -280,7 +279,9 @@ yard:
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, pos_yard_start + getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) + 3);
+        sprite: CUSTOM(0, pos_yard_start +
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) * 6 +
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) + 3);
         yoffset: LOAD_TEMP(t_yard) ? 4 : 4;
         xoffset: LOAD_TEMP(t_yard) ? 8 : 8;
         hide_sprite:

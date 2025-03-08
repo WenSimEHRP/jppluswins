@@ -24,12 +24,12 @@ template tmpl_barrier(path){
 
 //TODO yard sprites
 template tmpl_yard(path){
-    [ 0, 360, 64, 31, -39, -4, path] // 0: front split, back split
-    [ 280, 0, 64, 31, -27,  4, path] // 1: front merge, back split
-    [ 0, 80, 64,  71, -23, -1, path] // 2: front split, back merge
-    [ 70, 360, 64, 31, -23,-12, path]
-    []
-    []
+    [ 0 * 128 + 0 * 10, 0, 128, 64, -39, -4, path] // 0: front split, back split
+    [ 2 * 128 + 2 * 10, 0, 128, 64, -55,  4, path] // 1: front merge, back split
+    [ 1 * 128 + 1 * 10, 0, 128, 64, -23, -12, path] // 2: front split, back merge
+    [ 0 * 128 + 0 * 10, 74, 128, 64, -87, -12, path]
+    [ 2 * 128 + 2 * 10, 74, 128, 64, -71, -4, path]
+    [ 1 * 128 + 1 * 10, 74, 128, 64, -103,  -20, path]
 }
 
 spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
@@ -53,7 +53,21 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     // barrier
     tmpl_barrier("gfx/barrier.png")
     // yard
-    tmpl_yard("gfx/1435/track_1435_metro_jp_wood_snow.png")
+    tmpl_yard("gfx/yard/dualgauge_wood_underlay.png")
+    tmpl_yard("gfx/yard/dualgauge_slab_underlay.png")
+    tmpl_yard("gfx/yard/linear_conc_underlay.png")
+    tmpl_yard("gfx/yard/linear_slab_underlay.png")
+    tmpl_yard("gfx/yard/maglev_slab_underlay.png")
+    tmpl_yard("gfx/yard/metro_wood_underlay.png")
+    tmpl_yard("gfx/yard/metro_slab_underlay.png")
+    tmpl_yard("gfx/yard/narrow_wood_underlay.png")
+    tmpl_yard("gfx/yard/narrow_conc_underlay.png")
+    tmpl_yard("gfx/yard/narrow_slab_underlay.png")
+    tmpl_yard("gfx/yard/shin_conc_underlay.png")
+    tmpl_yard("gfx/yard/shin_slab_underlay.png")
+    tmpl_yard("gfx/yard/standard_wood_underlay.png")
+    tmpl_yard("gfx/yard/standard_conc_underlay.png")
+    tmpl_yard("gfx/yard/standard_slab_underlay.png")
 }
 
 // fence parameters, from JP+ Tracks
