@@ -1,7 +1,3 @@
-// spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP) {
-//
-// }
-
 template tmpl_fence (x, y, path) {
     [ x,      y,      32,      25,     -31,     -10, path]
     [ x+40,   y,      32,      25,       1,     -10, path]
