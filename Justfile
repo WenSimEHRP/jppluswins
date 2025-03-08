@@ -41,10 +41,10 @@ cp:
 
 # pack the grf into a tar file
 pack:
-    cp LICENSE.md LICENSE.txt
-    cp README.md README.txt
-    tar -cvf {{NAME}}-"$(git describe --tags --always --dirty || echo 0.0.0-0-0000000)".tar {{NAME}}.grf LICENSE.txt README.txt
-    rm LICENSE.txt README.txt
+    cp LICENSE.md license.txt
+    cp README.md readme.txt
+    tar -cvf {{NAME}}-"$(git describe --tags --always --dirty || echo 0.0.0-0-0000000)".tar {{NAME}}.grf license.txt readme.txt
+    rm license.txt readme.txt
 
 # clean up
 clean:

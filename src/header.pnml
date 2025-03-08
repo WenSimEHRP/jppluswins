@@ -1,5 +1,5 @@
 grf {
-    grfid: "WS\01\01";
+    grfid: "WS\24\05";
     name: string(STR_GRF_NAME);
     desc: string(STR_GRF_DESC);
     version: COMMIT;
