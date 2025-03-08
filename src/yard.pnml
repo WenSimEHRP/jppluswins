@@ -16,7 +16,7 @@ const i_shin_conc_underlay =      11;
 const i_standard_wood_underlay =  12;
 const i_standard_conc_underlay =  13;
 const i_standard_slab_underlay =  14;
-const pos_yard_end = pos_yard_start + (i_standard_slab_underlay + 1) * 5 * 2;
+const pos_yard_end = pos_yard_start + (i_standard_slab_underlay + 1) * 3 * 2;
 
 switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
     JEC2: none_code;
@@ -89,7 +89,6 @@ switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
 
 
 const pos_yard_connection_info_left = 0;
-const pos_yard_connection_info_right = 2;
 const pos_yard_connection_type = 4;
 const none_yard = 3;
 
@@ -131,48 +130,11 @@ switch(FEAT_STATIONS, SELF, _sw_yard_info_left,
 ){return;}
 
 
-// 0: front split, back split
-// 1: front merge, back split
-// 2: front split, back merge
-// 3: none
-switch(FEAT_STATIONS, SELF, _sw_yard_info_right,
-    !nearby_tile_is_station(0, 1) ? none_yard :
-    (
-        (
-            !(
-                (
-                    nearby_tile_is_station(-1,  0) && // replace with badge test
-                    nearby_tile_is_station(-1,  1) && // replace with badge test
-                    hasbit(rail_continuation, 1)
-                ) ||
-                (
-                    !hasbit(rail_continuation, 1)
-                )
-            )
-            << pos_front
-        ) |
-        (
-            !(
-                (
-                    nearby_tile_is_station( 1,  0) && // replace with badge test
-                    nearby_tile_is_station( 1,  1) && // replace with badge test
-                    hasbit(rail_continuation, 0)
-                ) ||
-                (
-                    !hasbit(rail_continuation, 0)
-                )
-            )
-            << pos_back
-        )
-    )
-){return;}
-
 // Returns a 12 bit shunting yard track info
 // aaaaaaaa bbbb
 // a: rail type
 // b: connection info
 switch(FEAT_STATIONS, SELF, sw_yard,
     _sw_yard_info_left() << 0 |
-    _sw_yard_info_right() << 2 |
     _sw_yard_type() << 4
 ){return;}
