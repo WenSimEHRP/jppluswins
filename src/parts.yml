@@ -208,8 +208,17 @@ barrier:
           getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_front);
       }
-    #TODO
-    y: ""
+    y: >
+      building {
+        sprite: CUSTOM(0, pos_barrier_start + 0);
+        xextent: 4;
+        yextent: 6;
+        zextent: 6;
+        xoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
+        hide_sprite:
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
+          hasbit(LOAD_TEMP(t_barrier), pos_front);
+      }
   yard_left_back:
     x: >
       building {
@@ -223,8 +232,18 @@ barrier:
           getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_back);
       }
-    #TODO
-    y: ""
+    y: >
+      building {
+        sprite: CUSTOM(0, pos_barrier_start + 2);
+        xextent: 4;
+        yextent: 6;
+        yoffset: 10;
+        zextent: 6;
+        xoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
+        hide_sprite:
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
+          hasbit(LOAD_TEMP(t_barrier), pos_back);
+      }
 
 #TODO
 yard:
@@ -238,4 +257,12 @@ yard:
           getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
           getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) == none_code;
       }
-    y: ""
+    y: >
+      childsprite {
+        sprite: CUSTOM(0, pos_yard_start + getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) + 3);
+        yoffset: LOAD_TEMP(t_yard) ? 4 : 4;
+        xoffset: LOAD_TEMP(t_yard) ? 8 : 8;
+        hide_sprite:
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) == none_code;
+      }

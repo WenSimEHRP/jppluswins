@@ -141,7 +141,7 @@ switch(FEAT_STATIONS, SELF, _sw_yard_info_left,
 // 1: front merge, back split
 // 2: front split, back merge
 // 3: none
-switch(FEAT_STATIONS, SELF, _sw_yard_info_left,
+switch(FEAT_STATIONS, SELF, _sw_yard_info_right,
     !nearby_tile_is_station(0, 1) ? none_yard :
     (
         (

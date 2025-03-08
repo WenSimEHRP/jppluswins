@@ -27,9 +27,9 @@ template tmpl_yard(path){
     [ 0, 360, 64, 31, -39, -4, path] // 0: front split, back split
     [ 280, 0, 64, 31, -27,  4, path] // 1: front merge, back split
     [ 0, 80, 64,  71, -23, -1, path] // 2: front split, back merge
+    [ 70, 360, 64, 31, -23,-12, path]
     []
     []
-    [ 70, 360, 64, 31, -31, 0, path]
 }
 
 spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
@@ -277,6 +277,19 @@ switch(FEAT_STATIONS, SELF, _sw_no_underlay, a, a){
     0;
 }
 
+switch(FEAT_STATIONS, SELF, _sw_is_deco_railtype, track_type){
+    JEC0: 1;
+    JEC1: 1;
+    JEC2: 1;
+    JEC3: 1;
+    JEC4: 1;
+    JEC5: 1;
+    JEC6: 1;
+    JEC7: 1;
+    JEC8: 1;
+    0;
+}
+
 // Returns a 12 bit value representing the fence type and underlay type
 // aaaaaaaa bbbb
 // a: fence type
@@ -309,6 +322,7 @@ switch(FEAT_STATIONS, SELF, sw_fence,
 // aaaa
 // a: nearby rail/station information
 switch(FEAT_STATIONS, SELF, sw_barrier,
+    _sw_is_deco_railtype() ? 3 :
     hasbit(rail_continuation, 1) << pos_front |
     hasbit(rail_continuation, 0) << pos_back
 ){return;}
