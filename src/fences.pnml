@@ -22,7 +22,6 @@ template tmpl_barrier(path){
     [3*16, 0, 16, 16,-11, -4, path]
 }
 
-//TODO yard sprites
 template tmpl_yard(path){
     [ 0 * 128 + 0 * 10, 0, 128, 64, -39, -4, path] // 0: front split, back split
     [ 2 * 128 + 2 * 10, 0, 128, 64, -55,  4, path] // 1: front merge, back split
@@ -32,6 +31,7 @@ template tmpl_yard(path){
     [ 1 * 128 + 1 * 10, 74, 128, 64, -103,  -20, path]
 }
 
+// TODO: check the symlinks in the gfx folder
 spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     // fences
     tmpl_fence_v2(0, 80, "gfx/fences/fences_2_no_grass.png")
@@ -43,13 +43,13 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     tmpl_fence(0, 100, "gfx/fences/fences_symmetric.png")
     // underlay
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png")
-    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png")
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png")
-    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png") //TODO
-    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png") //TODO
-    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png") //TODO
-    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png") //TODO
-    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png") //TODO
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png")
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png")
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png")
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png")
+    tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png")
     // barrier
     tmpl_barrier("gfx/barrier.png")
     // yard

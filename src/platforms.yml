@@ -32,7 +32,6 @@ bare_underlay:
     - barrier.front
     - barrier.back
 
-#TODO
 yard_left:
   layout:
     - rail.ground
