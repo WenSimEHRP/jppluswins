@@ -269,7 +269,7 @@ switch(FEAT_STATIONS, SELF, _sw_no_underlay, a, a){
 // aaaaaaaa bbbb
 // a: fence type
 // b: nearby rail/station information
-// returns none_code + extra bits if there are no underlay to show
+// returns (none_code << pos_end) | (extra bits) if there are no underlay to show
 // that is, 0b11111111 XXXX where XXXX doesn't matter
 switch(FEAT_STATIONS, SELF, sw_fence_underlay,
     (hasbit(rail_continuation, 1) || _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
@@ -283,7 +283,8 @@ switch(FEAT_STATIONS, SELF, sw_fence_underlay,
 // aaaaaaaa bbbb
 // a: fence type
 // b: nearby rail/station information
-// returns none_code (0xFF) if there are no fence to show
+// returns (none_code << pos_end) | (extra bits) if there are no underlay to show
+// that is, 0b11111111 XXXX where XXXX doesn't matter
 switch(FEAT_STATIONS, SELF, sw_fence,
     (hasbit(rail_continuation, 1) || _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
     (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
