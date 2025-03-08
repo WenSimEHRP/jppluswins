@@ -31,3 +31,21 @@ bare_underlay:
     - underlay.back
     - barrier.front
     - barrier.back
+
+#TODO
+yard:
+  layout:
+    - rail.ground
+    - underlay.front
+    - underlay.back
+    - underlay.left
+    - underlay.right
+    - barrier.front
+    - barrier.back
+    - barrier.yard_front
+    - barrier.yard_back
+    - yard.left
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back

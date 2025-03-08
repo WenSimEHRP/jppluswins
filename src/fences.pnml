@@ -22,6 +22,18 @@ template tmpl_barrier(path){
     [3*16, 0, 16, 16,-11, -4, path]
 }
 
+//TODO yard sprites
+template tmpl_yard(path){
+    [ 210, 0, 64, 31, -39, -4, path] //TODO
+    [ 0, 80, 64, 71,  -23, -1, path] //TODO
+    [ 280, 0, 64, 31, -27, 4, path] //TODO
+    [ 0, 360, 64, 31, -39, -4, path]
+    []
+    []
+    []
+    [ 70, 360, 64, 31, -31, 0, path]
+}
+
 spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     // fences
     tmpl_fence_v2(0, 80, "gfx/fences/fences_2_no_grass.png")
@@ -42,6 +54,8 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png") //TODO
     // barrier
     tmpl_barrier("gfx/barrier.png")
+    // yard
+    tmpl_yard("gfx/1435/track_1435_metro_jp_wood_snow.png")
 }
 
 // fence parameters, from JP+ Tracks

@@ -1,0 +1,146 @@
+// spritesets...
+
+const pos_yard_start = pos_barrier_end;
+const i_dualgauge_wood_underlay = 0;
+const i_dualgauge_slab_underlay = 1;
+const i_linear_conc_underlay =    2;
+const i_linear_slab_underlay =    3;
+const i_maglev_slab_underlay =    4;
+const i_metro_wood_underlay =     5;
+const i_metro_slab_underlay =     6;
+const i_narrow_wood_underlay =    7;
+const i_narrow_conc_underlay =    8;
+const i_narrow_slab_underlay =    9;
+const i_narrow_pure_underlay =    10;
+const i_shin_wood_underlay =      11;
+const i_shin_conc_underlay =      12;
+const i_standard_wood_underlay =  13;
+const i_standard_conc_underlay =  14;
+const i_standard_slab_underlay =  15;
+const i_standard_pure_underlay =  16;
+const pos_yard_end = pos_yard_start + (i_standard_pure_underlay + 1) * 6;
+
+switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
+    JEC2: none_code;
+    JEC3: none_code;
+    JEC4: none_code;
+    JEC6: none_code;
+    JEC5: none_code;
+    JEC7: none_code;
+    JEC1: none_code;
+    JEC0: none_code;
+    JEC8: none_code;
+    dAAE: i_dualgauge_wood_underlay;
+    dAAN: i_dualgauge_wood_underlay;
+    dBAE: i_dualgauge_slab_underlay;
+    SAAI: i_linear_conc_underlay;
+    SBAI: i_linear_slab_underlay;
+    MGLV: i_maglev_slab_underlay;
+    SAA3: i_metro_wood_underlay;
+    SBA3: i_metro_slab_underlay;
+    NAAN: i_narrow_wood_underlay;
+    NAAE: i_narrow_wood_underlay;
+    NAAE: i_narrow_wood_underlay;
+    NAAD: i_narrow_wood_underlay;
+    NBAN: i_narrow_wood_underlay;
+    NAAA: i_narrow_wood_underlay;
+    NBAE: i_narrow_conc_underlay;
+    NBAE: i_narrow_conc_underlay;
+    NCAN: i_narrow_conc_underlay;
+    NBAA: i_narrow_conc_underlay;
+    NBAD: i_narrow_conc_underlay;
+    NCAE: i_narrow_slab_underlay;
+    NDAN: i_narrow_slab_underlay;
+    NCAD: i_narrow_slab_underlay;
+    NCAA: i_narrow_slab_underlay;
+    NFAN: i_narrow_pure_underlay;
+    NFAE: i_narrow_pure_underlay;
+    NEAN: i_narrow_pure_underlay;
+    NEAE: i_narrow_pure_underlay;
+    NGAN: i_narrow_pure_underlay;
+    NGAE: i_narrow_pure_underlay;
+    NHAN: i_narrow_pure_underlay;
+    NHAE: i_narrow_pure_underlay;
+    SGAA: i_shin_wood_underlay;
+    SHAA: i_shin_conc_underlay;
+    RAIL: i_standard_wood_underlay;
+    ELRL: i_standard_wood_underlay;
+    sAAD: i_standard_wood_underlay;
+    ELRL: i_standard_wood_underlay;
+    SAAA: i_standard_wood_underlay;
+    SAAN: i_standard_wood_underlay;
+    SAAD: i_standard_wood_underlay;
+    SBAE: i_standard_conc_underlay;
+    sBAD: i_standard_conc_underlay;
+    SBAD: i_standard_conc_underlay;
+    SBAE: i_standard_conc_underlay;
+    SBAN: i_standard_conc_underlay;
+    SBAA: i_standard_conc_underlay;
+    _AAE: i_standard_slab_underlay;
+    sCAD: i_standard_slab_underlay;
+    SCAD: i_standard_slab_underlay;
+    SCAE: i_standard_slab_underlay;
+    SCAN: i_standard_slab_underlay;
+    SCAA: i_standard_slab_underlay;
+    SEAN: i_standard_pure_underlay;
+    SEAE: i_standard_pure_underlay;
+    SDAN: i_standard_pure_underlay;
+    SDAE: i_standard_pure_underlay;
+    SFAN: i_standard_pure_underlay;
+    SFAE: i_standard_pure_underlay;
+    SGAN: i_standard_pure_underlay;
+    SGAE: i_standard_pure_underlay;
+    i_narrow_wood_underlay;
+}
+
+
+const pos_yard_connection_info = 0;
+const pos_yard_connection_type = 4;
+const none_yard = 0xF;
+
+// 0: front merge, back merge
+// 1: front split, back merge
+// 2: front merge, back split
+// 3: front split, back split
+// 0xF: no connection
+switch(FEAT_STATIONS, SELF, _sw_yard_info,
+    !nearby_tile_is_station(0, -1) ? none_yard :
+    (
+        (
+            (
+                (
+                    nearby_tile_is_station(-1,  0) &&
+                    nearby_tile_is_station(-1, -1) &&
+                    hasbit(rail_continuation, 1)
+                ) ||
+                (
+                    !hasbit(rail_continuation, 1)
+                )
+            )
+            << pos_front
+        ) |
+        (
+            (
+                (
+                    nearby_tile_is_station( 1,  0) &&
+                    nearby_tile_is_station( 1, -1) &&
+                    hasbit(rail_continuation, 0)
+                ) ||
+                (
+                    !hasbit(rail_continuation, 0)
+                )
+            )
+            << pos_back
+        )
+    )
+){return;}
+
+// Returns a 12 bit shunting yard track info
+// aaaaaaaa bbbb
+// a: rail type
+// b: connection info
+switch(FEAT_STATIONS, SELF, sw_yard,
+    _sw_yard_info() << 0 |
+    // _sw_yard_type() << 4
+    0 << 4
+){return;}
