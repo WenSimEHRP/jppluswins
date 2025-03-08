@@ -36,15 +36,15 @@ bare_underlay:
 yard:
   layout:
     - rail.ground
-    - underlay.front
-    - underlay.back
+    - yard.left
+    - underlay.yard_front
+    - underlay.yard_back
     - underlay.left
     - underlay.right
     - barrier.front
     - barrier.back
     - barrier.yard_front
     - barrier.yard_back
-    - yard.left
     - fence.left
     - fence.right
     - fence.front

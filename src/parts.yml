@@ -61,6 +61,22 @@ underlay:
         sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 2);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
       }
+  yard_front:
+    x: >
+      childsprite {
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 1);
+        xoffset: LOAD_TEMP(t_underlay) ? -6 : -6;
+        yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
+        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_front);
+      }
+    y: ""
+  yard_back:
+    x: >
+      childsprite {
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 3);
+        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
+      }
+    y: ""
 
 # fence
 fence:
@@ -212,12 +228,10 @@ barrier:
 yard:
   left:
     x: >
-      building {
+      childsprite {
         sprite: CUSTOM(0, pos_yard_start + getbits(LOAD_TEMP(t_yard), pos_yard_connection_info, 4));
-        xextent: 16;
-        yextent: 14;
         yoffset: LOAD_TEMP(t_yard) ? -4 : -4;
-        zextent: 0;
+        xoffset: LOAD_TEMP(t_yard) ? -8 : -8;
         hide_sprite:
           getbits(LOAD_TEMP(t_yard), pos_yard_connection_info, 4) == none_yard ||
           getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) == none_code;

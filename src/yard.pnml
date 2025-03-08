@@ -98,6 +98,7 @@ const pos_yard_connection_info = 0;
 const pos_yard_connection_type = 4;
 const none_yard = 0xF;
 
+//TODO: change to test badges instead of station presence
 // 0: front merge, back merge
 // 1: front split, back merge
 // 2: front merge, back split
