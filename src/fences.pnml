@@ -297,8 +297,8 @@ switch(FEAT_STATIONS, SELF, sw_fence_underlay,
 // b: nearby rail/station information
 // returns none_code (0xFF) if there are no fence to show
 switch(FEAT_STATIONS, SELF, sw_fence,
-    _sw_fence_underlay_check_tile_class(nearby_tile_class(1,  0)) << pos_back |
-    _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0)) << pos_front |
+    (hasbit(rail_continuation, 1) || _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
+    (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
     _sw_fence() << pos_end
