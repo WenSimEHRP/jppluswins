@@ -52,4 +52,5 @@ clean:
     rm *.nml
     rm generated/*.nml
     rm *.nfo
+    rm *.tar
     rm -rf ./.nmlcache
