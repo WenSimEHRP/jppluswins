@@ -8,5 +8,7 @@ This set features a set of Japanese style platforms. Some of them are not based 
 
 ## Features
 
-- JP+ Tracks compatibility
+- [JP+ Tracks](https://github.com/OpenTTD-JPplus/JPplusTracks) compatibility
   - Fences
+  - Grass underlay
+  - Railyard
