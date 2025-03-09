@@ -1,0 +1,65 @@
+switch(FEAT_STATIONS, SELF, _sw_catenary, track_type){
+    _AAE: 1;
+    NCAE: 1;
+    SGAE: 1;
+    NBAE: 1;
+    SFAE: 1;
+    NBAE: 1;
+    NAAE: 1;
+    NAAE: 1;
+    SDAE: 1;
+    NCAA: 1;
+    SEAE: 1;
+    NBAA: 1;
+    NCAD: 1;
+    NAAA: 1;
+    NBAD: 1;
+    NAAD: 1;
+    SBAI: 1;
+    sCAD: 1;
+    SAAI: 1;
+    SCAD: 1;
+    sBAD: 1;
+    SCAE: 1;
+    sAAD: 1;
+    SBAE: 1;
+    SBAD: 1;
+    dAAE: 1;
+    NHAE: 1;
+    ELRL: 1;
+    rAA3: 1;
+    SAAD: 1;
+    dAAN: 1;
+    SBAE: 1;
+    NGAE: 1;
+    dBAE: 1;
+    ELRL: 1;
+    NFAE: 1;
+    NEAE: 1;
+    SAAA: 1;
+    SCAA: 1;
+    SBAA: 1;
+    SHAA: 1;
+    SGAA: 1;
+    0;
+}
+
+switch(FEAT_STATIONS, SELF, _sw_pylon_placement,
+    platform_number_from_start(PLATFORM_SAME_SECTION) == 0 ? 0 :
+    platform_number_from_end(PLATFORM_SAME_SECTION) == 0 ? 1 :
+    2
+){return;}
+
+switch(FEAT_STATIONS, SELF, _sw_pylon_type, track_type){
+    0;
+}
+
+
+const pos_pylon_placement = 0;
+const pos_pylon_type = 4;
+// returns a 12 bit value for pylon placement
+// aaaaaaaa bbbb
+switch(FEAT_STATIONS, SELF, sw_pylon,
+    _sw_pylon_placement() << pos_pylon_placement |
+    _sw_pylon_type() << pos_pylon_type
+){return;}

@@ -1,6 +1,8 @@
 #include "src/defines.pnml"
 #include "src/header.pnml"
+#include "src/spritesets.pnml"
 #include "src/fences.pnml"
 #include "src/yard.pnml"
+#include "src/catenary.pnml"
 
 #include "generated/platforms.nml"
