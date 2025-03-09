@@ -68,6 +68,10 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     tmpl_yard("gfx/yard/standard_wood_underlay.png")
     tmpl_yard("gfx/yard/standard_conc_underlay.png")
     tmpl_yard("gfx/yard/standard_slab_underlay.png")
+    tmpl_yard("gfx/yard/standard_ind_underlay.png")
+    tmpl_yard("gfx/yard/standard_snow_underlay.png")
+    tmpl_yard("gfx/yard/narrow_ind_underlay.png")
+    tmpl_yard("gfx/yard/narrow_snow_underlay.png")
 }
 
 // fence parameters, from JP+ Tracks
