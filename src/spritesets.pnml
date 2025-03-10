@@ -62,7 +62,9 @@ const id_catenary_size = 3 * 2;
 const pos_catenary_start = pos_pylon_end;
 const id_catenary_black = 0;
 const id_catenary_ottd = 1;
-const pos_catenary_end = pos_catenary_start + (id_catenary_ottd + 1) * id_catenary_size;
+const id_catenary_black_old = 3;
+const id_catenary_ottd_old = 4;
+const pos_catenary_end = pos_catenary_start + (id_catenary_ottd_old + 1) * id_catenary_size;
 
 template tmpl_fence (x, y, path) {
     [ x,      y,      32,      25,     -31,     -10, path]

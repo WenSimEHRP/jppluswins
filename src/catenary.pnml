@@ -41,14 +41,25 @@ switch(FEAT_STATIONS, SELF, _sw_catenary, track_type){
     SBAA: 1;
     SHAA: 1;
     SGAA: 1;
-    0;
+    none_code;
+}
+
+switch(FEAT_STATIONS, SELF, _sw_catenary_black, param["YZ\AA\02", 36] == 0 || current_year > 1909){
+    1: id_catenary_black;
+    id_catenary_black_old;
+}
+
+switch(FEAT_STATIONS, SELF, _sw_catenary_ottd, param["YZ\AA\02", 36] == 0 || current_year > 1909){
+    1: id_catenary_ottd;
+    id_catenary_ottd_old;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_catenary_type,
-    _sw_catenary() ? none_code : param["YZ\AA\02", 5]
+    _sw_catenary() ? none_code :
+    param["YZ\AA\02", 5]
 ){
-    0: id_catenary_black;
-    1: id_catenary_ottd;
+    0: _sw_catenary_black();
+    1: _sw_catenary_ottd();
     none_code;
 }
 
