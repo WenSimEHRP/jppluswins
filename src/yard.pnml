@@ -1,12 +1,12 @@
 // TODO catenary
 switch(FEAT_STATIONS, SELF, _sw_narrow_underlay, terrain_type){
-    TILETYPE_SNOW: i_narrow_snow_underlay;
-    i_narrow_wood_underlay;
+    TILETYPE_SNOW: id_narrow_snow_underlay;
+    id_narrow_wood_underlay;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_standard_underlay, terrain_type){
-    TILETYPE_SNOW: i_standard_snow_underlay;
-    i_standard_wood_underlay;
+    TILETYPE_SNOW: id_standard_snow_underlay;
+    id_standard_wood_underlay;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
@@ -19,63 +19,63 @@ switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
     JEC1: none_code;
     JEC0: none_code;
     JEC8: none_code;
-    dAAE: i_dualgauge_wood_underlay;
-    dAAN: i_dualgauge_wood_underlay;
-    dBAE: i_dualgauge_slab_underlay;
-    SAAI: i_linear_conc_underlay;
-    SBAI: i_linear_slab_underlay;
-    MGLV: i_maglev_slab_underlay;
-    SAA3: i_metro_wood_underlay;
-    SBA3: i_metro_slab_underlay;
+    dAAE: id_dualgauge_wood_underlay;
+    dAAN: id_dualgauge_wood_underlay;
+    dBAE: id_dualgauge_slab_underlay;
+    SAAI: id_linear_conc_underlay;
+    SBAI: id_linear_slab_underlay;
+    MGLV: id_maglev_slab_underlay;
+    SAA3: id_metro_wood_underlay;
+    SBA3: id_metro_slab_underlay;
     NAAN: _sw_narrow_underlay();
     NAAE: _sw_narrow_underlay();
     NAAD: _sw_narrow_underlay();
     NBAN: _sw_narrow_underlay();
     NAAA: _sw_narrow_underlay();
-    NBAE: i_narrow_conc_underlay;
-    NCAN: i_narrow_conc_underlay;
-    NBAA: i_narrow_conc_underlay;
-    NBAD: i_narrow_conc_underlay;
-    NCAE: i_narrow_slab_underlay;
-    NDAN: i_narrow_slab_underlay;
-    NCAD: i_narrow_slab_underlay;
-    NCAA: i_narrow_slab_underlay;
-    SGAA: i_shin_conc_underlay;
-    SHAA: i_shin_slab_underlay;
+    NBAE: id_narrow_conc_underlay;
+    NCAN: id_narrow_conc_underlay;
+    NBAA: id_narrow_conc_underlay;
+    NBAD: id_narrow_conc_underlay;
+    NCAE: id_narrow_slab_underlay;
+    NDAN: id_narrow_slab_underlay;
+    NCAD: id_narrow_slab_underlay;
+    NCAA: id_narrow_slab_underlay;
+    SGAA: id_shin_conc_underlay;
+    SHAA: id_shin_slab_underlay;
     RAIL: _sw_standard_underlay();
     ELRL: _sw_standard_underlay();
     sAAD: _sw_standard_underlay();
     SAAA: _sw_standard_underlay();
     SAAN: _sw_standard_underlay();
     SAAD: _sw_standard_underlay();
-    SBAE: i_standard_conc_underlay;
-    sBAD: i_standard_conc_underlay;
-    SBAD: i_standard_conc_underlay;
-    SBAN: i_standard_conc_underlay;
-    SBAA: i_standard_conc_underlay;
-    _AAE: i_standard_slab_underlay;
-    sCAD: i_standard_slab_underlay;
-    SCAD: i_standard_slab_underlay;
-    SCAE: i_standard_slab_underlay;
-    SCAN: i_standard_slab_underlay;
-    SCAA: i_standard_slab_underlay;
-    SGAN: i_standard_ind_underlay;
-    SGAE: i_standard_ind_underlay;
-    SFAN: i_standard_ind_underlay;
-    SFAE: i_standard_ind_underlay;
-    SDAN: i_standard_ind_underlay;
-    SDAE: i_standard_ind_underlay;
-    SEAN: i_standard_ind_underlay;
-    SEAE: i_standard_ind_underlay;
-    NHAN: i_narrow_ind_underlay;
-    NHAE: i_narrow_ind_underlay;
-    NGAN: i_narrow_ind_underlay;
-    NGAE: i_narrow_ind_underlay;
-    NEAE: i_narrow_ind_underlay;
-    NEAN: i_narrow_ind_underlay;
-    NFAN: i_narrow_ind_underlay;
-    NFAE: i_narrow_ind_underlay;
-    i_narrow_wood_underlay;
+    SBAE: id_standard_conc_underlay;
+    sBAD: id_standard_conc_underlay;
+    SBAD: id_standard_conc_underlay;
+    SBAN: id_standard_conc_underlay;
+    SBAA: id_standard_conc_underlay;
+    _AAE: id_standard_slab_underlay;
+    sCAD: id_standard_slab_underlay;
+    SCAD: id_standard_slab_underlay;
+    SCAE: id_standard_slab_underlay;
+    SCAN: id_standard_slab_underlay;
+    SCAA: id_standard_slab_underlay;
+    SGAN: id_standard_ind_underlay;
+    SGAE: id_standard_ind_underlay;
+    SFAN: id_standard_ind_underlay;
+    SFAE: id_standard_ind_underlay;
+    SDAN: id_standard_ind_underlay;
+    SDAE: id_standard_ind_underlay;
+    SEAN: id_standard_ind_underlay;
+    SEAE: id_standard_ind_underlay;
+    NHAN: id_narrow_ind_underlay;
+    NHAE: id_narrow_ind_underlay;
+    NGAN: id_narrow_ind_underlay;
+    NGAE: id_narrow_ind_underlay;
+    NEAE: id_narrow_ind_underlay;
+    NEAN: id_narrow_ind_underlay;
+    NFAN: id_narrow_ind_underlay;
+    NFAE: id_narrow_ind_underlay;
+    id_narrow_wood_underlay;
 }
 
 

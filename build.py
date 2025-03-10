@@ -35,7 +35,7 @@ with open("generated/platforms.nml", "w+") as fw:
                 for t in temps:
                     print(f"STORE_TEMP({tem['temps'][t]}, {t}),", file=fw)
                 print("]){return;}", file=fw)
-                print(f"item(FEAT_STATIONS, i_{key}){{", file=fw)
+                print(f"item(FEAT_STATIONS, id_{key}){{", file=fw)
                 print(
                     """
     property {
