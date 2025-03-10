@@ -19,59 +19,59 @@ underlay:
   left:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 0);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 0);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_left);
         always_draw: 1;
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 1);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 1);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_left);
         always_draw: 1;
       }
   right:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 2);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 2);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_right);
         always_draw: 1;
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 3);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 3);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_right);
         always_draw: 1;
       }
   front:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 1);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 1);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_front);
         always_draw: 1;
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 0);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 0);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_front);
         always_draw: 1;
       }
   back:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 3);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 3);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
         always_draw: 1;
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 2);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 2);
         hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
         always_draw: 1;
       }
   yard_left_front:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 1);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 1);
         xoffset: LOAD_TEMP(t_underlay) ? -6 : -6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
@@ -82,7 +82,7 @@ underlay:
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 0);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 0);
         xoffset: LOAD_TEMP(t_underlay) ?  6 :  6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
@@ -93,7 +93,7 @@ underlay:
   yard_left_back:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 3);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 3);
         xoffset: LOAD_TEMP(t_underlay) ? -6 : -6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
@@ -103,7 +103,7 @@ underlay:
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * 4 + pos_underlay_start + 2);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 2);
         xoffset: LOAD_TEMP(t_underlay) ?  6 :  6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
@@ -117,7 +117,7 @@ fence:
   left:
     x: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * 2);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size);
         xextent: 16;
         yextent: 0;
         zextent: 4;
@@ -125,7 +125,7 @@ fence:
       }
     y: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * 2 + 1);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size + 1);
         xextent: 0;
         yextent: 16;
         zextent: 4;
@@ -134,7 +134,7 @@ fence:
   right:
     x: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * 2);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size);
         xextent: 16;
         yoffset: 16;
         yextent: 0;
@@ -143,7 +143,7 @@ fence:
       }
     y: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * 2 + 1);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size + 1);
         xextent: 0;
         xoffset: 16;
         yextent: 16;
@@ -153,7 +153,7 @@ fence:
   front:
     x: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * 2 + 1);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size + 1);
         xextent: 0;
         yextent: 16;
         zextent: 4;
@@ -161,7 +161,7 @@ fence:
       }
     y: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * 2);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size);
         xextent: 16;
         yextent: 0;
         zextent: 4;
@@ -170,7 +170,7 @@ fence:
   back:
     x: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * 2 + 1);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size + 1);
         xextent: 0;
         xoffset: 16;
         yextent: 16;
@@ -179,7 +179,7 @@ fence:
       }
     y: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * 2);
+        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size);
         xextent: 16;
         yoffset: 16;
         yextent: 0;
@@ -282,7 +282,7 @@ yard:
     x: >
       childsprite {
         sprite: CUSTOM(0, pos_yard_start +
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) * 6 +
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) * id_yard_size +
           getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2));
         yoffset: LOAD_TEMP(t_yard) ? -4 : -4;
         xoffset: LOAD_TEMP(t_yard) ? -8 : -8;
@@ -294,8 +294,8 @@ yard:
     y: >
       childsprite {
         sprite: CUSTOM(0, pos_yard_start +
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) * 6 +
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) + 3);
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) * id_yard_size +
+          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) + (id_yard_size / 2));
         yoffset: LOAD_TEMP(t_yard) ? 4 : 4;
         xoffset: LOAD_TEMP(t_yard) ? 8 : 8;
         always_draw: 1;
