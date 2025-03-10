@@ -50,3 +50,6 @@ pack:
 clean:
     rm -f *.{grf,nml,nfo,tar} custom_tags.txt generated/*.nml
     rm -rf ./.nmlcache
+
+verify:
+    md5sum {{NAME}}.grf | tee md5sum.txt -a
