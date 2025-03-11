@@ -58,25 +58,56 @@ switch(FEAT_STATIONS, SELF, _sw_catenary_type,
     none_code;
 }
 
-switch(FEAT_STATIONS, SELF, _sw_catenary_info,
-    hasbit(sw_yard(), pos_front) ? 0 :
-    hasbit(sw_yard(), pos_back) ? 1 :
+switch(FEAT_STATIONS, SELF, _sw_catenary_info_side,
+    hasbit(sw_yard(), pos_front) ? 3 :
+    hasbit(sw_yard(), pos_back) ? 4 :
     platform_position_from_start(PLATFORM_SAME_SECTION) == platform_position_from_end(PLATFORM_SAME_SECTION) ? 2 :
-    platform_position_from_start(PLATFORM_SAME_SECTION) % 2 + 3
+    platform_position_from_start(PLATFORM_SAME_SECTION) % 2
 ){return;}
 
-switch(FEAT_STATIONS, SELF, _sw_pylon_info,
+switch(FEAT_STATIONS, SELF, _sw_catenary_info_normal,
+    platform_position_from_start(PLATFORM_SAME_SECTION) == platform_position_from_end(PLATFORM_SAME_SECTION) ? 2 :
+    platform_position_from_start(PLATFORM_SAME_SECTION) % 2
+){return;}
+
+const none_pylon = 3;
+
+switch(FEAT_STATIONS, SELF, _sw_pylon_info_even,
+    platform_position_from_start(PLATFORM_SAME_SECTION) % 2 == 1 ? none_pylon :
     ((platform_number_from_start(PLATFORM_SAME_SECTION) == 0) << 0) |
     ((platform_number_from_end(PLATFORM_SAME_SECTION) == 0) << 1)
 ){return;}
 
-const pos_pylon_info = 0;
-const pos_catenary_info = 3;
-const pos_catenary_type = 6;
+switch(FEAT_STATIONS, SELF, _sw_pylon_info_odd,
+    (
+        (platform_position_from_start(PLATFORM_SAME_SECTION) % 2 == 0) ?
+            (
+                platform_position_from_start(PLATFORM_SAME_SECTION) == platform_position_from_end(PLATFORM_SAME_SECTION) ?
+                (
+                    ((platform_number_from_start(PLATFORM_SAME_SECTION) == 0) << 0) |
+                    ((platform_number_from_end(PLATFORM_SAME_SECTION) == 0) << 1)
+                ) : (
+                    none_pylon
+                )
+            ) : (
+                ((platform_number_from_start(PLATFORM_SAME_SECTION) == 0) << 0) |
+                ((platform_number_from_end(PLATFORM_SAME_SECTION) == 0) << 1)
+            )
+    )
+){return;}
+
+
+const pos_pylon_info_even = 0;
+const pos_pylon_info_odd = 2;
+const pos_catenary_info_normal = 4;
+const pos_catenary_info_side = 6;
+const pos_catenary_type = 9;
 // returns a 14 bit value for pylon placement
-// aaaaaaaa bbb ccc
+// aaaaaaaa bb cc dd ee
 switch(FEAT_STATIONS, SELF, sw_catenary,
-    _sw_pylon_info() << pos_pylon_info |
-    _sw_catenary_info() << pos_catenary_info |
+    _sw_pylon_info_even() << pos_pylon_info_even |
+    _sw_pylon_info_odd() << pos_pylon_info_odd |
+    _sw_catenary_info_normal() << pos_catenary_info_normal |
+    _sw_catenary_info_side() << pos_catenary_info_side |
     _sw_catenary_type() << pos_catenary_type
 ){return;}

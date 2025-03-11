@@ -310,7 +310,19 @@ catenary:
     x: >
       building {
         sprite: CUSTOM(0, pos_catenary_start +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info, 3) +
+                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info_normal, 2) +
+                        getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 8) * id_catenary_size);
+        xextent: 15;
+        xoffset: 1;
+        yoffset: 8;
+        yextent: 1;
+        zextent: 1;
+        zoffset: 12;
+        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 8) == none_code;
+      }
+      building {
+        sprite: CUSTOM(0, pos_catenary_start +
+                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info_side, 3) +
                         getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 8) * id_catenary_size);
         xextent: 15;
         xoffset: 1;
@@ -320,16 +332,58 @@ catenary:
         zoffset: 12;
         hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 8) == none_code || getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard;
       }
+      building {
+        sprite: CUSTOM(0, pos_pylon_start + getbits(LOAD_TEMP(t_catenary), pos_pylon_info_even, 2));
+        xextent: 1;
+        yextent: 16;
+        zextent: 16;
+        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_pylon_info_even, 2) == none_pylon;
+      }
+      building {
+        sprite: CUSTOM(0, pos_pylon_start + getbits(LOAD_TEMP(t_catenary), pos_pylon_info_odd, 2));
+        xextent: 1;
+        xoffset: 16;
+        yextent: 16;
+        zextent: 16;
+        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_pylon_info_odd, 2) == none_pylon;
+      }
     y: >
       building {
-        sprite: CUSTOM(0, pos_catenary_start +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info, 3) + id_catenary_size / 2 +
+        sprite: CUSTOM(0, pos_catenary_start + (id_catenary_size / 2) +
+                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info_normal, 2) +
                         getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 8) * id_catenary_size);
-        xextent: 1;
-        xoffset: 0;
         yextent: 15;
         yoffset: 1;
+        xoffset: 8;
+        xextent: 1;
+        zextent: 1;
+        zoffset: 12;
+        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 8) == none_code;
+      }
+      building {
+        sprite: CUSTOM(0, pos_catenary_start + (id_catenary_size / 2) +
+                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info_side, 3) +
+                        getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 8) * id_catenary_size);
+        yextent: 15;
+        yoffset: 1;
+        xoffset: 0;
+        xextent: 1;
         zextent: 1;
         zoffset: 12;
         hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 8) == none_code || getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard;
+      }
+      building {
+        sprite: CUSTOM(0, pos_pylon_start + getbits(LOAD_TEMP(t_catenary), pos_pylon_info_even, 2) + 4);
+        yextent: 1;
+        xextent: 16;
+        zextent: 16;
+        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_pylon_info_even, 2) == none_pylon;
+      }
+      building {
+        sprite: CUSTOM(0, pos_pylon_start + getbits(LOAD_TEMP(t_catenary), pos_pylon_info_odd, 2) + 4);
+        yextent: 1;
+        yoffset: 16;
+        xextent: 16;
+        zextent: 16;
+        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_pylon_info_odd, 2) == none_pylon;
       }

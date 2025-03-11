@@ -29,7 +29,7 @@ item(FEAT_STATIONS, i_${name}){
         class: "${class_label}";
         classname: string(STR_GRF_NAME);
         name: string(STR_GRF_NAME);
-        tile_flags: [""" + ",\n".join("bitmask()" for i in range(8)) +
+        tile_flags: [""" + ",\n".join("bitmask(STAT_TILE_NOWIRE)" for i in range(8)) +
 """            ];
     } graphics {
         prepare_layout: sw_item_${name}_prepare();
