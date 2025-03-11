@@ -62,3 +62,4 @@ yard_left_fence:
     - fence.right
     - fence.front
     - fence.back
+    - catenary.default
