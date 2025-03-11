@@ -58,7 +58,7 @@ if (openttd_version < version_openttd(15,0)) {
 }
 
 // check for JP+ Tracks
-if (param["YZ\AA\02", 254] != 040 && param["YZ\AA\02", 254] > 040){
+if (param["YZ\AA\02", 254] != 400 && param["YZ\AA\02", 254] > 040){
     error(FATAL, USED_WITH, string(STR_JPP_TRACKS));
 }
 
