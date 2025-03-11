@@ -58,7 +58,7 @@ const id_pylon_new = 1;
 const pos_pylon_end = pos_pylon_start + (id_pylon_new + 1) * id_pylon_size;
 
 // catenary
-const id_catenary_size = 3 * 2;
+const id_catenary_size = 5 * 2;
 const pos_catenary_start = pos_pylon_end;
 const id_catenary_black = 0;
 const id_catenary_ottd = 1;
@@ -99,9 +99,31 @@ template tmpl_yard(path){
     [ 1 * 128 + 1 * 10, 74, 128, 64, -103,  -20, path]
 }
 
-// template tmpl_catenary_pylons(x, y, path) {
-//     // TODO wait for yozora's graphics
-// }
+// TODO wait for yozora's graphics
+template tmpl_catenary_pylons(path) {
+    []
+    []
+    []
+    []
+    []
+    []
+    []
+    []
+}
+
+template tmpl_catenary_wire(x, y, path) {
+    [96,  y,    32,  5, -29, 10, path]
+    [144, y,    1,  20,   2, -6, path]
+    [0,   y,    32, 20, -29, -6, path]
+    [704, y,    32, 20, -29, -6, path]
+    [352, y,    32, 19, -29, -5, path]
+    [96,  y,    32,  5,   0, 10, path]
+    [144, y,    1,  20,  -1, -6, path]
+    [48,  y,    32, 20,  -1, -6, path]
+    [0,   y+50, 32, 20,  -1, -6, path]
+    [400, y,    32, 19,  -1, -5, path]
+}
+
 
 // TODO: check the symlinks in the gfx folder
 spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
@@ -144,4 +166,12 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     tmpl_yard("gfx/yard/standard_snow_underlay.png")
     tmpl_yard("gfx/yard/narrow_ind_underlay.png")
     tmpl_yard("gfx/yard/narrow_snow_underlay.png")
+    // pylons
+    tmpl_catenary_pylons(1)
+    tmpl_catenary_pylons(1)
+    // wires
+    tmpl_catenary_wire(0, 0, "gfx/wire.png")
+    tmpl_catenary_wire(0, 100, "gfx/wire.png")
+    tmpl_catenary_wire(0, 0, "gfx/wire_old.png")
+    tmpl_catenary_wire(0, 100, "gfx/wire_old.png")
 }

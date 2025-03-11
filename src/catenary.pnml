@@ -4,8 +4,6 @@ switch(FEAT_STATIONS, SELF, _sw_catenary, track_type){
     SGAE: 1;
     NBAE: 1;
     SFAE: 1;
-    NBAE: 1;
-    NAAE: 1;
     NAAE: 1;
     SDAE: 1;
     NCAA: 1;
@@ -30,10 +28,8 @@ switch(FEAT_STATIONS, SELF, _sw_catenary, track_type){
     rAA3: 1;
     SAAD: 1;
     dAAN: 1;
-    SBAE: 1;
     NGAE: 1;
     dBAE: 1;
-    ELRL: 1;
     NFAE: 1;
     NEAE: 1;
     SAAA: 1;
@@ -41,22 +37,21 @@ switch(FEAT_STATIONS, SELF, _sw_catenary, track_type){
     SBAA: 1;
     SHAA: 1;
     SGAA: 1;
-    none_code;
+    0;
 }
 
-switch(FEAT_STATIONS, SELF, _sw_catenary_black, param["YZ\AA\02", 36] == 0 || current_year > 1909){
+switch(FEAT_STATIONS, SELF, _sw_catenary_black, (param["YZ\AA\02", 36] == 0) || (current_year > 1909)){
     1: id_catenary_black;
     id_catenary_black_old;
 }
 
-switch(FEAT_STATIONS, SELF, _sw_catenary_ottd, param["YZ\AA\02", 36] == 0 || current_year > 1909){
+switch(FEAT_STATIONS, SELF, _sw_catenary_ottd, (param["YZ\AA\02", 36] == 0) || (current_year > 1909)){
     1: id_catenary_ottd;
     id_catenary_ottd_old;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_catenary_type,
-    _sw_catenary() ? none_code :
-    param["YZ\AA\02", 5]
+    _sw_catenary() ? param["YZ\AA\02", 5] : none_code
 ){
     0: _sw_catenary_black();
     1: _sw_catenary_ottd();
@@ -64,8 +59,10 @@ switch(FEAT_STATIONS, SELF, _sw_catenary_type,
 }
 
 switch(FEAT_STATIONS, SELF, _sw_catenary_info,
-    ((platform_position_from_start(PLATFORM_SAME_SECTION) == 0) << 0) |
-    ((platform_position_from_end(PLATFORM_SAME_SECTION) == 0) << 1)
+    hasbit(sw_yard(), pos_front) ? 0 :
+    hasbit(sw_yard(), pos_back) ? 1 :
+    platform_position_from_start(PLATFORM_SAME_SECTION) == platform_position_from_end(PLATFORM_SAME_SECTION) ? 2 :
+    platform_position_from_start(PLATFORM_SAME_SECTION) % 2 + 3
 ){return;}
 
 switch(FEAT_STATIONS, SELF, _sw_pylon_info,
@@ -74,10 +71,10 @@ switch(FEAT_STATIONS, SELF, _sw_pylon_info,
 ){return;}
 
 const pos_pylon_info = 0;
-const pos_catenary_info = 4;
-const pos_catenary_type = 8;
-// returns a 12 bit value for pylon placement
-// aaaaaaaa bbbb
+const pos_catenary_info = 3;
+const pos_catenary_type = 6;
+// returns a 14 bit value for pylon placement
+// aaaaaaaa bbb ccc
 switch(FEAT_STATIONS, SELF, sw_catenary,
     _sw_pylon_info() << pos_pylon_info |
     _sw_catenary_info() << pos_catenary_info |

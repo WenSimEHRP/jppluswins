@@ -48,6 +48,7 @@ yard_left:
     - fence.right
     - fence.front
     - fence.back
+    - catenary.default
 
 yard_left_fence:
   layout:
