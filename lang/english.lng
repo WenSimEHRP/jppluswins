@@ -1,7 +1,7 @@
 ##grflangid 0x01
 
 STR_GRF_NAME            :WINS Stations {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
-STR_GRF_DESC            :A station set by WenSim
+STR_GRF_DESC            :A station set by WenSim{}{}WINS Stations {COPYRIGHT} 2024-2025 Jeremy Gao{}License: GPL v2
 STR_GRF_URL             :https://github.com/wensimehrp/jppluswins/
 
 STR_JPP_TRACKS          :{PUSH_COLOUR}{GOLD}{PUSH_COLOUR}{WHITE}JP{POP_COLOUR}{PUSH_COLOUR}{RED}+{POP_COLOUR} Tracks {JPP_TRACKS_VERSION} or later{POP_COLOUR}

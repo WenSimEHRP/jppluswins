@@ -1,7 +1,7 @@
 ##grflangid 0x56
 
 STR_GRF_NAME            :WINS 车站 {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
-STR_GRF_DESC            :A station set by WenSim
+STR_GRF_DESC            :WenSim 的车站包{}{}WINS 车站 {COPYRIGHT} 2024-2025 Jeremy Gao{}许可证：GPL v2
 STR_GRF_URL             :https://github.com/wensimehrp/jppluswins/
 
 STR_JPP_TRACKS          :{PUSH_COLOUR}{GOLD}{PUSH_COLOUR}{WHITE}JP{POP_COLOUR}{PUSH_COLOUR}{RED}+{POP_COLOUR} 轨道 {JPP_TRACKS_VERSION} 或更高版本{POP_COLOUR}
