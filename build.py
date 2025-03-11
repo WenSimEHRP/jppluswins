@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import yaml
 import re
+from item_template import item_templates
 
 check_temps = re.compile(r"LOAD_TEMP\((\w+)\)")
 
@@ -31,30 +32,10 @@ with open("generated/platforms.nml", "w+") as fw:
             data = yaml.safe_load(f)
             for key, val in data.items():
                 temps = layout(key, val["layout"])
-                print(f"switch(FEAT_STATIONS, SELF, sw_item_{key}_prepare, [", file=fw)
+                registers = ""
                 for t in temps:
-                    print(f"STORE_TEMP({tem['temps'][t]}, {t}),", file=fw)
-                print("]){return;}", file=fw)
-                print(f"item(FEAT_STATIONS, id_{key}){{", file=fw)
-                print(
-                    """
-    property {
-        class: "WINS";
-        classname: string(STR_GRF_NAME);
-        name: string(STR_GRF_NAME);
-        tile_flags: [
-            1,1,1,1,1,1,1,1,
-        ];
-    }""",
-                    file=fw,
+                    registers += f"STORE_TEMP({tem["temps"][t]}, {t}),\n"
+                printstr = item_templates[val.get("template", "default")].substitute(
+                    name=key, temps=registers, class_label=val.get("class_label", "WINS")
                 )
-                print(
-                    f"""
-    graphics {{
-        prepare_layout: sw_item_{key}_prepare();
-        custom_spritesets: [s_fences_and_underlay];
-        sprite_layouts: [sp_{key}_x, sp_{key}_y];
-    }}""",
-                    file=fw,
-                )
-                print("}", file=fw)
+                print(printstr, file=fw)

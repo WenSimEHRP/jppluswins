@@ -33,6 +33,7 @@ bare_underlay:
     - barrier.back
 
 yard_left:
+  template: yard
   layout:
     - rail.ground
     - yard.left
@@ -51,6 +52,7 @@ yard_left:
     - catenary.default
 
 yard_left_fence:
+  template: yard
   layout:
     - rail.ground
     - yard.left
