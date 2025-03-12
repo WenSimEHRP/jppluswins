@@ -6,6 +6,7 @@ temps:
   t_barrier: sw_barrier()
   t_yard: sw_yard()
   t_catenary: sw_catenary()
+  t_pylon: sw_pylon()
 
 # rail underlay
 rail:
@@ -348,19 +349,19 @@ catenary:
         hide_sprite: EXTRACT_INFO(t_catenary, pos_catenary_type) == none_catenary;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_catenary, pos_pylon_info_even));
+        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_pylon, pos_pylon_info_even));
         xextent: 1;
         yextent: 16;
         zextent: 16;
-        hide_sprite: EXTRACT_INFO(t_catenary, pos_pylon_info_even) == none_pylon;
+        hide_sprite: EXTRACT_INFO(t_pylon, pos_pylon_info_even) == none_pylon;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_catenary, pos_pylon_info_odd));
+        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_pylon, pos_pylon_info_odd));
         xextent: 1;
         xoffset: 16;
         yextent: 16;
         zextent: 16;
-        hide_sprite: EXTRACT_INFO(t_catenary, pos_pylon_info_odd) == none_pylon;
+        hide_sprite: EXTRACT_INFO(t_pylon, pos_pylon_info_odd) == none_pylon;
       }
     y: >
       building {
@@ -376,17 +377,17 @@ catenary:
         hide_sprite: EXTRACT_INFO(t_catenary, pos_catenary_type) == none_catenary;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_catenary, pos_pylon_info_even) + 4);
+        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_pylon, pos_pylon_info_even) + 4);
         yextent: 1;
         xextent: 16;
         zextent: 16;
-        hide_sprite: EXTRACT_INFO(t_catenary, pos_pylon_info_even) == none_pylon;
+        hide_sprite: EXTRACT_INFO(t_pylon, pos_pylon_info_even) == none_pylon;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_catenary, pos_pylon_info_odd) + 4);
+        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_pylon, pos_pylon_info_odd) + 4);
         yextent: 1;
         yoffset: 16;
         xextent: 16;
         zextent: 16;
-        hide_sprite: EXTRACT_INFO(t_catenary, pos_pylon_info_odd) == none_pylon;
+        hide_sprite: EXTRACT_INFO(t_pylon, pos_pylon_info_odd) == none_pylon;
       }

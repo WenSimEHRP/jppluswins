@@ -20,7 +20,6 @@ def layout(name: str, val: dict) -> list:
             d = tem[a][b][direction]
             for i in re.findall(check_temps, d):
                 kw |= set(j for j in i if j.strip())
-            print(kw)
             print(d, file=fw)
         print("}", file=fw)
     return sorted(kw)

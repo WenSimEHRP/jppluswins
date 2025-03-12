@@ -102,15 +102,15 @@ template tmpl_yard(path){
 // TODO wait for yozora's graphics
 template tmpl_catenary_pylons(y, path) {
     // x
-    [17, y, 34, 58,  0 - 8, -29 - 8, path] // middle
-    [0,  y, 34, 58, -1 - 8, -29, path] // start
-    [34, y, 34, 58,  1 - 8, -29 - 16, path] // end
-    [0,  y, 34 - 8, 58, -1 - 8, -29, path] // start 2
+    [17, y, 34, 58,  0 - 8, -30 - 8, path] // middle
+    [0,  y, 34, 58, -1 - 8, -30, path] // start
+    [34, y, 34, 58,  1 - 8, -30 - 16, path] // end
+    [0,  y, 18, 58,      7, -22, path] // start 2
     // y
-    [80 + 17, y, 34, 58, -27 - 3, -34, path] // middle
-    [80 + 34, y, 34, 58, -26 - 3, -26, path] // end
-    [80 + 0,  y, 34, 58, -28 - 3, -42, path] // start
-    [] // start 2
+    [80 + 17, y, 34, 58, -27 + 3, -34 - 4, path] // middle
+    [80 + 34, y, 34, 58, -26 + 3, -26 - 4, path] // end
+    [80 + 0,  y, 34, 58, -28 + 3, -42 - 4, path] // start
+    [80 + 34 + 16, y, 18, 58, -26 + 3, -26 + 4, path] // start 2
 }
 
 template tmpl_catenary_wire(x, y, path) {
