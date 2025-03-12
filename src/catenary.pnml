@@ -50,23 +50,27 @@ switch(FEAT_STATIONS, SELF, _sw_catenary_ottd, (param["YZ\AA\02", 36] == 0) || (
     id_catenary_ottd_old;
 }
 
+const none_catenary = 0x3f;
+
 switch(FEAT_STATIONS, SELF, _sw_catenary_type,
     _sw_catenary() ? param["YZ\AA\02", 5] : none_code
 ){
     0: _sw_catenary_black();
     1: _sw_catenary_ottd();
-    none_code;
+    none_catenary;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_catenary_info_side,
     hasbit(sw_yard(), pos_front) ? 3 :
     hasbit(sw_yard(), pos_back) ? 4 :
-    platform_position_from_start(PLATFORM_SAME_SECTION) == platform_position_from_end(PLATFORM_SAME_SECTION) ? 2 :
+    platform_position_from_end(PLATFORM_SAME_SECTION) == 0 &&
+    platform_position_from_start(PLATFORM_SAME_SECTION) % 2 == 0 ? 2 :
     platform_position_from_start(PLATFORM_SAME_SECTION) % 2
 ){return;}
 
 switch(FEAT_STATIONS, SELF, _sw_catenary_info_normal,
-    platform_position_from_start(PLATFORM_SAME_SECTION) == platform_position_from_end(PLATFORM_SAME_SECTION) ? 2 :
+    platform_position_from_end(PLATFORM_SAME_SECTION) == 0 &&
+    platform_position_from_start(PLATFORM_SAME_SECTION) % 2 == 0 ? 2 :
     platform_position_from_start(PLATFORM_SAME_SECTION) % 2
 ){return;}
 
@@ -82,8 +86,7 @@ switch(FEAT_STATIONS, SELF, _sw_pylon_info_odd,
     (
         (platform_position_from_start(PLATFORM_SAME_SECTION) % 2 == 0) ?
             (
-                platform_position_from_start(PLATFORM_SAME_SECTION) == platform_position_from_end(PLATFORM_SAME_SECTION) &&
-                platform_position_from_start(PLATFORM_SAME_SECTION) == 0
+                platform_position_from_end(PLATFORM_SAME_SECTION) == 0
                  ?
                 (
                     ((platform_number_from_start(PLATFORM_SAME_SECTION) == 0) << 0) |
@@ -105,7 +108,7 @@ const pos_catenary_info_normal = 4;
 const pos_catenary_info_side = 6;
 const pos_catenary_type = 9;
 // returns a 15 bit value for pylon placement
-// aaaaaaaa bbb cc dd ee
+// aaaaaa bbb cc dd ee
 switch(FEAT_STATIONS, SELF, sw_catenary,
     _sw_pylon_info_even() << pos_pylon_info_even |
     _sw_pylon_info_odd() << pos_pylon_info_odd |
