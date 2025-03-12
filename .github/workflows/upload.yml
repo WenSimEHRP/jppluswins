@@ -1,0 +1,15 @@
+name: Upload
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload to BaNaNaS
+        run: |
+          curl -X 'GET' \
+          'https://bananas-api.openttd.org/package/self' \
+          -H 'Authorization: Bearer ${{ secrets.BANANAS_TOKEN }}' \
+          -H 'accept: application/json'
