@@ -78,10 +78,7 @@ switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
     id_narrow_wood_underlay;
 }
 
-
-const pos_yard_connection_info_left = 0;
-const pos_yard_connection_type = 4;
-const none_yard = 3;
+const none_yard = FILLED(2);
 
 //TODO: change to test badges instead of station presence
 // 0: front split, back split
@@ -120,12 +117,16 @@ switch(FEAT_STATIONS, SELF, _sw_yard_info_left,
     )
 ){return;}
 
+const pos_yard_connection_info_left = 0;
+const pos_yard_connection_info_left_size = 2;
+const pos_yard_connection_type = 2;
+const pos_yard_connection_type_size = 8;
 
 // Returns a 12 bit shunting yard track info
 // aaaaaaaa bbbb
 // a: rail type
 // b: connection info
 switch(FEAT_STATIONS, SELF, sw_yard,
-    _sw_yard_info_left() << 0 |
-    _sw_yard_type() << 4
+    _sw_yard_info_left() << pos_yard_connection_info_left |
+    _sw_yard_type() << pos_yard_connection_type
 ){return;}

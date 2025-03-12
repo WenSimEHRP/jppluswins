@@ -20,96 +20,96 @@ underlay:
   left:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 0);
-        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_left);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 0);
+        hide_sprite: EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_left);
         always_draw: 1;
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 1);
-        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_left);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 1);
+        hide_sprite: EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_left);
         always_draw: 1;
       }
   right:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 2);
-        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_right);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 2);
+        hide_sprite: EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_right);
         always_draw: 1;
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 3);
-        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_right);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 3);
+        hide_sprite: EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_right);
         always_draw: 1;
       }
   front:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 1);
-        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_front);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 1);
+        hide_sprite: EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_front);
         always_draw: 1;
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 0);
-        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_front);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 0);
+        hide_sprite: EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_front);
         always_draw: 1;
       }
   back:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 3);
-        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 3);
+        hide_sprite: EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
         always_draw: 1;
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 2);
-        hide_sprite: getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 2);
+        hide_sprite: EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code || hasbit(LOAD_TEMP(t_underlay), pos_back);
         always_draw: 1;
       }
   yard_left_front:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 1);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 1);
         xoffset: LOAD_TEMP(t_underlay) ? -6 : -6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
         hide_sprite:
-          getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code |
+          EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code |
           hasbit(LOAD_TEMP(t_underlay), pos_front);
 
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 0);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 0);
         xoffset: LOAD_TEMP(t_underlay) ?  6 :  6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
         hide_sprite:
-          getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code ||
+          EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code ||
           hasbit(LOAD_TEMP(t_underlay), pos_front);
       }
   yard_left_back:
     x: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 3);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 3);
         xoffset: LOAD_TEMP(t_underlay) ? -6 : -6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
         hide_sprite:
-          getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code ||
+          EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code ||
           hasbit(LOAD_TEMP(t_underlay), pos_back);
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_underlay), pos_end, 8) * id_underlay_size + pos_underlay_start + 2);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 2);
         xoffset: LOAD_TEMP(t_underlay) ?  6 :  6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
         hide_sprite:
-          getbits(LOAD_TEMP(t_underlay), pos_end, 8) == none_code ||
+          EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code ||
           hasbit(LOAD_TEMP(t_underlay), pos_back);
       }
 
@@ -118,74 +118,74 @@ fence:
   left:
     x: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_fence, pos_fence_type) * id_fence_size);
         xextent: 16;
         yextent: 0;
         zextent: 4;
-        hide_sprite: getbits(LOAD_TEMP(t_fence), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_fence), pos_left);
+        hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == none_code || hasbit(LOAD_TEMP(t_fence), pos_left);
       }
     y: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size + 1);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_fence, pos_fence_type) * id_fence_size + 1);
         xextent: 0;
         yextent: 16;
         zextent: 4;
-        hide_sprite: getbits(LOAD_TEMP(t_fence), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_fence), pos_left);
+        hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == none_code || hasbit(LOAD_TEMP(t_fence), pos_left);
       }
   right:
     x: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_fence, pos_fence_type) * id_fence_size);
         xextent: 16;
         yoffset: 16;
         yextent: 0;
         zextent: 4;
-        hide_sprite: getbits(LOAD_TEMP(t_fence), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_fence), pos_right);
+        hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == none_code || hasbit(LOAD_TEMP(t_fence), pos_right);
       }
     y: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size + 1);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_fence, pos_fence_type) * id_fence_size + 1);
         xextent: 0;
         xoffset: 16;
         yextent: 16;
         zextent: 4;
-        hide_sprite: getbits(LOAD_TEMP(t_fence), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_fence), pos_right);
+        hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == none_code || hasbit(LOAD_TEMP(t_fence), pos_right);
       }
   front:
     x: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size + 1);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_fence, pos_fence_type) * id_fence_size + 1);
         xextent: 0;
         yextent: 16;
         zextent: 4;
-        hide_sprite: getbits(LOAD_TEMP(t_fence), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_fence), pos_front);
+        hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == none_code || hasbit(LOAD_TEMP(t_fence), pos_front);
       }
     y: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_fence, pos_fence_type) * id_fence_size);
         xextent: 16;
         yextent: 0;
         zextent: 4;
-        hide_sprite: getbits(LOAD_TEMP(t_fence), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_fence), pos_front);
+        hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == none_code || hasbit(LOAD_TEMP(t_fence), pos_front);
       }
   back:
     x: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size + 1);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_fence, pos_fence_type) * id_fence_size + 1);
         xextent: 0;
         xoffset: 16;
         yextent: 16;
         zextent: 4;
-        hide_sprite: getbits(LOAD_TEMP(t_fence), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_fence), pos_back);
+        hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == FILLED(8) || hasbit(LOAD_TEMP(t_fence), pos_back);
       }
     y: >
       building {
-        sprite: CUSTOM(0, getbits(LOAD_TEMP(t_fence), pos_end, 8) * id_fence_size);
+        sprite: CUSTOM(0, EXTRACT_INFO(t_fence, pos_fence_type) * id_fence_size);
         xextent: 16;
         yoffset: 16;
         yextent: 0;
         zextent: 4;
-        hide_sprite: getbits(LOAD_TEMP(t_fence), pos_end, 8) == none_code || hasbit(LOAD_TEMP(t_fence), pos_back);
+        hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == none_code || hasbit(LOAD_TEMP(t_fence), pos_back);
       }
 
 barrier:
@@ -238,7 +238,7 @@ barrier:
         zextent: 6;
         yoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
         hide_sprite:
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
+          EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_front);
       }
     y: >
@@ -249,7 +249,7 @@ barrier:
         zextent: 6;
         xoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
         hide_sprite:
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
+          EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_front);
       }
   yard_left_back:
@@ -262,7 +262,7 @@ barrier:
         zextent: 6;
         yoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
         hide_sprite:
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
+          EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_back);
       }
     y: >
@@ -274,7 +274,7 @@ barrier:
         zextent: 6;
         xoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
         hide_sprite:
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
+          EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_back);
       }
 
@@ -283,26 +283,26 @@ yard:
     x: >
       childsprite {
         sprite: CUSTOM(0, pos_yard_start +
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) * id_yard_size +
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2));
+          EXTRACT_INFO(t_yard, pos_yard_connection_type) * id_yard_size +
+          EXTRACT_INFO(t_yard, pos_yard_connection_info_left));
         yoffset: LOAD_TEMP(t_yard) ? -4 : -4;
         xoffset: LOAD_TEMP(t_yard) ? -8 : -8;
         always_draw: 1;
         hide_sprite:
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) == none_code;
+          EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
+          EXTRACT_INFO(t_yard, pos_yard_connection_type) == none_code;
       }
     y: >
       childsprite {
         sprite: CUSTOM(0, pos_yard_start +
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) * id_yard_size +
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) + (id_yard_size / 2));
+          EXTRACT_INFO(t_yard, pos_yard_connection_type) * id_yard_size +
+          EXTRACT_INFO(t_yard, pos_yard_connection_info_left) + (id_yard_size / 2));
         yoffset: LOAD_TEMP(t_yard) ? 4 : 4;
         xoffset: LOAD_TEMP(t_yard) ? 8 : 8;
         always_draw: 1;
         hide_sprite:
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard ||
-          getbits(LOAD_TEMP(t_yard), pos_yard_connection_type, 8) == none_code;
+          EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
+          EXTRACT_INFO(t_yard, pos_yard_connection_type) == none_code;
       }
 
 catenary:
@@ -310,83 +310,83 @@ catenary:
     x: >
       building {
         sprite: CUSTOM(0, pos_catenary_start +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info_side, 3) +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 6) * id_catenary_size);
+                        EXTRACT_INFO(t_catenary, pos_catenary_info_side) +
+                        EXTRACT_INFO(t_catenary, pos_catenary_type) * id_catenary_size);
         xextent: 15;
         xoffset: 1;
         yoffset: 0;
         yextent: 1;
         zextent: 1;
         zoffset: 12;
-        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 6) == none_catenary || getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard;
+        hide_sprite: EXTRACT_INFO(t_catenary, pos_catenary_type) == none_catenary || EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard;
       }
     y: >
       building {
         sprite: CUSTOM(0, pos_catenary_start + (id_catenary_size / 2) +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info_side, 3) +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 6) * id_catenary_size);
+                        EXTRACT_INFO(t_catenary, pos_catenary_info_side) +
+                        EXTRACT_INFO(t_catenary, pos_catenary_type) * id_catenary_size);
         yextent: 15;
         yoffset: 1;
         xoffset: 0;
         xextent: 1;
         zextent: 1;
         zoffset: 12;
-        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 6) == none_catenary || getbits(LOAD_TEMP(t_yard), pos_yard_connection_info_left, 2) == none_yard;
+        hide_sprite: EXTRACT_INFO(t_catenary, pos_catenary_type) == none_catenary || EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard;
       }
   default:
     x: >
       building {
         sprite: CUSTOM(0, pos_catenary_start +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info_normal, 2) +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 6) * id_catenary_size);
+                        EXTRACT_INFO(t_catenary, pos_catenary_info_normal) +
+                        EXTRACT_INFO(t_catenary, pos_catenary_type) * id_catenary_size);
         xextent: 15;
         xoffset: 1;
         yoffset: 8;
         yextent: 1;
         zextent: 1;
         zoffset: 12;
-        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 6) == none_catenary;
+        hide_sprite: EXTRACT_INFO(t_catenary, pos_catenary_type) == none_catenary;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + getbits(LOAD_TEMP(t_catenary), pos_pylon_info_even, 2));
+        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_catenary, pos_pylon_info_even));
         xextent: 1;
         yextent: 16;
         zextent: 16;
-        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_pylon_info_even, 2) == none_pylon;
+        hide_sprite: EXTRACT_INFO(t_catenary, pos_pylon_info_even) == none_pylon;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + getbits(LOAD_TEMP(t_catenary), pos_pylon_info_odd, 2));
+        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_catenary, pos_pylon_info_odd));
         xextent: 1;
         xoffset: 16;
         yextent: 16;
         zextent: 16;
-        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_pylon_info_odd, 2) == none_pylon;
+        hide_sprite: EXTRACT_INFO(t_catenary, pos_pylon_info_odd) == none_pylon;
       }
     y: >
       building {
         sprite: CUSTOM(0, pos_catenary_start + (id_catenary_size / 2) +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_info_normal, 2) +
-                        getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 6) * id_catenary_size);
+                        EXTRACT_INFO(t_catenary, pos_catenary_info_normal) +
+                        EXTRACT_INFO(t_catenary, pos_catenary_type) * id_catenary_size);
         yextent: 15;
         yoffset: 1;
         xoffset: 8;
         xextent: 1;
         zextent: 1;
         zoffset: 12;
-        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_catenary_type, 6) == none_catenary;
+        hide_sprite: EXTRACT_INFO(t_catenary, pos_catenary_type) == none_catenary;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + getbits(LOAD_TEMP(t_catenary), pos_pylon_info_even, 2) + 4);
+        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_catenary, pos_pylon_info_even) + 4);
         yextent: 1;
         xextent: 16;
         zextent: 16;
-        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_pylon_info_even, 2) == none_pylon;
+        hide_sprite: EXTRACT_INFO(t_catenary, pos_pylon_info_even) == none_pylon;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + getbits(LOAD_TEMP(t_catenary), pos_pylon_info_odd, 2) + 4);
+        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_catenary, pos_pylon_info_odd) + 4);
         yextent: 1;
         yoffset: 16;
         xextent: 16;
         zextent: 16;
-        hide_sprite: getbits(LOAD_TEMP(t_catenary), pos_pylon_info_odd, 2) == none_pylon;
+        hide_sprite: EXTRACT_INFO(t_catenary, pos_pylon_info_odd) == none_pylon;
       }

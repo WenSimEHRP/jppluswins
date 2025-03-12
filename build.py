@@ -3,7 +3,7 @@ import yaml
 import re
 from item_template import item_templates
 
-check_temps = re.compile(r"LOAD_TEMP\((\w+)\)")
+check_temps = re.compile(r"LOAD_TEMP\((\w+)\)|EXTRACT_INFO\((.*?),.*?\)")
 
 platforms = ("src/platforms.yml",)
 
@@ -18,7 +18,9 @@ def layout(name: str, val: dict) -> list:
         for i in val:
             a, b = i.split(".")
             d = tem[a][b][direction]
-            kw |= set(re.findall(check_temps, d))
+            for i in re.findall(check_temps, d):
+                kw |= set(j for j in i if j.strip())
+            print(kw)
             print(d, file=fw)
         print("}", file=fw)
     return sorted(kw)

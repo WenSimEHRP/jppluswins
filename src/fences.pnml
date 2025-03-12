@@ -206,6 +206,9 @@ switch(FEAT_STATIONS, SELF, _sw_is_deco_railtype, track_type){
     0;
 }
 
+const pos_underlay_type = 4;
+const pos_underlay_type_size = 8;
+
 // Returns a 12 bit value representing the fence type and underlay type
 // aaaaaaaa bbbb
 // a: fence type
@@ -217,8 +220,11 @@ switch(FEAT_STATIONS, SELF, sw_fence_underlay,
     (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
-    (_sw_no_underlay(_sw_fence()) ? none_code : _sw_fence_underlay()) << pos_end
+    (_sw_no_underlay(_sw_fence()) ? none_code : _sw_fence_underlay()) << pos_underlay_type
 ){return;}
+
+const pos_fence_type = 4;
+const pos_fence_type_size = 8;
 
 // Returns a 12 bit value representing the fence type
 // aaaaaaaa bbbb
@@ -231,14 +237,16 @@ switch(FEAT_STATIONS, SELF, sw_fence,
     (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
     _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
-    _sw_fence() << pos_end
+    _sw_fence() << pos_fence_type
 ){return;}
 
-// Returns a 4 bit value
-// aaaa
+const none_barrier = FILLED(2);
+
+// Returns a 2 bit value
+// aa
 // a: nearby rail/station information
 switch(FEAT_STATIONS, SELF, sw_barrier,
-    _sw_is_deco_railtype() ? 3 : // don't show for deco railtypes
+    _sw_is_deco_railtype() ? none_barrier : // don't show for deco railtypes
     hasbit(rail_continuation, 1) << pos_front |
     hasbit(rail_continuation, 0) << pos_back
 ){return;}

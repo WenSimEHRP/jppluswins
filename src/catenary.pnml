@@ -107,6 +107,11 @@ const pos_pylon_info_odd = 2;
 const pos_catenary_info_normal = 4;
 const pos_catenary_info_side = 6;
 const pos_catenary_type = 9;
+const pos_pylon_info_even_size = 2;
+const pos_pylon_info_odd_size = 2;
+const pos_catenary_info_normal_size = 2;
+const pos_catenary_info_side_size = 3;
+const pos_catenary_type_size = 6;
 // returns a 15 bit value for pylon placement
 // aaaaaa bbb cc dd ee
 switch(FEAT_STATIONS, SELF, sw_catenary,

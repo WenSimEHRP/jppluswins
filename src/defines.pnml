@@ -4,6 +4,11 @@ const pos_back = 1;
 const pos_left = 2;
 const pos_right = 3;
 const pos_end = 4;
+const pos_front_size = 1;
+const pos_back_size = 1;
+const pos_left_size = 1;
+const pos_right_size = 1;
+const pos_end_size = 1;
 
 const none_code = 0xFF;
 
@@ -12,3 +17,7 @@ right     back
 ____ ____ ____ ____
      left      front
 */
+
+// macros
+#define EXTRACT_INFO(temp, info) (getbits(LOAD_TEMP(temp), info, info##_size))
+#define FILLED(info) ((1 << info) - 1)
