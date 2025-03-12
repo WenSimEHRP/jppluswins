@@ -32,6 +32,22 @@ bare_underlay:
     - barrier.front
     - barrier.back
 
+bare_catenary:
+  template: yard
+  layout:
+    - rail.ground
+    - underlay.left
+    - underlay.right
+    - underlay.front
+    - underlay.back
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back
+    - barrier.front
+    - barrier.back
+    - catenary.default
+
 yard_left:
   template: yard
   layout:
