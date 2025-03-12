@@ -31,9 +31,7 @@ preprocess:
 
 # set up nml
 setup:
-    rm -rf ./nml
-    git clone --depth 1 https://github.com/openttd/nml.git || true
-    cd nml && git pull
+    git submodule update --init --recursive
 
 # copy the grf to the openttd newgrf folder (linux)
 cp:
