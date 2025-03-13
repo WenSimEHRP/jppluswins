@@ -189,6 +189,7 @@ fence:
         hide_sprite: EXTRACT_INFO(t_fence, pos_fence_type) == none_code || hasbit(LOAD_TEMP(t_fence), pos_back);
       }
 
+# barrier
 barrier:
   front:
     x: >
@@ -279,6 +280,7 @@ barrier:
           hasbit(LOAD_TEMP(t_barrier), pos_back);
       }
 
+# marshalling yard
 yard:
   left:
     x: >

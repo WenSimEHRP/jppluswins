@@ -179,3 +179,23 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     tmpl_catenary_wire(0, 0, "gfx/wire_old.png")
     tmpl_catenary_wire(0, 100, "gfx/wire_old.png")
 }
+
+// preview
+
+template tmpl_preview(x, y) {
+    [2 * x * 80, y * 80, 64, 64,       -31, -31, "gfx/preview.png"]
+    [(2 * x + 1) * 80, y * 80, 64, 64, -31, -31, "gfx/preview.png"]
+}
+
+spriteset(s_preview, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/preview.png") {
+    tmpl_preview(0, 0)
+    tmpl_preview(0, 1)
+    tmpl_preview(0, 2)
+    tmpl_preview(0, 3)
+    tmpl_preview(1, 0)
+    tmpl_preview(1, 1)
+}
+
+spritelayout sp_preview(sprite){
+    ground { sprite: s_preview(sprite); }
+}

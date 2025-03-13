@@ -36,10 +36,18 @@ with open("generated/platforms.nml", "w+") as fw:
                 registers = ""
                 for t in temps:
                     registers += f"STORE_TEMP({tem['temps'][t]}, {t}),\n"
+                sprite_layouts = f"[sp_{key}_x, sp_{key}_y]"
+                misc = ""
+                if "preview" in val:
+                    sprite_layouts = f"[sp_{key}_x, sp_{key}_y, sp_preview({val['preview'] * 2}), sp_preview({val['preview'] * 2 + 1})]"
+                    misc += "\nselect_sprite_layout: 0;"
+                    misc += "\npurchase_select_sprite_layout: 2;"
                 printstr = item_templates[val.get("template", "default")].substitute(
                     name=key,
                     name_label=val.get("name_label", "DEFAULT"),
                     temps=registers,
+                    sprite_layouts=sprite_layouts,
                     class_label=val.get("class_label", "WINS"),
+                    misc=misc
                 )
                 print(printstr, file=fw)

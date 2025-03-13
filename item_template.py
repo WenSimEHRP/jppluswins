@@ -15,7 +15,8 @@ item(FEAT_STATIONS, i_${name}){
     } graphics {
         prepare_layout: sw_item_${name}_prepare();
         custom_spritesets: [s_fences_and_underlay];
-        sprite_layouts: [sp_${name}_x, sp_${name}_y];
+        sprite_layouts: ${sprite_layouts};
+        ${misc}
     }
 }
 """)
@@ -34,7 +35,8 @@ item(FEAT_STATIONS, i_${name}){
     } graphics {
         prepare_layout: sw_item_${name}_prepare();
         custom_spritesets: [s_fences_and_underlay];
-        sprite_layouts: [sp_${name}_x, sp_${name}_y];
+        sprite_layouts: ${sprite_layouts};
+        ${misc}
     }
 }
 """)
