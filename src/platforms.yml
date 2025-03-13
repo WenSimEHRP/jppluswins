@@ -95,3 +95,39 @@ yard_left_fence:
     - fence.back
     - catenary.yard
     - catenary.default
+
+yard_left_no_catenary:
+  preview: 6
+  name_label: YARD
+  template: yard
+  layout:
+    - rail.ground
+    - yard.left
+    - underlay.yard_left_front
+    - underlay.yard_left_back
+    - underlay.left
+    - underlay.right
+    - barrier.front
+    - barrier.back
+    - barrier.yard_left_front
+    - barrier.yard_left_back
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back
+
+yard_left_fence_no_catenary:
+  preview: 7
+  name_label: GRASSLESS_YARD
+  template: yard
+  layout:
+    - rail.ground
+    - yard.left
+    - barrier.front
+    - barrier.back
+    - barrier.yard_left_front
+    - barrier.yard_left_back
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back

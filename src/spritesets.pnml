@@ -194,6 +194,8 @@ spriteset(s_preview, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/preview.png") {
     tmpl_preview(0, 3)
     tmpl_preview(1, 0)
     tmpl_preview(1, 1)
+    tmpl_preview(1, 2)
+    tmpl_preview(1, 3)
 }
 
 spritelayout sp_preview(sprite){
