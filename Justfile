@@ -41,8 +41,9 @@ cp:
 pack:
     cp LICENSE.md license.txt
     cp README.md readme.txt
-    tar -cvf {{NAME}}-"$(git describe --tags --always --dirty || echo 0.0.0-0-0000000)".tar {{NAME}}.grf license.txt readme.txt
-    rm license.txt readme.txt
+    cp changelog.md changelog.txt
+    tar -cvf {{NAME}}-"$(git describe --tags --always --dirty || echo 0.0.0-0-0000000)".tar {{NAME}}.grf license.txt readme.txt changelog.txt
+    rm license.txt readme.txt changelog.txt
 
 # clean up
 clean:
