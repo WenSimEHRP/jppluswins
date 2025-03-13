@@ -29,3 +29,13 @@ STR_PARAM_FENCE_5               :小铁丝网
 STR_PARAM_FENCE_6               :混凝土
 STR_PARAM_FENCE_7               :条纹混凝土
 STR_PARAM_FENCE_8               :草地
+
+STR_CLASS_WINS                  :WINS 车站 {PUSH_COLOUR}{WHITE}{VERSION} >>{POP_COLOUR} 站场
+
+STR_STAT_DEFAULT                :车站
+STR_STAT_EMPTY                  :空车站
+STR_STAT_GRASSLESS_EMPTY        :无草地空车站
+STR_STAT_FENCELESS_EMPTY        :无栅栏空车站
+STR_STAT_CATENARIES             :接触网
+STR_STAT_YARD                   :编组场
+STR_STAT_GRASSLESS_YARD         :无草地编组场

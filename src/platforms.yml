@@ -1,4 +1,5 @@
 bare_full:
+  name_label: EMPTY
   layout:
     - rail.ground
     - underlay.left
@@ -13,6 +14,7 @@ bare_full:
     - barrier.back
 
 bare_fence:
+  name_label: GRASSLESS_EMPTY
   layout:
     - rail.ground
     - fence.left
@@ -23,6 +25,7 @@ bare_fence:
     - barrier.back
 
 bare_underlay:
+  name_label: FENCELESS_EMPTY
   layout:
     - rail.ground
     - underlay.left
@@ -33,6 +36,7 @@ bare_underlay:
     - barrier.back
 
 bare_catenary:
+  name_label: CATENARIES
   template: yard
   layout:
     - rail.ground
@@ -49,6 +53,7 @@ bare_catenary:
     - catenary.default
 
 yard_left:
+  name_label: YARD
   template: yard
   layout:
     - rail.ground
@@ -69,6 +74,7 @@ yard_left:
     - catenary.default
 
 yard_left_fence:
+  name_label: GRASSLESS_YARD
   template: yard
   layout:
     - rail.ground

@@ -38,6 +38,7 @@ with open("generated/platforms.nml", "w+") as fw:
                     registers += f"STORE_TEMP({tem['temps'][t]}, {t}),\n"
                 printstr = item_templates[val.get("template", "default")].substitute(
                     name=key,
+                    name_label=val.get("name_label", "DEFAULT"),
                     temps=registers,
                     class_label=val.get("class_label", "WINS"),
                 )

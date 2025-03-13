@@ -29,3 +29,13 @@ STR_PARAM_FENCE_5               :Tiny mesh fence
 STR_PARAM_FENCE_6               :Concrete fence
 STR_PARAM_FENCE_7               :Concrete fence with stripe
 STR_PARAM_FENCE_8               :Grass overlap
+
+STR_CLASS_WINS                  :WINS Stations {PUSH_COLOUR}{WHITE}>>{POP_COLOUR} Yards
+
+STR_STAT_DEFAULT                :Station
+STR_STAT_EMPTY                  :Empty station
+STR_STAT_GRASSLESS_EMPTY        :Grassless empty station
+STR_STAT_FENCELESS_EMPTY        :Fenceless empty station
+STR_STAT_CATENARIES             :Catenaries
+STR_STAT_YARD                   :Marshalling yard
+STR_STAT_GRASSLESS_YARD         :Grassless marshalling yard
