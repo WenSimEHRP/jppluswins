@@ -85,7 +85,7 @@ underlay:
     y: >
       childsprite {
         sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 0);
-        xoffset: LOAD_TEMP(t_underlay) ?  6 :  6;
+        xoffset: 6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
         hide_sprite:
@@ -106,7 +106,7 @@ underlay:
     y: >
       childsprite {
         sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 2);
-        xoffset: LOAD_TEMP(t_underlay) ?  6 :  6;
+        xoffset: 6;
         yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
         always_draw: 1;
         hide_sprite:
@@ -300,8 +300,8 @@ yard:
         sprite: CUSTOM(0, pos_yard_start +
           EXTRACT_INFO(t_yard, pos_yard_connection_type) * id_yard_size +
           EXTRACT_INFO(t_yard, pos_yard_connection_info_left) + (id_yard_size / 2));
-        yoffset: LOAD_TEMP(t_yard) ? 4 : 4;
-        xoffset: LOAD_TEMP(t_yard) ? 8 : 8;
+        yoffset: 4;
+        xoffset: 8;
         always_draw: 1;
         hide_sprite:
           EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
