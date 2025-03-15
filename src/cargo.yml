@@ -1,0 +1,5 @@
+spritesets:
+  - name: "passenger"
+    path: "gfx/cargo/passenger"
+    template: "t_cargo_generic"
+    label: default
