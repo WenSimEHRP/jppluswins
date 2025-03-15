@@ -6,3 +6,8 @@
 #include "src/catenary.pnml"
 
 #include "generated/platforms.nml"
+
+// only for JGRPP
+if (1) {
+#include "src/bridge_station.pnml"
+}
