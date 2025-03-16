@@ -131,3 +131,63 @@ yard_left_fence_no_catenary:
     - fence.right
     - fence.front
     - fence.back
+
+end_of_catenary:
+  layout:
+    - rail.ground
+    - underlay.left
+    - underlay.right
+    - underlay.front
+    - underlay.back
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back
+    - barrier.front
+    - barrier.back
+    - end_of_catenary.default
+
+end_of_catenary_diff_side:
+  layout:
+    - rail.ground
+    - underlay.left
+    - underlay.right
+    - underlay.front
+    - underlay.back
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back
+    - barrier.front
+    - barrier.back
+    - end_of_catenary.diff_side
+
+end_of_catenary_opposite_same_side:
+  layout:
+    - rail.ground
+    - underlay.left
+    - underlay.right
+    - underlay.front
+    - underlay.back
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back
+    - barrier.front
+    - barrier.back
+    - end_of_catenary.opposite_same_side
+
+end_of_catenary_opposite_diff_side:
+  layout:
+    - rail.ground
+    - underlay.left
+    - underlay.right
+    - underlay.front
+    - underlay.back
+    - fence.left
+    - fence.right
+    - fence.front
+    - fence.back
+    - barrier.front
+    - barrier.back
+    - end_of_catenary.opposite_diff_side

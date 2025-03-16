@@ -201,3 +201,14 @@ spriteset(s_preview, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/preview.png") {
 spritelayout sp_preview(sprite){
     ground { sprite: s_preview(sprite); }
 }
+
+spriteset(s_end_of_catenary, ZOOM_LEVEL_NORMAL, BIT_DEPTH_8BPP, "gfx/end_of_catenary.png"){
+    [0 * 64, 0, 64, 64, -51, -25]
+    [1 * 64, 0, 64, 64, -43, -23]
+    [2 * 64, 0, 64, 64, -47, -17]
+    [3 * 64, 0, 64, 64, -39, -29]
+    [4 * 64, 0, 64, 64, -21, -29]
+    [5 * 64, 0, 64, 64, -13, -17]
+    [6 * 64, 0, 64, 64, -19, -22]
+    [7 * 64, 0, 64, 64, -9, -25]
+}

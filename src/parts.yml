@@ -74,8 +74,8 @@ underlay:
     x: >
       childsprite {
         sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 1);
-        xoffset: LOAD_TEMP(t_underlay) ? -6 : -6;
-        yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
+        xoffset: FORCE_SHOW(-6);
+        yoffset: FORCE_SHOW(-3);
         always_draw: 1;
         hide_sprite:
           EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code |
@@ -86,7 +86,7 @@ underlay:
       childsprite {
         sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 0);
         xoffset: 6;
-        yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
+        yoffset: FORCE_SHOW(-3);
         always_draw: 1;
         hide_sprite:
           EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code ||
@@ -96,8 +96,8 @@ underlay:
     x: >
       childsprite {
         sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 3);
-        xoffset: LOAD_TEMP(t_underlay) ? -6 : -6;
-        yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
+        xoffset: FORCE_SHOW(-6);
+        yoffset: FORCE_SHOW(-3);
         always_draw: 1;
         hide_sprite:
           EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code ||
@@ -107,7 +107,7 @@ underlay:
       childsprite {
         sprite: CUSTOM(0, EXTRACT_INFO(t_underlay, pos_underlay_type) * id_underlay_size + pos_underlay_start + 2);
         xoffset: 6;
-        yoffset: LOAD_TEMP(t_underlay) ? -3 : -3;
+        yoffset: FORCE_SHOW(-3);
         always_draw: 1;
         hide_sprite:
           EXTRACT_INFO(t_underlay, pos_underlay_type) == none_code ||
@@ -238,7 +238,7 @@ barrier:
         xextent: 6;
         yextent: 4;
         zextent: 6;
-        yoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
+        yoffset: FORCE_SHOW(-2);
         hide_sprite:
           EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_front);
@@ -249,7 +249,7 @@ barrier:
         xextent: 4;
         yextent: 6;
         zextent: 6;
-        xoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
+        xoffset: FORCE_SHOW(-2);
         hide_sprite:
           EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_front);
@@ -262,7 +262,7 @@ barrier:
         yextent: 4;
         xoffset: 10;
         zextent: 6;
-        yoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
+        yoffset: FORCE_SHOW(-2);
         hide_sprite:
           EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_back);
@@ -274,7 +274,7 @@ barrier:
         yextent: 6;
         yoffset: 10;
         zextent: 6;
-        xoffset: LOAD_TEMP(t_barrier) ? -2 : -2;
+        xoffset: FORCE_SHOW(-2);
         hide_sprite:
           EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
           hasbit(LOAD_TEMP(t_barrier), pos_back);
@@ -288,8 +288,8 @@ yard:
         sprite: CUSTOM(0, pos_yard_start +
           EXTRACT_INFO(t_yard, pos_yard_connection_type) * id_yard_size +
           EXTRACT_INFO(t_yard, pos_yard_connection_info_left));
-        yoffset: LOAD_TEMP(t_yard) ? -4 : -4;
-        xoffset: LOAD_TEMP(t_yard) ? -8 : -8;
+        yoffset: FORCE_SHOW(-4);
+        xoffset: FORCE_SHOW(-8);
         always_draw: 1;
         hide_sprite:
           EXTRACT_INFO(t_yard, pos_yard_connection_info_left) == none_yard ||
@@ -392,4 +392,78 @@ catenary:
         xextent: 16;
         zextent: 16;
         hide_sprite: EXTRACT_INFO(t_pylon, pos_pylon_info_odd) == none_pylon;
+      }
+
+end_of_catenary:
+  default:
+    x: >
+      building {
+        sprite: s_end_of_catenary(1);
+        xextent: 20;
+        xoffset: FORCE_SHOW(-4);
+        yextent: 6;
+        yoffset: 10;
+        zextent: 6;
+      }
+    y: >
+      building {
+        sprite: s_end_of_catenary(6);
+        yextent: 20;
+        yoffset: FORCE_SHOW(-4);
+        xextent: 6;
+        xoffset: 10;
+        zextent: 6;
+      }
+  diff_side:
+    x: >
+      building {
+        sprite: s_end_of_catenary(3);
+        xextent: 20;
+        xoffset: FORCE_SHOW(-4);
+        yextent: 6;
+        zextent: 6;
+      }
+    y: >
+      building {
+        sprite: s_end_of_catenary(4);
+        yextent: 20;
+        yoffset: FORCE_SHOW(-4);
+        xextent: 6;
+        zextent: 6;
+      }
+  opposite_same_side:
+    x: >
+      building {
+        sprite: s_end_of_catenary(0);
+        xextent: 20;
+        xoffset: 0;
+        yextent: 6;
+        yoffset: 10;
+        zextent: 6;
+      }
+    y: >
+      building {
+        sprite: s_end_of_catenary(7);
+        yextent: 20;
+        yoffset: 0;
+        xextent: 6;
+        xoffset: 10;
+        zextent: 6;
+      }
+  opposite_diff_side:
+    x: >
+      building {
+        sprite: s_end_of_catenary(2);
+        xextent: 20;
+        xoffset: 0;
+        yextent: 6;
+        zextent: 6;
+      }
+    y: >
+      building {
+        sprite: s_end_of_catenary(5);
+        yextent: 20;
+        yoffset: 0;
+        xextent: 6;
+        zextent: 6;
       }
