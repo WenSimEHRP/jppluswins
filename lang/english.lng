@@ -39,3 +39,4 @@ STR_STAT_FENCELESS_EMPTY        :Fenceless empty station
 STR_STAT_CATENARIES             :Catenaries
 STR_STAT_YARD                   :Marshalling yard
 STR_STAT_GRASSLESS_YARD         :Grassless marshalling yard
+STR_STAT_END_OF_CATENARY        :End of catenary/tensioner

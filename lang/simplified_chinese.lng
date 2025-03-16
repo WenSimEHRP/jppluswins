@@ -39,3 +39,4 @@ STR_STAT_FENCELESS_EMPTY        :无栅栏空车站
 STR_STAT_CATENARIES             :接触网
 STR_STAT_YARD                   :编组场
 STR_STAT_GRASSLESS_YARD         :无草地编组场
+STR_STAT_END_OF_CATENARY        :接触网/张紧器末端

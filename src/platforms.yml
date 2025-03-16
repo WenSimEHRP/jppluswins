@@ -133,6 +133,7 @@ yard_left_fence_no_catenary:
     - fence.back
 
 end_of_catenary:
+  name_label: END_OF_CATENARY
   layout:
     - rail.ground
     - underlay.left
@@ -148,6 +149,7 @@ end_of_catenary:
     - end_of_catenary.default
 
 end_of_catenary_diff_side:
+  name_label: END_OF_CATENARY
   layout:
     - rail.ground
     - underlay.left
@@ -163,6 +165,7 @@ end_of_catenary_diff_side:
     - end_of_catenary.diff_side
 
 end_of_catenary_opposite_same_side:
+  name_label: END_OF_CATENARY
   layout:
     - rail.ground
     - underlay.left
@@ -178,6 +181,7 @@ end_of_catenary_opposite_same_side:
     - end_of_catenary.opposite_same_side
 
 end_of_catenary_opposite_diff_side:
+  name_label: END_OF_CATENARY
   layout:
     - rail.ground
     - underlay.left
