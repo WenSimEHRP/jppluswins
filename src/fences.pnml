@@ -218,8 +218,8 @@ const pos_underlay_type_size = 8;
 switch(FEAT_STATIONS, SELF, sw_fence_underlay,
     (hasbit(rail_continuation, 1) || _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
     (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
-    _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
-    _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
+    (_sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) && nearby_tile_slope(0,0) != SLOPE_NW) << pos_right |
+    (_sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) && nearby_tile_slope(0,0) != SLOPE_SE) << pos_left |
     (_sw_no_underlay(_sw_fence()) ? none_code : _sw_fence_underlay()) << pos_underlay_type
 ){return;}
 
@@ -235,8 +235,8 @@ const pos_fence_type_size = 8;
 switch(FEAT_STATIONS, SELF, sw_fence,
     (hasbit(rail_continuation, 1) || _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
     (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
-    _sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) << pos_right |
-    _sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) << pos_left |
+    (_sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) && nearby_tile_slope(0,0) != SLOPE_NW) << pos_right |
+    (_sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) && nearby_tile_slope(0,0) != SLOPE_SE) << pos_left |
     _sw_fence() << pos_fence_type
 ){return;}
 
