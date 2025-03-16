@@ -21,3 +21,4 @@ ____ ____ ____ ____
 // macros
 #define EXTRACT_INFO(temp, info) (getbits(LOAD_TEMP(temp), info, info##_size))
 #define FILLED(info) ((1 << info) - 1)
+#define FORCE_SHOW(offset) (LOAD_TEMP(0) ? offset : offset)
