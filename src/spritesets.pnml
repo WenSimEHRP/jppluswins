@@ -55,7 +55,8 @@ const id_pylon_size = 4 * 2;
 const pos_pylon_start = pos_yard_end;
 const id_pylon_old = 0;
 const id_pylon_new = 1;
-const pos_pylon_end = pos_pylon_start + (id_pylon_new + 1) * id_pylon_size;
+const id_pylon_wood = 2;
+const pos_pylon_end = pos_pylon_start + (id_pylon_wood + 1) * id_pylon_size;
 
 // catenary
 const id_catenary_size = 5 * 2;
@@ -173,6 +174,7 @@ spriteset (s_fences_and_underlay, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,) {
     // pylons
     tmpl_catenary_pylons(0, "gfx/poles.png")
     tmpl_catenary_pylons(64, "gfx/poles.png")
+    tmpl_catenary_pylons(128, "gfx/poles.png")
     // wires
     tmpl_catenary_wire(0, 0, "gfx/wire.png")
     tmpl_catenary_wire(0, 100, "gfx/wire.png")

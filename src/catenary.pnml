@@ -111,6 +111,11 @@ switch(FEAT_STATIONS, SELF, _sw_pylon_info_odd,
     none_pylon;
 }
 
+switch(FEAT_STATIONS, SELF, _sw_pylon_type, current_year){
+    0..1909: id_pylon_wood;
+    1910..2000: id_pylon_old;
+    id_pylon_new;
+}
 
 const pos_catenary_info_normal = 0;
 const pos_catenary_info_side = 2;
@@ -136,6 +141,6 @@ const pos_pylon_type_size = 8;
 // aaaaaaaa bbb ccc
 switch(FEAT_STATIONS, SELF, sw_pylon,
     _sw_pylon_info_even() << pos_pylon_info_even |
-    _sw_pylon_info_odd() << pos_pylon_info_odd // |
-    // _sw_pylon_type() << pos_pylon_type
+    _sw_pylon_info_odd() << pos_pylon_info_odd |
+    _sw_pylon_type() << pos_pylon_type
 ){return;}

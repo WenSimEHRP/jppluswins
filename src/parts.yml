@@ -351,14 +351,18 @@ catenary:
         hide_sprite: EXTRACT_INFO(t_catenary, pos_catenary_type) == none_catenary;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_pylon, pos_pylon_info_even));
+        sprite: CUSTOM(0, pos_pylon_start +
+                          EXTRACT_INFO(t_pylon, pos_pylon_info_even) +
+                          EXTRACT_INFO(t_pylon, pos_pylon_type) * id_pylon_size);
         xextent: 1;
         yextent: 16;
         zextent: 16;
         hide_sprite: EXTRACT_INFO(t_pylon, pos_pylon_info_even) == none_pylon;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_pylon, pos_pylon_info_odd));
+        sprite: CUSTOM(0, pos_pylon_start +
+                          EXTRACT_INFO(t_pylon, pos_pylon_info_odd) +
+                          EXTRACT_INFO(t_pylon, pos_pylon_type) * id_pylon_size);
         xextent: 1;
         xoffset: 16;
         yextent: 16;
@@ -379,14 +383,18 @@ catenary:
         hide_sprite: EXTRACT_INFO(t_catenary, pos_catenary_type) == none_catenary;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_pylon, pos_pylon_info_even) + 4);
+        sprite: CUSTOM(0, pos_pylon_start +
+                          EXTRACT_INFO(t_pylon, pos_pylon_info_even) +
+                          EXTRACT_INFO(t_pylon, pos_pylon_type) * id_pylon_size + 4);
         yextent: 1;
         xextent: 16;
         zextent: 16;
         hide_sprite: EXTRACT_INFO(t_pylon, pos_pylon_info_even) == none_pylon;
       }
       building {
-        sprite: CUSTOM(0, pos_pylon_start + EXTRACT_INFO(t_pylon, pos_pylon_info_odd) + 4);
+        sprite: CUSTOM(0, pos_pylon_start +
+                          EXTRACT_INFO(t_pylon, pos_pylon_info_odd) +
+                          EXTRACT_INFO(t_pylon, pos_pylon_type) * id_pylon_size + 4);
         yextent: 1;
         yoffset: 16;
         xextent: 16;
