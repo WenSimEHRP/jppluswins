@@ -1,3 +1,7 @@
+// The slope check benefits from the existing restrictions for station tiles.
+// see https://github.com/openttd/openttd/issues/13778
+
+// strictly check for the same height
 switch(FEAT_STATIONS, SELF, sw_tile_same_height_left, nearby_tile_slope(0, 0) == SLOPE_SE){
     1: nearby_tile_slope(0, -1) == SLOPE_NW;
     nearby_tile_slope(0, -1) != SLOPE_NW;
@@ -8,6 +12,7 @@ switch(FEAT_STATIONS, SELF, sw_tile_same_height_right, nearby_tile_slope(0, 0) =
     nearby_tile_slope(0, 1) != SLOPE_SE;
 }
 
+// permissive check, used by fences
 switch(FEAT_STATIONS, SELF, sw_tile_same_height_permissive_left, nearby_tile_slope(0, 0) == SLOPE_SE){
     1: nearby_tile_slope(0, -1) == SLOPE_NW;
     1;
