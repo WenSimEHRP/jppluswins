@@ -1,5 +1,7 @@
 #include "src/defines.pnml"
 #include "src/header.pnml"
+#include "src/utility.pnml"
+
 #include "src/spritesets.pnml"
 #include "src/fences.pnml"
 #include "src/yard.pnml"

@@ -1,0 +1,9 @@
+switch(FEAT_STATIONS, SELF, sw_tile_same_height_left, nearby_tile_slope(0, 0) == SLOPE_SE){
+    1: nearby_tile_slope(0, -1) == SLOPE_NW;
+    nearby_tile_slope(0, -1) != SLOPE_NW;
+}
+
+switch(FEAT_STATIONS, SELF, sw_tile_same_height_right, nearby_tile_slope(0, 0) == SLOPE_NW){
+    1: nearby_tile_slope(0, 1) == SLOPE_SE;
+    nearby_tile_slope(0, 1) != SLOPE_SE;
+}
