@@ -8,3 +8,4 @@
 #include "src/catenary.pnml"
 
 #include "generated/platforms.nml"
+#include "src/request_stop.pnml"
