@@ -11,3 +11,4 @@
 #include "src/tetsubashi.pnml"
 
 #include "generated/platforms.nml"
+#include "src/request_stop.pnml"
