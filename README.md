@@ -31,3 +31,26 @@ Always maintained:
 These languages are not maintained by the author:
 
 - _(none)_
+
+## Building
+
+Requirements:
+
+- just
+- gcc
+- git
+- sh (use git bash on windows)
+
+```sh
+# set up nml dependency
+just setup
+
+# build a "release" version of the GRF
+just release
+
+# pack
+just pack
+
+# or do it in one run
+just setup release pack
+```
