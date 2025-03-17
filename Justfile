@@ -31,6 +31,7 @@ preprocess:
 
 # set up nml
 setup:
+    rm -rf nml
     git submodule update --init --recursive --remote
 
 # copy the grf to the openttd newgrf folder (linux)
