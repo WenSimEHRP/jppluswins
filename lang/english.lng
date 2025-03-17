@@ -31,6 +31,7 @@ STR_PARAM_FENCE_7               :Concrete fence with stripe
 STR_PARAM_FENCE_8               :Grass overlap
 
 STR_CLASS_WINS                  :WINS Stations {PUSH_COLOUR}{WHITE}>>{POP_COLOUR} Yards
+STR_CLASS_FFWIN                 :WINS Waypoints {PUSH_COLOUR}{WHITE}>>{POP_COLOUR} Basic
 
 STR_STAT_DEFAULT                :Station
 STR_STAT_EMPTY                  :Empty station

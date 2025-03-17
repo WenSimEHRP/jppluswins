@@ -48,6 +48,7 @@ with open("generated/platforms.nml", "w+") as fw:
                     temps=registers,
                     sprite_layouts=sprite_layouts,
                     class_label=val.get("class_label", "WINS"),
+                    class_name=val.get("class_name", "STR_CLASS_WINS"),
                     misc=misc
                 )
                 print(printstr, file=fw)
