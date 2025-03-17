@@ -32,6 +32,8 @@ item(FEAT_STATIONS, i_${name}){
         name: string(STR_STAT_${name_label});
         tile_flags: [""" + ",\n".join("bitmask(STAT_TILE_NOWIRE)" for i in range(8)) +
 """            ];
+        badges: [ "station/wins/left_yard",
+                  "station/wins/right_yard" ];
     } graphics {
         prepare_layout: sw_item_${name}_prepare();
         custom_spritesets: [s_fences_and_underlay];

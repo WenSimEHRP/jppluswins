@@ -80,13 +80,18 @@ switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
 
 const none_yard = FILLED(2);
 
+switch(FEAT_STATIONS, SELF, _sw_check_yard, [
+    STORE_TEMP(2, 0x100),
+    STORE_TEMP(bitmask(4), 0x101),
+    var[0x79, 0, 0x1, 0xF0]]){return;}
+
 //TODO: change to test badges instead of station presence
 // 0: front split, back split
 // 1: front merge, back split
 // 2: front split, back merge
 // 3: none
 switch(FEAT_STATIONS, SELF, _sw_yard_info_left,
-    !nearby_tile_is_station(0, -1) || !sw_tile_same_height_left() ? none_yard :
+    !_sw_check_yard() || !sw_tile_same_height_left() ? none_yard :
     (
         (
             !(
