@@ -1,4 +1,4 @@
-# WINS Station Set
+# WINS Is Not (only) Stations
 
 ![wakatime](https://wakatime.com/badge/user/3ccfe070-205f-4eef-826d-419a0ac19311/project/1f5ff741-a34c-4481-9c9f-e8379ed1e9b6.svg)
 [![buidling status](https://github.com/wensimehrp/jppluswins/actions/workflows/build.yml/badge.svg)](https://github.com/wensimehrp/jppluswins/actions/workflows/build.yml)
