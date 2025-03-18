@@ -14,18 +14,45 @@ def load_templates():
         return yaml.safe_load(f)
 
 
+def load_temporary_registers():
+    with open("src/temps.yml", "r") as f:
+        return yaml.safe_load(f)
+
+
 def layout(key, val_layout, templates, fw):
-    kw = set()
+    temp_vars = set()
+    output_lines = []
+
     for direction in ("x", "y"):
-        print(f"spritelayout sp_{key}_{direction}(){{", file=fw)
-        for i in val_layout:
-            a, b = i.split(".")
-            d = templates[a][b][direction]
-            for i in re.findall(check_temps, d):
-                kw |= set(j for j in i if j.strip())
-            print(d, file=fw)
-        print("}", file=fw)
-    return sorted(kw)
+        output_lines.append(f"spritelayout sp_{key}_{direction}(){{")
+        for part in val_layout:
+            category, element = part.split(".")
+            template_code = templates[category][element][direction]
+            for matches in re.findall(check_temps, template_code):
+                temp_vars.update(var for var in matches if var.strip())
+            output_lines.append(template_code)
+        output_lines.append("}")
+
+    max_offset = max(
+        (
+            templates["temps"].get(var, 0)
+            for var in temp_vars
+            if var in templates["temps"]
+        ),
+        default=0,
+    )
+
+    var_indices = {var: i + max_offset for i, var in enumerate(sorted(temp_vars))}
+
+    replaced_lines = []
+    for line in output_lines:
+        for var, index in var_indices.items():
+            if var in line:
+                line = re.sub(r"\b" + re.escape(var) + r"\b", str(index), line)
+        replaced_lines.append(line)
+
+    print("\n".join(replaced_lines), file=fw)
+    return var_indices
 
 
 def write_constants(templates, fw):
@@ -36,8 +63,8 @@ def write_constants(templates, fw):
 def process_item(key, val, templates, fw):
     temps = layout(key, val["layout"], templates, fw)
     registers = ""
-    for t in temps:
-        registers += f"STORE_TEMP({templates['temps'][t]}, {t}),\n"
+    for k, v in temps.items():
+        registers += f"STORE_TEMP({k.replace('t_', 'sw_')}(), {v}),\n"
 
     sprite_layouts = f"[sp_{key}_x, sp_{key}_y]"
     misc = ""
@@ -53,13 +80,14 @@ def process_item(key, val, templates, fw):
         sprite_layouts=sprite_layouts,
         class_label=val.get("class_label", "WINS"),
         class_name=val.get("class_name", "STR_CLASS_WINS"),
-        misc=misc
+        misc=misc,
     )
     print(printstr, file=fw)
 
 
 def main():
     templates = load_templates()
+    templates = {**templates, **load_temporary_registers()}
 
     with open("generated/platforms.nml", "w+") as fw:
         for platform_file in PLATFORMS:

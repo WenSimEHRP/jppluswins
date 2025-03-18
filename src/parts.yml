@@ -1,13 +1,3 @@
----
-# temporary registers are automatically sorted and assigned
-temps:
-  t_underlay: sw_underlay()
-  t_fence: sw_fence()
-  t_barrier: sw_barrier()
-  t_yard: sw_yard()
-  t_catenary: sw_catenary()
-  t_pylon: sw_pylon()
-
 # rail underlay
 rail:
   ground:
