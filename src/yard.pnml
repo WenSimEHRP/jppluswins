@@ -81,27 +81,27 @@ switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
 const none_yard = FILLED(2);
 
 switch(FEAT_STATIONS, SELF, _sw_check_yard_p0n1, [
-    STORE_TEMP(1, 0x100),
+    STORE_TEMP(badgetype("station/wins/right_yard"), 0x100),
     STORE_TEMP(bitmask(4), 0x101),
     var[0x79, 0, 0x1, 0xF0]]){return;}
 
 switch(FEAT_STATIONS, SELF, _sw_check_yard_n1p0, [
-    STORE_TEMP(1, 0x100),
+    STORE_TEMP(badgetype("station/wins/right_yard"), 0x100),
     STORE_TEMP(bitmask(4), 0x101),
     var[0x79, 0, 0x1, 0x0F]]){return;}
 
 switch(FEAT_STATIONS, SELF, _sw_check_yard_n1n1, [
-    STORE_TEMP(1, 0x100),
+    STORE_TEMP(badgetype("station/wins/right_yard"), 0x100),
     STORE_TEMP(bitmask(4), 0x101),
     var[0x79, 0, 0x1, 0xFF]]){return;}
 
 switch(FEAT_STATIONS, SELF, _sw_check_yard_p1p0, [
-    STORE_TEMP(1, 0x100),
+    STORE_TEMP(badgetype("station/wins/right_yard"), 0x100),
     STORE_TEMP(bitmask(4), 0x101),
     var[0x79, 0, 0x1, 0x01]]){return;}
 
 switch(FEAT_STATIONS, SELF, _sw_check_yard_p1n1, [
-    STORE_TEMP(1, 0x100),
+    STORE_TEMP(badgetype("station/wins/right_yard"), 0x100),
     STORE_TEMP(bitmask(4), 0x101),
     var[0x79, 0, 0x1, 0xF1]]){return;}
 
