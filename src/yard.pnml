@@ -1,12 +1,12 @@
 // TODO catenary
 switch(FEAT_STATIONS, SELF, _sw_narrow_underlay, terrain_type){
-    TILETYPE_SNOW: id_narrow_snow_underlay;
-    id_narrow_wood_underlay;
+    TILETYPE_SNOW: id_yard_narrow_snow;
+    id_yard_narrow_wood;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_standard_underlay, terrain_type){
-    TILETYPE_SNOW: id_standard_snow_underlay;
-    id_standard_wood_underlay;
+    TILETYPE_SNOW: id_yard_standard_snow;
+    id_yard_standard_wood;
 }
 
 switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
@@ -19,63 +19,63 @@ switch(FEAT_STATIONS, SELF, _sw_yard_type, track_type){
     JEC1: none_code;
     JEC0: none_code;
     JEC8: none_code;
-    dAAE: id_dualgauge_wood_underlay;
-    dAAN: id_dualgauge_wood_underlay;
-    dBAE: id_dualgauge_slab_underlay;
-    SAAI: id_linear_conc_underlay;
-    SBAI: id_linear_slab_underlay;
-    MGLV: id_maglev_slab_underlay;
-    SAA3: id_metro_wood_underlay;
-    SBA3: id_metro_slab_underlay;
+    dAAE: id_yard_dualgauge_wood;
+    dAAN: id_yard_dualgauge_wood;
+    dBAE: id_yard_dualgauge_slab;
+    SAAI: id_yard_linear_conc;
+    SBAI: id_yard_linear_slab;
+    MGLV: id_yard_maglev_slab;
+    SAA3: id_yard_metro_wood;
+    SBA3: id_yard_metro_slab;
     NAAN: _sw_narrow_underlay();
     NAAE: _sw_narrow_underlay();
     NAAD: _sw_narrow_underlay();
     NBAN: _sw_narrow_underlay();
     NAAA: _sw_narrow_underlay();
-    NBAE: id_narrow_conc_underlay;
-    NCAN: id_narrow_conc_underlay;
-    NBAA: id_narrow_conc_underlay;
-    NBAD: id_narrow_conc_underlay;
-    NCAE: id_narrow_slab_underlay;
-    NDAN: id_narrow_slab_underlay;
-    NCAD: id_narrow_slab_underlay;
-    NCAA: id_narrow_slab_underlay;
-    SGAA: id_shin_conc_underlay;
-    SHAA: id_shin_slab_underlay;
+    NBAE: id_yard_narrow_conc;
+    NCAN: id_yard_narrow_conc;
+    NBAA: id_yard_narrow_conc;
+    NBAD: id_yard_narrow_conc;
+    NCAE: id_yard_narrow_slab;
+    NDAN: id_yard_narrow_slab;
+    NCAD: id_yard_narrow_slab;
+    NCAA: id_yard_narrow_slab;
+    SGAA: id_yard_shin_conc;
+    SHAA: id_yard_shin_slab;
     RAIL: _sw_standard_underlay();
     ELRL: _sw_standard_underlay();
     sAAD: _sw_standard_underlay();
     SAAA: _sw_standard_underlay();
     SAAN: _sw_standard_underlay();
     SAAD: _sw_standard_underlay();
-    SBAE: id_standard_conc_underlay;
-    sBAD: id_standard_conc_underlay;
-    SBAD: id_standard_conc_underlay;
-    SBAN: id_standard_conc_underlay;
-    SBAA: id_standard_conc_underlay;
-    _AAE: id_standard_slab_underlay;
-    sCAD: id_standard_slab_underlay;
-    SCAD: id_standard_slab_underlay;
-    SCAE: id_standard_slab_underlay;
-    SCAN: id_standard_slab_underlay;
-    SCAA: id_standard_slab_underlay;
-    SGAN: id_standard_ind_underlay;
-    SGAE: id_standard_ind_underlay;
-    SFAN: id_standard_ind_underlay;
-    SFAE: id_standard_ind_underlay;
-    SDAN: id_standard_ind_underlay;
-    SDAE: id_standard_ind_underlay;
-    SEAN: id_standard_ind_underlay;
-    SEAE: id_standard_ind_underlay;
-    NHAN: id_narrow_ind_underlay;
-    NHAE: id_narrow_ind_underlay;
-    NGAN: id_narrow_ind_underlay;
-    NGAE: id_narrow_ind_underlay;
-    NEAE: id_narrow_ind_underlay;
-    NEAN: id_narrow_ind_underlay;
-    NFAN: id_narrow_ind_underlay;
-    NFAE: id_narrow_ind_underlay;
-    id_narrow_wood_underlay;
+    SBAE: id_yard_standard_conc;
+    sBAD: id_yard_standard_conc;
+    SBAD: id_yard_standard_conc;
+    SBAN: id_yard_standard_conc;
+    SBAA: id_yard_standard_conc;
+    _AAE: id_yard_standard_slab;
+    sCAD: id_yard_standard_slab;
+    SCAD: id_yard_standard_slab;
+    SCAE: id_yard_standard_slab;
+    SCAN: id_yard_standard_slab;
+    SCAA: id_yard_standard_slab;
+    SGAN: id_yard_standard_ind;
+    SGAE: id_yard_standard_ind;
+    SFAN: id_yard_standard_ind;
+    SFAE: id_yard_standard_ind;
+    SDAN: id_yard_standard_ind;
+    SDAE: id_yard_standard_ind;
+    SEAN: id_yard_standard_ind;
+    SEAE: id_yard_standard_ind;
+    NHAN: id_yard_narrow_ind;
+    NHAE: id_yard_narrow_ind;
+    NGAN: id_yard_narrow_ind;
+    NGAE: id_yard_narrow_ind;
+    NEAE: id_yard_narrow_ind;
+    NEAN: id_yard_narrow_ind;
+    NFAN: id_yard_narrow_ind;
+    NFAE: id_yard_narrow_ind;
+    id_yard_narrow_wood;
 }
 
 const none_yard = FILLED(2);
