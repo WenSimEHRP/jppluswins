@@ -136,37 +136,37 @@ switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx_tropical, terrain_type){
     id_underlay_ogfx_tropical;
 }
 
-switch(FEAT_STATIONS, SELF, _sw_fence_underlay_ogfx, climate){
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx, climate){
     CLIMATE_ARCTIC: _sw_underlay_ogfx_arctic();
     CLIMATE_TROPICAL: _sw_underlay_ogfx_tropical();
     _sw_underlay_ogfx_temperate();
 }
 
-switch(FEAT_STATIONS, SELF, _sw_fence_underlay_ogfx2_check_param, a, a){
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2_check_param, a, a){
     1: _sw_underlay_ogfx2_tropical();
     2: _sw_underlay_ogfx2_arctic();
     _sw_underlay_ogfx2_temperate();
 }
 
-switch(FEAT_STATIONS, SELF, _sw_fence_underlay_ogfx2, climate){
-    CLIMATE_ARCTIC:   _sw_fence_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]);
-    CLIMATE_TROPICAL: _sw_fence_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]);
-                      _sw_fence_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]); // no toyland, sorrey!
+switch(FEAT_STATIONS, SELF, _sw_underlay_ogfx2, climate){
+    CLIMATE_ARCTIC:   _sw_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]);
+    CLIMATE_TROPICAL: _sw_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]);
+                      _sw_underlay_ogfx2_check_param(param["\6f\67\66\78", 0]); // no toyland, sorrey!
 }
 
-switch(FEAT_STATIONS, SELF, _sw_fence_underlay_automatic,
+switch(FEAT_STATIONS, SELF, _sw_underlay_automatic,
     grf_order_behind("\4f\47\2b\34") ? 1 : // OpenGFX+ Landscape
     grf_order_behind("\6f\67\66\78") ? 0 : // OpenGFX2
     grf_order_behind("\4f\47\46\58") ? 1 : // OpenGFX
     0
 ) {
-    1: _sw_fence_underlay_ogfx();
-    _sw_fence_underlay_ogfx2();
+    1: _sw_underlay_ogfx();
+    _sw_underlay_ogfx2();
 }
 
 // check fence underlay
-switch(FEAT_STATIONS, SELF, _sw_fence_underlay, param_fences_underlay) {
-    1: _sw_fence_underlay_automatic();
+switch(FEAT_STATIONS, SELF, _sw_underlay, param_fences_underlay) {
+    1: _sw_underlay_automatic();
     2:  param["YZ\AA\02", 25] == 0 ?
             none_code :
         param["YZ\AA\02", 24] == 0 ?
@@ -181,7 +181,7 @@ switch(FEAT_STATIONS, SELF, _sw_fence_underlay, param_fences_underlay) {
     none_code;
 }
 
-switch(FEAT_STATIONS, SELF, _sw_fence_underlay_check_tile_class, a, a){
+switch(FEAT_STATIONS, SELF, _sw_underlay_check_tile_class, a, a){
     TILE_CLASS_RAIL: 1;
     TILE_CLASS_STATION: 1;
     0;
@@ -215,12 +215,12 @@ const pos_underlay_type_size = 8;
 // b: nearby rail/station information
 // returns (none_code << pos_end) | (extra bits) if there are no underlay to show
 // that is, 0b11111111 XXXX where XXXX doesn't matter
-switch(FEAT_STATIONS, SELF, sw_fence_underlay,
-    (hasbit(rail_continuation, 1) || _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
-    (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
-    (_sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) && sw_tile_same_height_right()) << pos_right |
-    (_sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) && sw_tile_same_height_left()) << pos_left |
-    (_sw_no_underlay(_sw_fence()) ? none_code : _sw_fence_underlay()) << pos_underlay_type
+switch(FEAT_STATIONS, SELF, sw_underlay,
+    (hasbit(rail_continuation, 1) || _sw_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
+    (hasbit(rail_continuation, 0) || _sw_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
+    (_sw_underlay_check_tile_class(nearby_tile_class(0,  1)) && sw_tile_same_height_right()) << pos_right |
+    (_sw_underlay_check_tile_class(nearby_tile_class(0, -1)) && sw_tile_same_height_left()) << pos_left |
+    (_sw_no_underlay(_sw_fence()) ? none_code : _sw_underlay()) << pos_underlay_type
 ){return;}
 
 const pos_fence_type = 4;
@@ -233,10 +233,10 @@ const pos_fence_type_size = 8;
 // returns (none_code << pos_end) | (extra bits) if there are no underlay to show
 // that is, 0b11111111 XXXX where XXXX doesn't matter
 switch(FEAT_STATIONS, SELF, sw_fence,
-    (hasbit(rail_continuation, 1) || _sw_fence_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
-    (hasbit(rail_continuation, 0) || _sw_fence_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
-    (_sw_fence_underlay_check_tile_class(nearby_tile_class(0,  1)) && sw_tile_same_height_permissive_right()) << pos_right |
-    (_sw_fence_underlay_check_tile_class(nearby_tile_class(0, -1)) && sw_tile_same_height_permissive_left()) << pos_left |
+    (hasbit(rail_continuation, 1) || _sw_underlay_check_tile_class(nearby_tile_class(-1, 0))) << pos_front |
+    (hasbit(rail_continuation, 0) || _sw_underlay_check_tile_class(nearby_tile_class( 1, 0))) << pos_back |
+    (_sw_underlay_check_tile_class(nearby_tile_class(0,  1)) && sw_tile_same_height_permissive_right()) << pos_right |
+    (_sw_underlay_check_tile_class(nearby_tile_class(0, -1)) && sw_tile_same_height_permissive_left()) << pos_left |
     _sw_fence() << pos_fence_type
 ){return;}
 

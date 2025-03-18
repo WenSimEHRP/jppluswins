@@ -1,7 +1,7 @@
 ---
 # temporary registers are automatically sorted and assigned
 temps:
-  t_underlay: sw_fence_underlay()
+  t_underlay: sw_underlay()
   t_fence: sw_fence()
   t_barrier: sw_barrier()
   t_yard: sw_yard()
