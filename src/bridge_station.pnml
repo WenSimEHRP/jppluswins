@@ -1,0 +1,92 @@
+spritelayout sp_bridge_x() {
+    ground { sprite: GROUNDSPRITE_RAIL_X; }
+    building {xextent: 16; xoffset: 0; yextent: 3; zextent: 40; sprite: 1070;}
+    building {xextent: 16; xoffset: 0; yextent: 3; yoffset: 11; zextent: 40; sprite: 1072;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 1 : -16 * 1; yextent: 3; zextent: 40; sprite: 1070; hide_sprite: LOAD_TEMP(0) <= 1;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 2 : -16 * 2; yextent: 3; zextent: 40; sprite: 1070; hide_sprite: LOAD_TEMP(0) <= 2;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 3 : -16 * 3; yextent: 3; zextent: 40; sprite: 1070; hide_sprite: LOAD_TEMP(0) <= 3;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 1 :  16 * 1; yextent: 3; zextent: 40; sprite: 1070; hide_sprite: LOAD_TEMP(1) <= 1;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 2 :  16 * 2; yextent: 3; zextent: 40; sprite: 1070; hide_sprite: LOAD_TEMP(1) <= 2;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 3 :  16 * 3; yextent: 3; zextent: 40; sprite: 1070; hide_sprite: LOAD_TEMP(1) <= 3;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 1 : -16 * 1; yextent: 3; yoffset: 11; zextent: 40; sprite: 1072; hide_sprite: LOAD_TEMP(0) <= 1;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 2 : -16 * 2; yextent: 3; yoffset: 11; zextent: 40; sprite: 1072; hide_sprite: LOAD_TEMP(0) <= 2;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 3 : -16 * 3; yextent: 3; yoffset: 11; zextent: 40; sprite: 1072; hide_sprite: LOAD_TEMP(0) <= 3;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 1 :  16 * 1; yextent: 3; yoffset: 11; zextent: 40; sprite: 1072; hide_sprite: LOAD_TEMP(1) <= 1;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 2 :  16 * 2; yextent: 3; yoffset: 11; zextent: 40; sprite: 1072; hide_sprite: LOAD_TEMP(1) <= 2;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 3 :  16 * 3; yextent: 3; yoffset: 11; zextent: 40; sprite: 1072; hide_sprite: LOAD_TEMP(1) <= 3;}
+}
+
+spritelayout sp_bridge_x_1() {
+    ground { sprite: GROUNDSPRITE_RAIL_X; }
+    building {xextent: 16; xoffset: 0; yextent: 3; zextent: 40; zoffset: 8; sprite: 1070;}
+    building {xextent: 16; xoffset: 0; yextent: 3; yoffset: 11; zextent: 40; zoffset: 8; sprite: 1072;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 1 : -16 * 1; yextent: 3; zextent: 40; zoffset: 8; sprite: 1070; hide_sprite: LOAD_TEMP(0) <= 1;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 2 : -16 * 2; yextent: 3; zextent: 40; zoffset: 8; sprite: 1070; hide_sprite: LOAD_TEMP(0) <= 2;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 3 : -16 * 3; yextent: 3; zextent: 40; zoffset: 8; sprite: 1070; hide_sprite: LOAD_TEMP(0) <= 3;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 1 :  16 * 1; yextent: 3; zextent: 40; zoffset: 8; sprite: 1070; hide_sprite: LOAD_TEMP(1) <= 1;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 2 :  16 * 2; yextent: 3; zextent: 40; zoffset: 8; sprite: 1070; hide_sprite: LOAD_TEMP(1) <= 2;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 3 :  16 * 3; yextent: 3; zextent: 40; zoffset: 8; sprite: 1070; hide_sprite: LOAD_TEMP(1) <= 3;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 1 : -16 * 1; yextent: 3; yoffset: 11; zextent: 40; zoffset: 8; sprite: 1072; hide_sprite: LOAD_TEMP(0) <= 1;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 2 : -16 * 2; yextent: 3; yoffset: 11; zextent: 40; zoffset: 8; sprite: 1072; hide_sprite: LOAD_TEMP(0) <= 2;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ? -16 * 3 : -16 * 3; yextent: 3; yoffset: 11; zextent: 40; zoffset: 8; sprite: 1072; hide_sprite: LOAD_TEMP(0) <= 3;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 1 :  16 * 1; yextent: 3; yoffset: 11; zextent: 40; zoffset: 8; sprite: 1072; hide_sprite: LOAD_TEMP(1) <= 1;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 2 :  16 * 2; yextent: 3; yoffset: 11; zextent: 40; zoffset: 8; sprite: 1072; hide_sprite: LOAD_TEMP(1) <= 2;}
+    building {xextent: 16; xoffset: LOAD_TEMP(0) ?  16 * 3 :  16 * 3; yextent: 3; yoffset: 11; zextent: 40; zoffset: 8; sprite: 1072; hide_sprite: LOAD_TEMP(1) <= 3;}
+}
+
+
+switch(FEAT_STATIONS, SELF, sw_nearby_is_tile_0,
+    nearby_tile_is_station(-1, 0) ? 1 :
+    nearby_tile_is_station(-2, 0) ? 2 :
+    nearby_tile_is_station(-3, 0) ? 3 :
+    nearby_tile_is_station(-4, 0) ? 4 :
+    0
+){return;}
+switch(FEAT_STATIONS, SELF, sw_nearby_is_tile_1,
+    nearby_tile_is_station( 1, 0) ? 1 :
+    nearby_tile_is_station( 2, 0) ? 2 :
+    nearby_tile_is_station( 3, 0) ? 3 :
+    nearby_tile_is_station( 4, 0) ? 4 :
+    0
+){return;}
+
+switch(FEAT_STATIONS, SELF, sw_bridge_prepare, [
+    STORE_TEMP(sw_nearby_is_tile_0(), 0),
+    STORE_TEMP(sw_nearby_is_tile_1(), 1),
+]){return;}
+
+item(4, i_bridge) {
+    property {
+        class: "WIN\54";
+        classname: string(STR_CLASS_WIN54);
+        name: string(STR_STAT_BRIDGE);
+        tile_flags: [bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON)];
+        animation_info: [ANIMATION_LOOPING, 16];
+        animation_speed: 0;
+        animation_triggers: bitmask(STAT_ANIM_250_TICKS);
+    }
+    graphics {
+        prepare_layout: sw_bridge_prepare();
+        sprite_layouts: [sp_bridge_x, sp_bridge_x];
+        anim_next_frame: CB_RESULT_NEXT_FRAME;
+        anim_control: CB_RESULT_START_ANIMATION;
+    }
+}
+
+item(4, i_bridge_1) {
+    property {
+        class: "WIN\54";
+        classname: string(STR_CLASS_WIN54);
+        name: string(STR_STAT_BRIDGE);
+        tile_flags: [bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON), bitmask(STAT_TILE_PYLON)];
+        animation_info: [ANIMATION_LOOPING, 16];
+        animation_speed: 0;
+        animation_triggers: bitmask(STAT_ANIM_250_TICKS);
+    }
+    graphics {
+        prepare_layout: sw_bridge_prepare();
+        sprite_layouts: [sp_bridge_x_1, sp_bridge_x_1];
+        anim_next_frame: CB_RESULT_NEXT_FRAME;
+        anim_control: CB_RESULT_START_ANIMATION;
+    }
+}

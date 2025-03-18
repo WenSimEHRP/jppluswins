@@ -32,6 +32,7 @@ STR_PARAM_FENCE_8               :Grass overlap
 
 STR_CLASS_WINS                  :WINS Stations {PUSH_COLOUR}{WHITE}>>{POP_COLOUR} Yards
 STR_CLASS_FFWIN                 :WINS Waypoints {PUSH_COLOUR}{WHITE}>>{POP_COLOUR} Basic
+STR_CLASS_WIN54                 :{PUSH_COLOUR}{WHITE}>>{POP_COLOUR} Platform on bridge
 
 STR_STAT_DEFAULT                :Station
 STR_STAT_EMPTY                  :Empty station
@@ -41,3 +42,4 @@ STR_STAT_CATENARIES             :Catenaries
 STR_STAT_YARD                   :Marshalling yard
 STR_STAT_GRASSLESS_YARD         :Grassless marshalling yard
 STR_STAT_END_OF_CATENARY        :End of catenary/tensioner
+STR_STAT_BRIDGE                 :Platform on bridge
