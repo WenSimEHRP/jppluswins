@@ -1,0 +1,4 @@
+[submodule "nml"]
+	path = nml
+	url = https://github.com/openttd/nml.git
+	branch = master
