@@ -1,3 +1,4 @@
 [submodule "nml"]
-	path = nml
-	url = https://github.com/openttd/nml
+    path = nml
+    url = https://github.com/petern/nml
+    branch = newgrf-badges
