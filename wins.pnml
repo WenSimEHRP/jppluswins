@@ -1,6 +1,9 @@
 #include "src/defines.pnml"
 #include "src/header.pnml"
 #include "src/utility.pnml"
+#include "src/template.pnml"
+
+#include "generated/spritesets.nml"
 
 #include "src/spritesets.pnml"
 #include "src/fences.pnml"

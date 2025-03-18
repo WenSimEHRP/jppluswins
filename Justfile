@@ -20,6 +20,7 @@ release: preprocess
 
 # preprocess the pnml file
 preprocess:
+    ./spritesets.py
     ./build.py
     gcc -E -P -x c tags.txt \
         -D GIT_VERSION="$(git describe --tags --always --dirty || echo 0.0.0-0-0000000)" \

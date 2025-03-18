@@ -1,0 +1,66 @@
+fence:
+  size: 2
+  template:
+  items:
+    - hedge: tmpl_fence_v2(0, 80, "gfx/fences/fences_2_no_grass.png")
+    - wooden: tmpl_fence_v2(0, 160, "gfx/fences/fences_2_no_grass.png")
+    - wooden_white: tmpl_fence_v2(0, 240, "gfx/fences/fences_2_no_grass.png")
+    - mesh: tmpl_fence_v2(0, 320, "gfx/fences/fences_2_no_grass.png")
+    - mesh_low: tmpl_fence_v2(0, 400, "gfx/fences/fences_2_no_grass.png")
+    - concrete: tmpl_fence(0, 50, "gfx/fences/fences_symmetric.png")
+    - concrete_2: tmpl_fence(0, 100, "gfx/fences/fences_symmetric.png")
+
+underlay:
+  size: 4
+  items:
+    - ogfx2_temperate: tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png")
+    - ogfx2_arctic: tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png")
+    - ogfx2_tropical: tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png")
+    - ogfx2_desert: tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png")
+    - ogfx_temperate: tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_temp.png")
+    - ogfx_arctic: tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_arctic.png")
+    - ogfx_tropical: tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_trop.png")
+    - ogfx_desert: tmpl_underlay(0, 0, "gfx/fences/fences_2_grass_desert.png")
+
+barrier:
+  size: 4
+  items:
+    - barrier: tmpl_barrier("gfx/barrier.png")
+
+yard:
+  size: 6
+  items:
+    - dualgauge_wood: tmpl_yard("gfx/yard/dualgauge_wood_underlay.png")
+    - dualgauge_slab: tmpl_yard("gfx/yard/dualgauge_slab_underlay.png")
+    - linear_conc: tmpl_yard("gfx/yard/linear_conc_underlay.png")
+    - linear_slab: tmpl_yard("gfx/yard/linear_slab_underlay.png")
+    - maglev_slab: tmpl_yard("gfx/yard/maglev_slab_underlay.png")
+    - metro_wood: tmpl_yard("gfx/yard/metro_wood_underlay.png")
+    - metro_slab: tmpl_yard("gfx/yard/metro_slab_underlay.png")
+    - narrow_wood: tmpl_yard("gfx/yard/narrow_wood_underlay.png")
+    - narrow_conc: tmpl_yard("gfx/yard/narrow_conc_underlay.png")
+    - narrow_slab: tmpl_yard("gfx/yard/narrow_slab_underlay.png")
+    - shin_conc: tmpl_yard("gfx/yard/shin_conc_underlay.png")
+    - shin_slab: tmpl_yard("gfx/yard/shin_slab_underlay.png")
+    - standard_wood: tmpl_yard("gfx/yard/standard_wood_underlay.png")
+    - standard_conc: tmpl_yard("gfx/yard/standard_conc_underlay.png")
+    - standard_slab: tmpl_yard("gfx/yard/standard_slab_underlay.png")
+    - standard_ind: tmpl_yard("gfx/yard/standard_ind_underlay.png")
+    - standard_snow: tmpl_yard("gfx/yard/standard_snow_underlay.png")
+    - narrow_ind: tmpl_yard("gfx/yard/narrow_ind_underlay.png")
+    - narrow_snow: tmpl_yard("gfx/yard/narrow_snow_underlay.png")
+
+pylon:
+  size: 8
+  items:
+    - old: tmpl_catenary_pylons(0, "gfx/poles.png")
+    - new: tmpl_catenary_pylons(64, "gfx/poles.png")
+    - wood: tmpl_catenary_pylons(128, "gfx/poles.png")
+
+catenary:
+  size: 10
+  items:
+    - black: tmpl_catenary_wire(0, 0, "gfx/wire.png")
+    - ottd: tmpl_catenary_wire(0, 100, "gfx/wire.png")
+    - black_old: tmpl_catenary_wire(0, 0, "gfx/wire_old.png")
+    - ottd_old: tmpl_catenary_wire(0, 100, "gfx/wire_old.png")
