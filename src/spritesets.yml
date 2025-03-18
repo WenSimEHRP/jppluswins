@@ -64,3 +64,31 @@ catenary:
     - ottd: tmpl_catenary_wire(0, 100, "gfx/wire.png")
     - black_old: tmpl_catenary_wire(0, 0, "gfx/wire_old.png")
     - ottd_old: tmpl_catenary_wire(0, 100, "gfx/wire_old.png")
+
+preview:
+  size: 2
+  items:
+    - bare_full: tmpl_preview(0, 0)
+    - bare_fence: tmpl_preview(0, 1)
+    - bare_underlay: tmpl_preview(0, 2)
+    - bare_catenary: tmpl_preview(0, 3)
+    - yard_left: tmpl_preview(1, 0)
+    - yard_left_fence: tmpl_preview(1, 1)
+    - yard_left_no_catenary: tmpl_preview(1, 2)
+    - yard_left_fence_no_catenary: tmpl_preview(1, 3)
+
+end_of_catenary:
+  size: 2
+  items:
+    - style_0: |
+        [1 * 64, 0, 64, 64, -43, -23, "gfx/end_of_catenary.png"]
+        [6 * 64, 0, 64, 64, -19, -22, "gfx/end_of_catenary.png"]
+    - style_1: |
+        [3 * 64, 0, 64, 64, -39, -29, "gfx/end_of_catenary.png"]
+        [4 * 64, 0, 64, 64, -21, -29, "gfx/end_of_catenary.png"]
+    - style_2: |
+        [0 * 64, 0, 64, 64, -51, -25, "gfx/end_of_catenary.png"]
+        [7 * 64, 0, 64, 64,  -9, -25, "gfx/end_of_catenary.png"]
+    - style_3: |
+        [2 * 64, 0, 64, 64, -47, -17, "gfx/end_of_catenary.png"]
+        [5 * 64, 0, 64, 64, -13, -17, "gfx/end_of_catenary.png"]

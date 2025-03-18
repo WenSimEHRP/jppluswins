@@ -59,3 +59,8 @@ template tmpl_catenary_wire(x, y, path) {
     [96,  y,    32,  5,   0, 10, path]
     [144, y,    1,  20,  -1, -6, path]
 }
+
+template tmpl_preview(x, y) {
+    [2 * x * 80, y * 80, 64, 64,       -31, -31, "gfx/preview.png"]
+    [(2 * x + 1) * 80, y * 80, 64, 64, -31, -31, "gfx/preview.png"]
+}

@@ -22,3 +22,12 @@ switch(FEAT_STATIONS, SELF, sw_tile_same_height_permissive_right, nearby_tile_sl
     1: nearby_tile_slope(0, 1) == SLOPE_SE;
     1;
 }
+
+
+spritelayout sp_preview_x {
+    ground { sprite: CUSTOM(0, LOAD_TEMP(t_preview) * id_preview_size + pos_preview_start); }
+}
+
+spritelayout sp_preview_y {
+    ground { sprite: CUSTOM(0, LOAD_TEMP(t_preview) * id_preview_size + pos_preview_start + 1); }
+}

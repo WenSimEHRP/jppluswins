@@ -55,23 +55,22 @@ def layout(key, val_layout, templates, fw):
     return var_indices
 
 
-def write_constants(templates, fw):
-    for ind, val in enumerate(sorted(templates["temps"].keys())):
-        print(f"const {val} = {ind + 10};", file=fw)
-
-
 def process_item(key, val, templates, fw):
     temps = layout(key, val["layout"], templates, fw)
     registers = ""
     for k, v in temps.items():
-        registers += f"STORE_TEMP({k.replace('t_', 'sw_')}(), {v}),\n"
+        if "style" in k:
+            registers += f"STORE_TEMP({val['style']}, {v}),\n"
+        else:
+            registers += f"STORE_TEMP({k.replace('t_', 'sw_')}(), {v}),\n"
 
     sprite_layouts = f"[sp_{key}_x, sp_{key}_y]"
     misc = ""
     if "preview" in val:
-        sprite_layouts = f"[sp_{key}_x, sp_{key}_y, sp_preview({val['preview'] * 2}), sp_preview({val['preview'] * 2 + 1})]"
+        sprite_layouts = f"[sp_{key}_x, sp_{key}_y, sp_preview_x, sp_preview_y]"
         misc += "\nselect_sprite_layout: 0;"
         misc += "\npurchase_select_sprite_layout: 2;"
+        registers += f"STORE_TEMP({val['preview']}, t_preview),\n"
 
     printstr = item_templates[val.get("template", "default")].substitute(
         name=key,
@@ -92,7 +91,6 @@ def main():
     with open("generated/platforms.nml", "w+") as fw:
         for platform_file in PLATFORMS:
             with open(platform_file, "r") as f:
-                write_constants(templates, fw)
                 data = yaml.safe_load(f)
                 for key, val in data.items():
                     process_item(key, val, templates, fw)

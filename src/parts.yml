@@ -396,7 +396,7 @@ end_of_catenary:
   default:
     x: >
       building {
-        sprite: s_end_of_catenary(1);
+        sprite: CUSTOM(0, LOAD_TEMP(t_style) * id_end_of_catenary_size + pos_end_of_catenary_start);
         xextent: 20;
         xoffset: FORCE_SHOW(-4);
         yextent: 6;
@@ -405,7 +405,7 @@ end_of_catenary:
       }
     y: >
       building {
-        sprite: s_end_of_catenary(6);
+        sprite: CUSTOM(0, LOAD_TEMP(t_style) * id_end_of_catenary_size + pos_end_of_catenary_start + 1);
         yextent: 20;
         yoffset: FORCE_SHOW(-4);
         xextent: 6;
@@ -415,7 +415,7 @@ end_of_catenary:
   diff_side:
     x: >
       building {
-        sprite: s_end_of_catenary(3);
+        sprite: CUSTOM(0, LOAD_TEMP(t_style) * id_end_of_catenary_size + pos_end_of_catenary_start);
         xextent: 20;
         xoffset: FORCE_SHOW(-4);
         yextent: 6;
@@ -423,7 +423,7 @@ end_of_catenary:
       }
     y: >
       building {
-        sprite: s_end_of_catenary(4);
+        sprite: CUSTOM(0, LOAD_TEMP(t_style) * id_end_of_catenary_size + pos_end_of_catenary_start + 1);
         yextent: 20;
         yoffset: FORCE_SHOW(-4);
         xextent: 6;
@@ -432,7 +432,7 @@ end_of_catenary:
   opposite_same_side:
     x: >
       building {
-        sprite: s_end_of_catenary(0);
+        sprite: CUSTOM(0, LOAD_TEMP(t_style) * id_end_of_catenary_size + pos_end_of_catenary_start);
         xextent: 20;
         xoffset: 0;
         yextent: 6;
@@ -441,7 +441,7 @@ end_of_catenary:
       }
     y: >
       building {
-        sprite: s_end_of_catenary(7);
+        sprite: CUSTOM(0, LOAD_TEMP(t_style) * id_end_of_catenary_size + pos_end_of_catenary_start + 1);
         yextent: 20;
         yoffset: 0;
         xextent: 6;
@@ -451,7 +451,7 @@ end_of_catenary:
   opposite_diff_side:
     x: >
       building {
-        sprite: s_end_of_catenary(2);
+        sprite: CUSTOM(0, LOAD_TEMP(t_style) * id_end_of_catenary_size + pos_end_of_catenary_start);
         xextent: 20;
         xoffset: 0;
         yextent: 6;
@@ -459,7 +459,7 @@ end_of_catenary:
       }
     y: >
       building {
-        sprite: s_end_of_catenary(5);
+        sprite: CUSTOM(0, LOAD_TEMP(t_style) * id_end_of_catenary_size + pos_end_of_catenary_start + 1);
         yextent: 20;
         yoffset: 0;
         xextent: 6;
