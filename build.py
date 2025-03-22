@@ -29,6 +29,8 @@ def layout(key, val_layout, templates, fw):
             category, element = part.split(".")
             template_code = templates[category][element][direction]
             for matches in re.findall(check_temps, template_code):
+                if "t_style" in matches:
+                    continue
                 temp_vars.update(var for var in matches if var.strip())
             output_lines.append(template_code)
         output_lines.append("}")
@@ -58,11 +60,10 @@ def layout(key, val_layout, templates, fw):
 def process_item(key, val, templates, fw):
     temps = layout(key, val["layout"], templates, fw)
     registers = ""
+    if "style" in val:
+        registers += f"STORE_TEMP({val['style']}, t_style),\n"
     for k, v in temps.items():
-        if "style" in k:
-            registers += f"STORE_TEMP({val['style']}, {v}),\n"
-        else:
-            registers += f"STORE_TEMP({k.replace('t_', 'sw_')}(), {v}),\n"
+        registers += f"STORE_TEMP({k.replace('t_', 'sw_')}(), {v}),\n"
 
     sprite_layouts = f"[sp_{key}_x, sp_{key}_y]"
     misc = ""

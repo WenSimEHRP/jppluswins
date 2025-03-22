@@ -13,6 +13,7 @@ const pos_end_size = 1;
 const none_code = 0xFF;
 
 const t_preview = 0x7F;
+const t_style = 0x7E;
 
 /*
 right     back
