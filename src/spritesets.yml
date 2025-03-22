@@ -92,3 +92,10 @@ end_of_catenary:
     - style_3: |
         [2 * 64, 0, 64, 64, -47, -17, "gfx/end_of_catenary.png"]
         [5 * 64, 0, 64, 64, -13, -17, "gfx/end_of_catenary.png"]
+
+tetsubashi:
+  size: 16
+  items:
+    - style_0: tmpl_tetsubashi(1, "gfx/tetsubashi.png")
+    - underlay: tmpl_tetsubashi(0, "gfx/tetsubashi.png")
+    - dam: tmpl_tetsubashi(2, "gfx/tetsubashi.png")

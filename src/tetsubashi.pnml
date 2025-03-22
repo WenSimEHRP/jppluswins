@@ -1,0 +1,23 @@
+switch(FEAT_STATIONS, SELF, sw_tetsubashi_left,
+    (
+        !sw_tile_same_height_left() ? id_tetsubashi_dam :
+        nearby_tile_is_station( 0, -1) ? id_tetsubashi_underlay:
+        LOAD_TEMP(t_style)
+    ) * id_tetsubashi_size +
+    (
+        nearby_tile_is_station(-1, 0) << pos_front |
+        nearby_tile_is_station( 1, 0) << pos_back
+    )
+){return;}
+
+switch(FEAT_STATIONS, SELF, sw_tetsubashi_right,
+    (
+        !sw_tile_same_height_right() ? id_tetsubashi_dam :
+        nearby_tile_is_station( 0, 1) ? id_tetsubashi_underlay:
+        LOAD_TEMP(t_style)
+    ) * id_tetsubashi_size +
+    (
+        nearby_tile_is_station(-1, 0) << pos_front |
+        nearby_tile_is_station( 1, 0) << pos_back
+    )
+){return;}

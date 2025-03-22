@@ -207,3 +207,11 @@ end_of_catenary_opposite_diff_side:
     - barrier.front
     - barrier.back
     - end_of_catenary.opposite_diff_side
+
+tetsubashi_0:
+  class_label: "\\FFWIB"
+  class_name: STR_CLASS_FFWIB
+  style: 0
+  layout:
+    - rail.ground
+    - tetsubashi.default

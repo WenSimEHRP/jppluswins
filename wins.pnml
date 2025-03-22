@@ -8,5 +8,6 @@
 #include "src/fences.pnml"
 #include "src/yard.pnml"
 #include "src/catenary.pnml"
+#include "src/tetsubashi.pnml"
 
 #include "generated/platforms.nml"

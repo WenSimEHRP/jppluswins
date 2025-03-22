@@ -465,3 +465,34 @@ end_of_catenary:
         xextent: 6;
         zextent: 6;
       }
+
+tetsubashi:
+  default:
+    x: >
+      building {
+        sprite: CUSTOM(0, pos_tetsubashi_start + LOAD_TEMP(t_tetsubashi_left));
+        xextent: 16;
+        yextent: 5;
+        zextent: 6;
+      }
+      building {
+        sprite: CUSTOM(0, pos_tetsubashi_start + LOAD_TEMP(t_tetsubashi_right) + 4);
+        xextent: 16;
+        yextent: 5;
+        yoffset: 11;
+        zextent: 6;
+      }
+    y: >
+      building {
+        sprite: CUSTOM(0, pos_tetsubashi_start + LOAD_TEMP(t_tetsubashi_left) + 8);
+        yextent: 16;
+        xextent: 5;
+        zextent: 6;
+      }
+      building {
+        sprite: CUSTOM(0, pos_tetsubashi_start + LOAD_TEMP(t_tetsubashi_right) + 12);
+        yextent: 16;
+        xextent: 5;
+        xoffset: 11;
+        zextent: 6;
+      }
