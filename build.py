@@ -59,28 +59,34 @@ def layout(key, val_layout, templates, fw):
 
 def process_item(key, val, templates, fw):
     temps = layout(key, val["layout"], templates, fw)
-    registers = ""
+    registers = []
     if "style" in val:
-        registers += f"STORE_TEMP({val['style']}, t_style),\n"
+        registers.append(f"STORE_TEMP({val['style']}, t_style),")
     for k, v in temps.items():
-        registers += f"STORE_TEMP({k.replace('t_', 'sw_')}(), {v}),\n"
+        registers.append(f"STORE_TEMP({k.replace('t_', 'sw_')}(), {v}),")
 
     sprite_layouts = f"[sp_{key}_x, sp_{key}_y]"
-    misc = ""
+    misc = []
+    general_flags = []
     if "preview" in val:
         sprite_layouts = f"[sp_{key}_x, sp_{key}_y, sp_preview_x, sp_preview_y]"
-        misc += "\nselect_sprite_layout: 0;"
-        misc += "\npurchase_select_sprite_layout: 2;"
-        registers += f"STORE_TEMP({val['preview']}, t_preview),\n"
+        misc.append("select_sprite_layout: 0;")
+        misc.append("purchase_select_sprite_layout: 2;")
+        registers.append(f"STORE_TEMP({val['preview']}, t_preview),")
+    if "foundation" in val:
+        general_flags.append("STAT_FLAG_CUSTOM_FOUNDATIONS")
+        general_flags.append("STAT_FLAG_EXTENDED_FOUNDATIONS")
+        misc.append(f"foundations: {val['foundation']};")
 
     printstr = item_templates[val.get("template", "default")].substitute(
         name=key,
         name_label=val.get("name_label", "DEFAULT"),
-        temps=registers,
+        general_flags=f"bitmask({', '.join(general_flags)})",
+        temps="\n    ".join(registers),
         sprite_layouts=sprite_layouts,
         class_label=val.get("class_label", "WINS"),
         class_name=val.get("class_name", "STR_CLASS_WINS"),
-        misc=misc,
+        misc="\n    ".join(misc),
     )
     print(printstr, file=fw)
 
