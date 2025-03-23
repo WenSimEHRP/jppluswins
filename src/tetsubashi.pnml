@@ -1,6 +1,6 @@
 switch(FEAT_STATIONS, SELF, sw_tetsubashi_left,
     (
-        !sw_tile_same_height_left() ? id_tetsubashi_dam :
+        !sw_tile_same_height_dam_left() ? id_tetsubashi_dam :
         nearby_tile_is_station( 0, -1) ? id_tetsubashi_underlay:
         LOAD_TEMP(t_style)
     ) * id_tetsubashi_size +
@@ -12,7 +12,7 @@ switch(FEAT_STATIONS, SELF, sw_tetsubashi_left,
 
 switch(FEAT_STATIONS, SELF, sw_tetsubashi_right,
     (
-        !sw_tile_same_height_right() ? id_tetsubashi_dam :
+        !sw_tile_same_height_dam_right() ? id_tetsubashi_dam :
         nearby_tile_is_station( 0, 1) ? id_tetsubashi_underlay:
         LOAD_TEMP(t_style)
     ) * id_tetsubashi_size +
@@ -21,3 +21,24 @@ switch(FEAT_STATIONS, SELF, sw_tetsubashi_right,
         nearby_tile_is_station( 1, 0) << pos_back
     )
 ){return;}
+
+const pos_tetsubashi_info = 0;
+const pos_tetsubashi_info_size = 2;
+
+switch(FEAT_STATIONS, SELF, sw_tetsubashi_river,
+    nearby_tile_is_station(-1, 0) << pos_front |
+    nearby_tile_is_station( 1, 0) << pos_back |
+    (nearby_tile_is_station( 0, -1) || !sw_tile_same_height_dam_left()) << pos_left |
+    (nearby_tile_is_station( 0,  1) || !sw_tile_same_height_dam_right()) << pos_right
+){return;}
+
+spriteset(s_tetsubashi_foundation, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/tetsubashi_foundation.png"){
+    [  6, 10, 64, 40, -31, -9]
+    [ 80, 10, 64, 40, -31, -9]
+    [150, 10, 64, 32, -31, -9]
+    [222, 10, 64, 40, -31, -9]
+    [296, 10, 64, 40, -31, -9]
+    [367, 10, 64, 32, -31, -9]
+    [441, 10, 64, 32, -31, -9]
+    [513, 10, 64, 32, -31, -9]
+}

@@ -83,3 +83,22 @@ template tmpl_tetsubashi(y, path){
     [14 * 64, y * 48, 64, 48,  -9, -28, path]
     [15 * 64, y * 48, 64, 48,  -9, -28, path]
 }
+
+template tmpl_tetsubashi_river(path, mask){
+    [ 0 * 64,  0, 64, 48, -31, -17, ANIM, path, mask]
+    [ 1 * 64,  0, 64, 48, -31, -17, ANIM, path, mask]
+    [ 2 * 64,  0, 64, 48, -31, -17, ANIM, path, mask]
+    [ 3 * 64,  0, 64, 48, -31, -17, ANIM, path, mask]
+    [ 4 * 64,  0, 64, 48, -53, -28, ANIM, path, mask]
+    [ 5 * 64,  0, 64, 48, -53, -28, ANIM, path, mask]
+    [ 6 * 64,  0, 64, 48, -53, -28, ANIM, path, mask]
+    [ 7 * 64,  0, 64, 48, -53, -28, ANIM, path, mask]
+    [ 8 * 64,  0, 64, 48, -31, -17, ANIM, path, mask]
+    [ 9 * 64,  0, 64, 48, -31, -17, ANIM, path, mask]
+    [10 * 64,  0, 64, 48, -31, -17, ANIM, path, mask]
+    [11 * 64,  0, 64, 48, -31, -17, ANIM, path, mask]
+    [12 * 64,  0, 64, 48,  -9, -28, ANIM, path, mask]
+    [13 * 64,  0, 64, 48,  -9, -28, ANIM, path, mask]
+    [14 * 64,  0, 64, 48,  -9, -28, ANIM, path, mask]
+    [15 * 64,  0, 64, 48,  -9, -28, ANIM, path, mask]
+}
