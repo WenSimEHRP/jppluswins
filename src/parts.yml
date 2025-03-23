@@ -487,20 +487,20 @@ tetsubashi:
       }
     y: >
       childsprite {
-        sprite: CUSTOM(0, pos_tetsubashi_start + 8 +
+        sprite: CUSTOM(0, pos_tetsubashi_start + 12 +
                           EXTRACT_INFO(t_tetsubashi_river, pos_tetsubashi_info) +
                           id_tetsubashi_river * id_tetsubashi_size);
         always_draw: 1;
-        hide_sprite: hasbit(LOAD_TEMP(t_tetsubashi_river), pos_right);
+        hide_sprite: hasbit(LOAD_TEMP(t_tetsubashi_river), pos_left);
       }
       childsprite {
-        sprite: CUSTOM(0, pos_tetsubashi_start + 12 +
+        sprite: CUSTOM(0, pos_tetsubashi_start + 8 +
                           EXTRACT_INFO(t_tetsubashi_river, pos_tetsubashi_info) +
                           id_tetsubashi_river * id_tetsubashi_size);
         xoffset: FORCE_SHOW(-22);
         yoffset: 11;
         always_draw: 1;
-        hide_sprite: hasbit(LOAD_TEMP(t_tetsubashi_river), pos_left);
+        hide_sprite: hasbit(LOAD_TEMP(t_tetsubashi_river), pos_right);
       }
   default:
     x: >
@@ -519,13 +519,13 @@ tetsubashi:
       }
     y: >
       building {
-        sprite: CUSTOM(0, pos_tetsubashi_start + LOAD_TEMP(t_tetsubashi_right) + 8);
+        sprite: CUSTOM(0, pos_tetsubashi_start + LOAD_TEMP(t_tetsubashi_left) + 12);
         yextent: 16;
         xextent: 5;
         zextent: 6;
       }
       building {
-        sprite: CUSTOM(0, pos_tetsubashi_start + LOAD_TEMP(t_tetsubashi_left) + 12);
+        sprite: CUSTOM(0, pos_tetsubashi_start + LOAD_TEMP(t_tetsubashi_right) + 8);
         yextent: 16;
         xextent: 5;
         xoffset: 11;
