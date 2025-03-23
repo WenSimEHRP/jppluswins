@@ -5,7 +5,7 @@ def:
 
 # build the newgrf (debug, no crop)
 build: preprocess
-    ./nml/nmlc {{NAME}}.nml --grf {{NAME}}.grf --nml {{NAME}}_parsed.nml --nfo={{NAME}}.nfo
+    ./nml/nmlc -p DEFAULT {{NAME}}.nml --grf {{NAME}}.grf --nml {{NAME}}_parsed.nml --nfo={{NAME}}.nfo
     @echo "All jobs done"
     @du -bh {{NAME}}.nml
     @du -bh {{NAME}}.grf
@@ -13,7 +13,7 @@ build: preprocess
 
 # build the newgrf (release, crop)
 release: preprocess
-    ./nml/nmlc -c {{NAME}}.nml --grf {{NAME}}.grf
+    ./nml/nmlc -p DEFAULT -c {{NAME}}.nml --grf {{NAME}}.grf
     @echo "All jobs done"
     @du -bh {{NAME}}.nml
     @du -bh {{NAME}}.grf
