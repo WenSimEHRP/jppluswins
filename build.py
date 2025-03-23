@@ -73,9 +73,10 @@ def process_item(key, val, templates, fw):
         misc.append("select_sprite_layout: 0;")
         misc.append("purchase_select_sprite_layout: 2;")
         registers.append(f"STORE_TEMP({val['preview']}, t_preview),")
+    if val.get("extended_foundations", False):
+        general_flags.append("STAT_FLAG_EXTENDED_FOUNDATIONS")
     if "foundation" in val:
         general_flags.append("STAT_FLAG_CUSTOM_FOUNDATIONS")
-        general_flags.append("STAT_FLAG_EXTENDED_FOUNDATIONS")
         misc.append(f"foundations: {val['foundation']};")
 
     printstr = item_templates[val.get("template", "default")].substitute(
