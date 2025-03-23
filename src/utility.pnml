@@ -23,6 +23,9 @@ switch(FEAT_STATIONS, SELF, sw_tile_same_height_permissive_right, nearby_tile_sl
     1;
 }
 
+// used by dams
+switch(FEAT_STATIONS, SELF, sw_tile_same_height_dam_left,  (nearby_tile_slope(0, 0) & bitmask(CORNER_S, CORNER_E)) != bitmask(CORNER_S, CORNER_E)){return;}
+switch(FEAT_STATIONS, SELF, sw_tile_same_height_dam_right, (nearby_tile_slope(0, 0) & bitmask(CORNER_N, CORNER_W)) != bitmask(CORNER_N, CORNER_W)){return;}
 
 spritelayout sp_preview_x {
     ground { sprite: CUSTOM(0, LOAD_TEMP(t_preview) * id_preview_size + pos_preview_start); }
